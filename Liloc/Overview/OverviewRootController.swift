@@ -1,0 +1,93 @@
+//
+//  OverviewRootController.swift
+//  Liloc
+//
+//  Created by William Ma on 3/20/20.
+//  Copyright © 2020 William Ma. All rights reserved.
+//
+
+import UIKit
+
+class OverviewRootController: UIViewController {
+
+    private let dao: CoreDataDAO
+    private let todoist: TodoistAPI
+
+    private var navigation: UINavigationController!
+
+    private var pillView: PillView!
+
+    init(dao: CoreDataDAO, todoist: TodoistAPI) {
+        self.dao = dao
+        self.todoist = todoist
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        setUpNavigation()
+        setUpPillView()
+    }
+
+    @objc private func addTaskButtonPressed(_ sender: UIButton) {
+        let controller = AddTaskController()
+        present(controller, animated: true)
+    }
+
+    @objc private func focusButtonPressed(_ sender: UIButton) {
+
+    }
+
+}
+
+extension OverviewRootController {
+
+    private func setUpNavigation() {
+        navigation = UINavigationController(rootViewController:
+            OverviewController(dao: dao, todoist: todoist))
+
+        navigation.interactivePopGestureRecognizer?.delegate = nil
+
+        navigation.setNavigationBarHidden(true, animated: false)
+
+        navigation.hero.isEnabled = true
+        navigation.hero.navigationAnimationType = .fade
+
+        addChild(navigation)
+        view.addSubview(navigation.view)
+        navigation.view.snp.makeConstraints { $0.edges.equalToSuperview() }
+        navigation.didMove(toParent: self)
+    }
+
+    private func setUpPillView() {
+        let pillView = PillView()
+
+        pillView.leftButton.setImage(UIImage(named: "Plus"), for: .normal)
+        pillView.leftButton.setTitle("Add Task", for: .normal)
+        pillView.leftButton.addTarget(
+            self,
+            action: #selector(addTaskButtonPressed(_:)),
+            for: .touchUpInside)
+
+        pillView.rightButton.setImage(UIImage(named: "FocusOn"), for: .normal)
+        pillView.rightButton.setTitle("Focus", for: .normal)
+        pillView.rightButton.addTarget(
+            self,
+            action: #selector(focusButtonPressed(_:)),
+            for: .touchUpInside)
+
+        view.addSubview(pillView)
+        pillView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(36)
+            make.bottom.equalTo(view.snp.bottomMargin).inset(8)
+        }
+    }
+
+}

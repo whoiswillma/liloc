@@ -1,0 +1,8 @@
+github "OAuthSwift/OAuthSwift" ~> 2.0.0
+github "SnapKit/SnapKit" ~> 5.0.0
+github "Alamofire/Alamofire" ~> 5.0
+github "sunshinejr/SwiftyUserDefaults" ~> 5.0
+github "HeroTransitions/Hero" ~> 1.5.0
+github "MatthewYork/DateTools" "swift"
+github "SwiftyJSON/SwiftyJSON"
+

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Log out</string>
+			<key>Key</key>
+			<string>settingsLogOutOnLaunch</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Reset Core Data</string>
+			<key>Key</key>
+			<string>settingsResetCoreDataOnLaunch</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+	</array>
+</dict>
+</plist>
