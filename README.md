@@ -5,6 +5,12 @@
 
 Liloc's goal is to combine the best of two services: Todoist and Toggl. 
 
+<p align="center">
+<img src="/Users/williamma/Documents/ios/Liloc/README.assets/overview.png" alt="overview" width="33%" />
+<img src="/Users/williamma/Documents/ios/Liloc/README.assets/addtask.png" alt="addtask" width="33%" />
+</p>
+
+
 ### Getting Started
 
 Liloc uses Carthage to manage its dependencies. To get started with Liloc:
