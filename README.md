@@ -1,4 +1,4 @@
-# Liloc <img src="README.assets/AppIcon.png" alt="AppIcon" height=100 />
+# Liloc <img src="README.assets/AppIcon.png" alt="AppIcon" height=50 />
 ### Tasks + Time Tracking
 
 Liloc's goal is to combine the best of two services: Todoist and Toggl. 
