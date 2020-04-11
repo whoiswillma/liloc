@@ -21,7 +21,7 @@ class OverviewController: UIViewController, ObservableObject {
     private enum Item: Hashable {
         case inbox(taskCount: Int)
         case outlook(taskCount: Int)
-        case project(name: String, color: Int, taskCount: Int)
+        case project(name: String, color: Int64, taskCount: Int)
     }
 
     private let todoist: TodoistAPI
@@ -84,7 +84,7 @@ class OverviewController: UIViewController, ObservableObject {
         snapshot.appendItems(projects.map { project in
             .project(
                 name: project.name ?? "",
-                color: Int(project.color),
+                color: project.color,
                 taskCount: project.tasks?.count ?? 0)
         })
 
@@ -98,7 +98,7 @@ class OverviewController: UIViewController, ObservableObject {
         case let .inbox(taskCount):
             let cell = tableView
                 .dequeueReusableCell(withIdentifier: "topLevel", for: indexPath)
-                as! ImageTitleSubtitleTableViewCell
+                as! ImageTitleSubtitleCell
 
             cell.titleLabel.text = "Inbox"
             cell.subtitleLabel.text =
@@ -119,7 +119,7 @@ class OverviewController: UIViewController, ObservableObject {
         case let .outlook(taskCount):
             let cell = tableView
                 .dequeueReusableCell(withIdentifier: "topLevel", for: indexPath)
-                as! ImageTitleSubtitleTableViewCell
+                as! ImageTitleSubtitleCell
 
             cell.titleLabel.text = "Outlook"
             cell.subtitleLabel.text =
@@ -134,7 +134,7 @@ class OverviewController: UIViewController, ObservableObject {
         case let .project(name, color, taskCount):
             let cell = tableView
                 .dequeueReusableCell(withIdentifier: "project", for: indexPath)
-                as! ImageTitleSubtitleTableViewCell
+                as! ImageTitleSubtitleCell
 
             cell.titleLabel.text = name
             cell.subtitleLabel.text =
@@ -194,7 +194,7 @@ extension OverviewController: LLTableViewHeaderManagerDelegate {
         switch section {
         case 0:
             let headerView = OverviewTableHeaderView()
-            headerView.titleButton.setTitle("Top Level", for: .normal)
+            headerView.titleButton.setTitle("Front Matter", for: .normal)
             return headerView
 
         case 1:
@@ -302,8 +302,8 @@ extension OverviewController {
         dataSource.defaultRowAnimation = .middle
         tableView.dataSource = dataSource
         tableView.delegate = self
-        tableView.register(ImageTitleSubtitleTableViewCell.self, forCellReuseIdentifier: "topLevel")
-        tableView.register(ImageTitleSubtitleTableViewCell.self, forCellReuseIdentifier: "project")
+        tableView.register(ImageTitleSubtitleCell.self, forCellReuseIdentifier: "topLevel")
+        tableView.register(ImageTitleSubtitleCell.self, forCellReuseIdentifier: "project")
         tableView.tableFooterView = UIView(frame: .zero)
 
         let refreshControl = UIRefreshControl()

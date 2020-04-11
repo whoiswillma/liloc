@@ -72,6 +72,24 @@ extension TodoistItem: TodoistSyncable {
 
 }
 
+extension TodoistLabel: TodoistSyncable {
+
+    typealias CoreDataEntity = Label
+
+    var isAlive: Bool {
+        return is_deleted == 0
+    }
+
+    func update(_ entity: Label, dao: CoreDataDAO) throws {
+        entity.id = id
+        entity.name = name
+        entity.color = color
+        entity.itemOrder = item_order
+        entity.isFavorite = is_favorite
+    }
+
+}
+
 extension TodoistDate: TodoistCoreDataRepresentable {
 
     typealias CoreDataEntity = DueDate

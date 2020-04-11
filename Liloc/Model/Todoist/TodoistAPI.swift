@@ -35,7 +35,7 @@ extension TodoistAPI {
     func closeTask(id: Int64, completion: @escaping (Error?) -> Void) {
         let uuid = UUID()
         let commands = [
-            TodoistCommand(type: .itemClose, uuid: uuid, args: ["id": id])
+            TodoistCommand(type: .itemClose, uuid: uuid, args: ["id": id], temp_id: nil)
         ]
 
         let parameters: Parameters
@@ -50,6 +50,47 @@ extension TodoistAPI {
             return
         }
 
+        requestAndSync(uuid: uuid, parameters: parameters, completion: completion)
+    }
+
+    func addTask(
+        content: String,
+        due: String?,
+        project: Project?,
+        labels: [Label]?,
+        priority: Priority?,
+        completion: @escaping (Error?) -> Void) {
+
+        let uuid = UUID()
+
+        let args: [String: Any?] = [
+            "content": content,
+            "due": due.map { JSON(["string": $0]) },
+            "project_id": project?.id,
+            "labels": labels?.map(\.id),
+            "priority": priority?.rawValue
+        ]
+
+        let commands = [
+            TodoistCommand(type: .itemAdd, uuid: uuid, args: JSON(args), temp_id: UUID())
+        ]
+
+        let parameters: Parameters
+
+        do {
+            parameters = [
+                "token": token,
+                "commands": String(data: try encoder.encode(commands), encoding: .utf8)!
+            ]
+        } catch {
+            completion(error)
+            return
+        }
+
+        requestAndSync(uuid: uuid, parameters: parameters, completion: completion)
+    }
+
+    private func requestAndSync(uuid: UUID, parameters: Parameters, completion: @escaping (Error?) -> Void) {
         AF.request(TodoistAPI.sync, parameters: parameters).response { response in
             guard case let .success(dataOptional) = response.result,
                 let data = dataOptional
@@ -90,7 +131,7 @@ extension TodoistAPI {
         let parameters: Parameters = [
             "token": token,
             "sync_token": full ? "*" : syncToken ?? "*",
-            "resource_types": #"["projects", "items"]"#
+            "resource_types": #"["projects", "items", "labels"]"#
         ]
 
         AF.request(TodoistAPI.sync, parameters: parameters).response { response in
@@ -107,6 +148,7 @@ extension TodoistAPI {
 
                 try self.sync(response.projects ?? [], fullSync: response.full_sync)
                 try self.sync(response.items ?? [], fullSync: response.full_sync)
+                try self.sync(response.labels ?? [], fullSync: response.full_sync)
 
                 try self.dao.saveContext()
 

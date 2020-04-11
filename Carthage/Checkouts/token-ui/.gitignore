@@ -1,0 +1,36 @@
+.DS_Store
+
+# Xcode
+#
+build/*
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+!contents.xcworkspacedata 
+xcuserdata
+profile
+*.moved-aside
+*.xccheckout
+*.xcscmblueprint
+
+# Carthage
+#
+Carthage/
+
+# Fastlane
+#
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+fastlane/README.md
+Gemfile.lock
+
+# Jazzy
+#
+docs/

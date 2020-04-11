@@ -50,6 +50,11 @@ extension CoreDataDAO {
         return try moc.fetch(request).first
     }
 
+    func projects() throws -> [Project] {
+        let request = Project.fetchRequest() as NSFetchRequest
+        return try moc.fetch(request)
+    }
+
 }
 
 extension CoreDataDAO {
@@ -62,6 +67,15 @@ extension CoreDataDAO {
             task.dueDate = dueDate
             return dueDate
         }
+    }
+
+}
+
+extension CoreDataDAO {
+
+    func labels() throws -> [Label] {
+        let request = Label.fetchRequest() as NSFetchRequest
+        return try moc.fetch(request)
     }
 
 }
