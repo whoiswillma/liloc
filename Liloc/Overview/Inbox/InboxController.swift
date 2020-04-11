@@ -102,7 +102,7 @@ class InboxController: UIViewController {
     ) -> UITableViewCell {
         let cell = tableView
             .dequeueReusableCell(withIdentifier: "task", for: indexPath)
-            as! TaskTableViewCell
+            as! TaskCell
 
         cell.contentLabel.text = item.content
         cell.leftSubtitleLabel.text = item.relativeDateAdded
@@ -272,7 +272,7 @@ extension InboxController {
         )
         dataSource.defaultRowAnimation = .fade
         tableView.delegate = self
-        tableView.register(TaskTableViewCell.self, forCellReuseIdentifier: "task")
+        tableView.register(TaskCell.self, forCellReuseIdentifier: "task")
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(
             self,

@@ -36,7 +36,7 @@ class OverviewRootController: UIViewController {
     }
 
     @objc private func addTaskButtonPressed(_ sender: UIButton) {
-        let controller = AddTaskController()
+        let controller = try! AddTaskController(dao: dao, todoist: todoist)
         present(controller, animated: true)
     }
 

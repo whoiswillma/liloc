@@ -13,6 +13,7 @@ struct TodoistResponse: Decodable {
     let full_sync: Bool
     let projects: [TodoistProject]?
     let items: [TodoistItem]?
+    let labels: [TodoistLabel]?
     let sync_token: String
     let sync_status: JSON?
 }
@@ -51,6 +52,15 @@ struct TodoistItem: Decodable {
     let date_added: String
 }
 
+struct TodoistLabel: Decodable {
+    let id: Int64
+    let name: String
+    let color: Int64
+    let item_order: Int64
+    let is_deleted: Int64
+    let is_favorite: Int64
+}
+
 struct TodoistDate: Decodable {
     let date: String
     let timezone: String?
@@ -61,10 +71,12 @@ struct TodoistDate: Decodable {
 
 enum TodoistCommandType: String, Encodable {
     case itemClose = "item_close"
+    case itemAdd = "item_add"
 }
 
 struct TodoistCommand: Encodable {
     let type: TodoistCommandType
     let uuid: UUID
     let args: JSON
+    let temp_id: UUID?
 }

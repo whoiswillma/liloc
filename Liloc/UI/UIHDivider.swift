@@ -10,10 +10,10 @@ import UIKit
 
 class UIHDivider: UIView {
 
-    init(height: CGFloat = 1 / UIScreen.main.scale) {
+    init(height: CGFloat = 1 / UIScreen.main.scale, color: UIColor = .systemGray3) {
         super.init(frame: .zero)
 
-        backgroundColor = .systemGray3
+        backgroundColor = color
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: height)
         ])

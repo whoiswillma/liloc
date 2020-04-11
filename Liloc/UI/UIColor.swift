@@ -19,7 +19,7 @@ extension UIColor {
             alpha: 1)
     }
 
-    static func fromTodoistId(_ id: Int) -> UIColor {
+    static func fromTodoistId(_ id: Int64) -> UIColor {
         switch id {
         case 30: return UIColor(hex: "b8256f")
         case 31: return UIColor(hex: "db4035")
