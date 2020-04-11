@@ -6,8 +6,8 @@
 Liloc's goal is to combine the best of two services: Todoist and Toggl. 
 
 <p align="center">
-<img src="/Users/williamma/Documents/ios/Liloc/README.assets/overview.png" alt="overview" width="33%" />
-<img src="/Users/williamma/Documents/ios/Liloc/README.assets/addtask.png" alt="addtask" width="33%" />
+<img src="README.assets/overview.png" alt="overview" width="33%" />
+<img src="README.assets/addtask.png" alt="addtask" width="33%" />
 </p>
 
 
