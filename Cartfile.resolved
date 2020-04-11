@@ -1,4 +1,4 @@
-github "Alamofire/Alamofire" "5.0.5"
+github "Alamofire/Alamofire" "5.1.0"
 github "HeroTransitions/Hero" "1.5.0"
 github "MatthewYork/DateTools" "c36311e6c0b28103f32311b54f1d27a334785bcc"
 github "OAuthSwift/OAuthSwift" "2.1.0"
