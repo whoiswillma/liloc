@@ -12,6 +12,15 @@ import SwiftyJSON
 
 class TodoistAPI {
 
+    struct TodoistError: LocalizedError {
+        let message: String
+        let tag: String
+
+        var errorDescription: String? {
+            message
+        }
+    }
+
     private static let sync = URL(string: "https://api.todoist.com/sync/v8/sync")!
 
     private let dao: CoreDataDAO
@@ -109,7 +118,16 @@ extension TodoistAPI {
                     sync_status[uuid.uuidString] == "ok"
                     else
                 {
-                    fatalError()
+                    let syncStatus = response.sync_status?[uuid.uuidString]
+                    let error: TodoistError
+                    if let errorMessage = syncStatus?["error"].string,
+                        let errorTag = syncStatus?["error_tag"].string {
+                        error = TodoistError(message: errorMessage, tag: errorTag)
+                    } else {
+                        error = TodoistError(message: "Unknown Error", tag: "")
+                    }
+                    completion(error)
+                    return
                 }
 
                 self.sync(full: false, completion: completion)
