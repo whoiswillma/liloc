@@ -138,6 +138,7 @@ class TaskTextProcessor {
         case .date:
             switch character {
             case "}":
+                date.append(" ")
                 state = .content
 
             default:
@@ -162,6 +163,7 @@ class TaskTextProcessor {
             }
 
             if derivatives.allSatisfy({ $0 == nil }) {
+                content.append(" ")
                 state = .content
             }
 

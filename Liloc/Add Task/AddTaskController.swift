@@ -186,7 +186,13 @@ class AddTaskController: UIViewController {
             cursor: tokenField.selectedRange.location)
 
         content = processor.content
+            .components(separatedBy: .whitespacesAndNewlines)
+            .filter({ !$0.isEmpty })
+            .joined(separator: " ")
         date = processor.date
+            .components(separatedBy: .whitespacesAndNewlines)
+            .filter({ !$0.isEmpty })
+            .joined(separator: " ")
 
         if processor.focusedProperty == .project {
             infoView.projectView.setAvailableItems(processor.availableIndexes, animated: false)
@@ -285,10 +291,16 @@ class AddTaskController: UIViewController {
             priority: priorityToken?.0)
         { error in
             if let error = error {
-                fatalError(error.localizedDescription)
+                let alertController = UIAlertController(
+                    title: "Unable to Add Task",
+                    message: "Message from Todoist: \(error.localizedDescription)",
+                    preferredStyle: .alert)
+                alertController.addAction(
+                    UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.present(alertController, animated: true)
+            } else {
+                self.dismiss(animated: true)
             }
-
-            self.dismiss(animated: true)
         }
     }
 
