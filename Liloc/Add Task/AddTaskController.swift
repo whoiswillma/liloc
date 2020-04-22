@@ -186,7 +186,13 @@ class AddTaskController: UIViewController {
             cursor: tokenField.selectedRange.location)
 
         content = processor.content
+            .components(separatedBy: .whitespacesAndNewlines)
+            .filter({ !$0.isEmpty })
+            .joined(separator: " ")
         date = processor.date
+            .components(separatedBy: .whitespacesAndNewlines)
+            .filter({ !$0.isEmpty })
+            .joined(separator: " ")
 
         if processor.focusedProperty == .project {
             infoView.projectView.setAvailableItems(processor.availableIndexes, animated: false)
