@@ -1,5 +1,5 @@
 //
-//  HeaderView.swift
+//  InboxHeaderView.swift
 //  Liloc
 //
 //  Created by William Ma on 3/21/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HeaderView: UIView {
+class InboxHeaderView: UIView {
 
     private var navigationBar: UINavigationBar!
 
@@ -18,8 +18,24 @@ class HeaderView: UIView {
 
     var didPressBackButton: (() -> Void)?
 
-    init(image: UIImage?, title: String, subtitle: String, backButtonTitle: String? = nil) {
+    var shadow: LLLayerShadowManager!
+
+    var backButtonTitle: String = "" {
+        didSet {
+            setNavigationBarItems()
+        }
+    }
+
+    var rightBarButtonItems: [UIBarButtonItem] = [] {
+        didSet {
+            setNavigationBarItems()
+        }
+    }
+
+    init(image: UIImage?, title: String, subtitle: String) {
         super.init(frame: .zero)
+
+        backgroundColor = .systemBackground
 
         navigationBar = UINavigationBar()
         navigationBar.prefersLargeTitles = false
@@ -52,7 +68,7 @@ class HeaderView: UIView {
         imageView.snp.makeConstraints { make in
             make.top.equalTo(navigationBar.snp.bottom)
             make.leading.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().inset(8)
         }
 
         addSubview(titleLabel)
@@ -71,24 +87,30 @@ class HeaderView: UIView {
             make.bottom.equalTo(imageView)
         }
 
-        setNavigationBarItems(backButtonTitle: backButtonTitle)
+        shadow = LLLayerShadowManager(layer: layer)
+        shadow.setDefaultShadowProperties()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setNavigationBarItems(backButtonTitle: String?) {
-        if let title = backButtonTitle {
-            let navigationItem = UINavigationItem(title: "")
-            let backNavigationItem = UINavigationItem(title: title)
-            navigationBar.items = [backNavigationItem, navigationItem]
-        }
+    private func setNavigationBarItems() {
+        let navigationItem = UINavigationItem(title: "")
+        navigationItem.rightBarButtonItems = rightBarButtonItems
+        let backNavigationItem = UINavigationItem(title: backButtonTitle)
+        navigationBar.items = [backNavigationItem, navigationItem]
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        shadow.layerGeometryDidChange()
     }
 
 }
 
-extension HeaderView: UINavigationBarDelegate {
+extension InboxHeaderView: UINavigationBarDelegate {
 
     func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
         didPressBackButton?()

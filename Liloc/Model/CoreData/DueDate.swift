@@ -28,8 +28,12 @@ extension DueDate {
         }
     }
 
-    var day: RFC3339Day? {
+    var rfcDay: RFC3339Day? {
         dayComponent.flatMap { RFC3339Day(string: $0) }
+    }
+
+    var rfcDate: RFC3339Date? {
+        date.flatMap { RFC3339Date(string: $0) }
     }
 
 }

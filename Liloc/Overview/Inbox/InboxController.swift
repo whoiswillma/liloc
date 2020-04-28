@@ -19,7 +19,7 @@ class InboxController: UIViewController {
         static let subtitleLabelID = "InboxController.headerView.subtitleLabel"
     }
 
-    private enum SortOptions: CaseIterable, CustomStringConvertible {
+    private enum SortOption: CaseIterable, CustomStringConvertible {
         case dateAdded
         case content
 
@@ -32,27 +32,12 @@ class InboxController: UIViewController {
     }
 
     private struct Item: Hashable {
-
-        private static let dateAddedFormatter = RelativeDateTimeFormatter()
-
+        let task: Task
         let content: String
         let relativeDateAdded: String
-
-        let task: Task
-
-        init(task: Task, referenceDate: Date) {
-            self.content = task.content ?? ""
-
-            if let dateAdded = task.dateAdded {
-                self.relativeDateAdded = Item.dateAddedFormatter
-                    .localizedString(for: dateAdded, relativeTo: referenceDate)
-            } else {
-                self.relativeDateAdded = "unknown"
-            }
-
-            self.task = task
-        }
     }
+
+    private static let dateAddedFormatter = RelativeDateTimeFormatter()
 
     private let dao: CoreDataDAO
     private let todoist: TodoistAPI
@@ -68,12 +53,11 @@ class InboxController: UIViewController {
     }
 
     private var tasksFRC: NSFetchedResultsController<Task>?
+    private var sortOption: SortOption = .dateAdded {
+        didSet { performFetch(animated: false) }
+    }
 
-    private var headerView: HeaderView!
-
-    private var sortOptionsView: SortOptionsView<SortOptions>!
-
-    private var shadowView: ShadowView!
+    private var headerView: InboxHeaderView!
 
     private var tableView: UITableView!
     private var dataSource: UITableViewDiffableDataSource<Never?, Item>!
@@ -87,9 +71,7 @@ class InboxController: UIViewController {
 
         setUpView()
         setUpHeaderView()
-        setUpSortOptionsView()
         setUpTableView()
-        setUpShadowView()
         setUpHero()
 
         performFetch(animated: false)
@@ -126,49 +108,40 @@ class InboxController: UIViewController {
         updateSortDescriptors()
         try! tasksFRC?.performFetch()
         updateSnapshot(animated: animated)
-
-        headerView.subtitleLabel.text =
-            String.localizedStringWithFormat(
-                NSLocalizedString("numberOfTasks", comment: ""),
-                tasksFRC?.fetchedObjects?.count ?? 0)
     }
 
-    private func updateSnapshot(animated: Bool) {
-        let tasks = tasksFRC?.fetchedObjects ?? []
-        let sortedTasks = tasks.sorted {
-            switch ($0.dateAdded, $1.dateAdded) {
-            case (.none, _): return true
-            case (_, .none): return false
-            case let (.some(lhs), .some(rhs)): return lhs < rhs
-            }
-        }
-
-        let now = Date()
-
-        var snapshot = NSDiffableDataSourceSnapshot<Never?, Item>()
-        snapshot.appendSections([nil])
-        snapshot.appendItems(sortedTasks.map { Item(task: $0, referenceDate: now) })
-        dataSource.apply(snapshot, animatingDifferences: animated)
-    }
-
-    @objc private func sortOptionsChanged() {
-        performFetch(animated: false)
-    }
-
-    @objc private func updateSortDescriptors() {
+    private func updateSortDescriptors() {
         let sortDescriptor: NSSortDescriptor
-        switch sortOptionsView.selectedOption {
+        switch sortOption {
         case .dateAdded:
             sortDescriptor = NSSortDescriptor(
                 keyPath: \Task.dateAdded,
                 ascending: true)
         case .content:
             sortDescriptor = NSSortDescriptor(
-                keyPath: \Task.content,
-                ascending: true)
+                key: "content",
+                ascending: true,
+                selector: #selector(NSString.localizedStandardCompare(_:)))
         }
 
         tasksFRC?.fetchRequest.sortDescriptors = [sortDescriptor]
+    }
+
+    private func updateSnapshot(animated: Bool) {
+        let tasks = tasksFRC?.fetchedObjects ?? []
+        var snapshot = NSDiffableDataSourceSnapshot<Never?, Item>()
+        snapshot.appendSections([nil])
+        snapshot.appendItems(tasks.map {
+            Item(
+                task: $0,
+                content: $0.content ?? "",
+                relativeDateAdded: InboxController.dateAddedFormatter.string(for: $0.dateAdded) ?? "unknown") })
+        dataSource.apply(snapshot, animatingDifferences: animated)
+
+        headerView.subtitleLabel.text =
+        String.localizedStringWithFormat(
+            NSLocalizedString("numberOfTasks", comment: ""),
+            tasksFRC?.fetchedObjects?.count ?? 0)
     }
 
     @objc private func refreshControlDidRefresh(_ sender: UIRefreshControl) {
@@ -182,6 +155,18 @@ class InboxController: UIViewController {
                 sender.endRefreshing()
             }
         }
+    }
+
+    @objc private func sortButtonPressed(_ sender: UIBarButtonItem) {
+        let alertController = UIAlertController(title: "Sort By", message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Text", style: .default) { _ in
+            self.sortOption = .content
+        })
+        alertController.addAction(UIAlertAction(title: "Date Added", style: .default) { _ in
+            self.sortOption = .dateAdded
+        })
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(alertController, animated: true)
     }
 
 }
@@ -198,7 +183,7 @@ extension InboxController: NSFetchedResultsControllerDelegate {
 extension InboxController: UITableViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        shadowView.shadowManager.shadowMask =
+        headerView.shadow.shadowMask =
             scrollView.contentOffset.y < 1 ? [] : [.bottom]
     }
 
@@ -232,12 +217,19 @@ extension InboxController {
     }
 
     private func setUpHeaderView() {
-        headerView = HeaderView(
+        headerView = InboxHeaderView(
             image: UIImage(named: "InboxStroke")!,
             title: "Inbox",
-            subtitle: "No tasks",
-            backButtonTitle: "Back"
-        )
+            subtitle: "No tasks")
+        headerView.backButtonTitle = "Back"
+        headerView.rightBarButtonItems = [
+            UIBarButtonItem(
+                image: UIImage(systemName: "line.horizontal.3.decrease.circle"),
+                style: .plain,
+                target: self,
+                action: #selector(sortButtonPressed))]
+
+        headerView.shadow.shadowMask = []
 
         headerView.didPressBackButton = { [weak self] in
             self?.navigationController?.popViewController(animated: true)
@@ -247,20 +239,6 @@ extension InboxController {
         headerView.snp.makeConstraints { make in
             make.top.equalTo(view.snp.topMargin)
             make.leading.trailing.equalToSuperview()
-        }
-    }
-
-    private func setUpSortOptionsView() {
-        sortOptionsView = SortOptionsView()
-        sortOptionsView.addTarget(
-            self,
-            action: #selector(sortOptionsChanged),
-            for: .valueChanged)
-
-        view.addSubview(sortOptionsView)
-        sortOptionsView.snp.makeConstraints { make in
-            make.top.equalTo(headerView.snp.bottom).offset(12)
-            make.leading.trailing.equalToSuperview().inset(20)
         }
     }
 
@@ -280,22 +258,10 @@ extension InboxController {
             for: .valueChanged)
         tableView.tableFooterView = UIView()
 
-        view.addSubview(tableView)
+        view.insertSubview(tableView, belowSubview: headerView)
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(sortOptionsView.snp.bottom).offset(12)
+            make.top.equalTo(headerView.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
-        }
-    }
-
-    private func setUpShadowView() {
-        shadowView = ShadowView()
-        shadowView.shadowManager.setDefaultShadowProperties()
-        shadowView.shadowManager.shadowMask = []
-        view.addSubview(shadowView)
-        shadowView.snp.makeConstraints { make in
-            make.bottom.equalTo(tableView.snp.top)
-            make.leading.trailing.equalTo(tableView)
-            make.height.equalTo(1)
         }
     }
 

@@ -92,7 +92,7 @@ extension TaskProjectPickerContentView: UICollectionViewDelegateFlowLayout {
 extension TaskPickerView.Item {
 
     init(project: Project, highlighted: Bool, sourceIndex: Int) {
-        let color = UIColor.fromTodoistId(project.color)
+        let color = UIColor(todoistId: project.color)
         self.init(
             highlighted: highlighted,
             fillImage: UIImage(named: "ProjectStroke"),
