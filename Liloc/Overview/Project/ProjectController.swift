@@ -9,36 +9,17 @@
 import CoreData
 import UIKit
 
-private struct Section: Hashable {
-    let day: RFC3339Day?
-}
+class ProjectController: UIViewController {
 
-private struct Item: Hashable {
-    let task: Task
-    let content: String
-    let dueDate: String?
-}
-
-private class DataSource: UITableViewDiffableDataSource<Section, Item> {
-
-    private static let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        return dateFormatter
-    }()
-
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if let day = snapshot().sectionIdentifiers[section].day {
-            return DataSource.dateFormatter.string(from: day.date)
-        } else {
-            return "No Due Date"
-        }
+    private struct Section: Hashable {
+        let day: RFC3339Day?
     }
 
-}
-
-class ProjectController: UIViewController {
+    private struct Item: Hashable {
+        let task: Task
+        let content: String
+        let dueDate: String?
+    }
 
     private static let relativeDateFormatter: RelativeDateTimeFormatter = {
         RelativeDateTimeFormatter()
@@ -70,7 +51,9 @@ class ProjectController: UIViewController {
     private var headerView: ProjectHeaderView!
 
     private var tableView: UITableView!
-    private var dataSource: DataSource!
+    private var dataSource: UITableViewDiffableDataSource<Section, Item>!
+
+    private let referenceDate = Date()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -163,6 +146,52 @@ class ProjectController: UIViewController {
 
 }
 
+extension ProjectController: NSFetchedResultsControllerDelegate {
+
+    func controllerDidChangeContent(
+        _ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        updateSnapshot(animated: true)
+    }
+
+}
+
+extension ProjectController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as! ProjectTableSectionHeaderView
+
+        let titleString = NSMutableAttributedString()
+        if let date = dataSource.snapshot().sectionIdentifiers[section].day?.date {
+
+            let absoluteDate = ProjectController.dateFormatter.string(from: date)
+            titleString.append(
+                NSAttributedString(
+                    string: absoluteDate,
+                    attributes: [.font: UIFont.preferredFont(forTextStyle: .headline)]))
+
+            titleString.append(
+                NSAttributedString(
+                    string: ", ",
+                    attributes: [.font: UIFont.preferredFont(forTextStyle: .body)]))
+
+            let relativeDate = ProjectController.relativeDateFormatter.localizedString(for: date, relativeTo: referenceDate)
+            titleString.append(
+                NSAttributedString(
+                    string: relativeDate,
+                    attributes: [.font: UIFont.preferredFont(forTextStyle: .body)]))
+        } else {
+            titleString.append(
+                NSAttributedString(
+                    string: "No due date",
+                    attributes: [.font: UIFont.preferredFont(forTextStyle: .headline)]))
+        }
+        header.label.attributedText = titleString
+
+        return header
+    }
+
+}
+
 extension ProjectController {
 
     private func setUpTasksFRC() {
@@ -208,10 +237,13 @@ extension ProjectController {
 
     private func setUpTableView() {
         tableView = UITableView(frame: .zero, style: .plain)
-        dataSource = DataSource(tableView: tableView, cellProvider: cellProvider)
+        dataSource = UITableViewDiffableDataSource(
+            tableView: tableView,
+            cellProvider: cellProvider)
         dataSource.defaultRowAnimation = .fade
         tableView.delegate = self
         tableView.register(TaskCell.self, forCellReuseIdentifier: "task")
+        tableView.register(ProjectTableSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
         tableView.tableFooterView = UIView()
 
         view.insertSubview(tableView, belowSubview: headerView)
@@ -220,18 +252,5 @@ extension ProjectController {
             make.leading.trailing.bottom.equalToSuperview()
         }
     }
-
-}
-
-extension ProjectController: NSFetchedResultsControllerDelegate {
-
-    func controllerDidChangeContent(
-        _ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        updateSnapshot(animated: true)
-    }
-
-}
-
-extension ProjectController: UITableViewDelegate {
 
 }

@@ -17,6 +17,8 @@ class TaskCell: UITableViewCell {
                 UIImage(named: isCompleted ? "CircleCheck" : "Circle"),
                 for: .normal
             )
+
+            completeButton.isUserInteractionEnabled = !isCompleted
         }
     }
 

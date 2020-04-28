@@ -10,12 +10,25 @@ import UIKit
 
 class ProjectTableSectionHeaderView: UITableViewHeaderFooterView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    private(set) var label: UILabel!
+
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+
+        backgroundView = UIView()
+        backgroundView?.backgroundColor = .systemBackground
+
+        label = UILabel(frame: .zero)
+        label.font = .preferredFont(forTextStyle: .headline)
+        contentView.addSubview(label)
+        label.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.top.bottom.equalToSuperview().inset(4)
+        }
     }
-    */
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
 }

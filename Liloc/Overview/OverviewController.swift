@@ -21,7 +21,7 @@ class OverviewController: UIViewController, ObservableObject {
     private enum Item: Hashable {
         case inbox(taskCount: Int)
         case outlook(taskCount: Int)
-        case project(name: String, color: Int64, taskCount: Int)
+        case project(id: Int64, name: String, color: Int64, taskCount: Int)
     }
 
     private let todoist: TodoistAPI
@@ -83,6 +83,7 @@ class OverviewController: UIViewController, ObservableObject {
         let projects = projectsFRC?.fetchedObjects ?? []
         snapshot.appendItems(projects.map { project in
             .project(
+                id: project.id, 
                 name: project.name ?? "",
                 color: project.color,
                 taskCount: project.tasks?.count ?? 0)
@@ -123,15 +124,15 @@ class OverviewController: UIViewController, ObservableObject {
 
             cell.titleLabel.text = "Outlook"
             cell.subtitleLabel.text =
-            String.localizedStringWithFormat(
-                NSLocalizedString("numberOfTasks", comment: ""),
-                taskCount)
+                String.localizedStringWithFormat(
+                    NSLocalizedString("numberOfTasks", comment: ""),
+                    taskCount)
             cell.strokeImageView.image = UIImage(named: "Outlook")
             cell.strokeImageView.tintColor = UIColor(named: "LilocBlue")
 
             return cell
 
-        case let .project(name, color, taskCount):
+        case let .project(id, name, color, taskCount):
             let cell = tableView
                 .dequeueReusableCell(withIdentifier: "project", for: indexPath)
                 as! ImageTitleSubtitleCell
