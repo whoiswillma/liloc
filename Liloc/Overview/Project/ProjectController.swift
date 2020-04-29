@@ -16,7 +16,7 @@ class ProjectController: UIViewController {
     }
 
     private struct Item: Hashable {
-        let task: Task
+        let task: TodoistTask
         let content: String
         let dueDate: String?
     }
@@ -33,9 +33,9 @@ class ProjectController: UIViewController {
     }()
 
     private let todoist: TodoistAPI
-    private let project: Project
+    private let project: TodoistProject
 
-    init(todoist: TodoistAPI, project: Project) {
+    init(todoist: TodoistAPI, project: TodoistProject) {
         self.todoist = todoist
         self.project = project
 
@@ -46,7 +46,7 @@ class ProjectController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private var tasksFRC: NSFetchedResultsController<Task>?
+    private var tasksFRC: NSFetchedResultsController<TodoistTask>?
 
     private var headerView: ProjectHeaderView!
 
@@ -103,7 +103,7 @@ class ProjectController: UIViewController {
     private func updateSortDescriptors() {
         tasksFRC?.fetchRequest.sortDescriptors = [
             NSSortDescriptor(
-                keyPath: \Task.dateAdded,
+                keyPath: \TodoistTask.dateAdded,
                 ascending: true)]
     }
 
@@ -199,9 +199,9 @@ extension ProjectController {
             return
         }
 
-        let request = Task.fetchRequest() as NSFetchRequest
+        let request = TodoistTask.fetchRequest() as NSFetchRequest
         request.sortDescriptors = [
-            NSSortDescriptor(keyPath: \Task.id, ascending: true)
+            NSSortDescriptor(keyPath: \TodoistTask.id, ascending: true)
         ]
         request.predicate = NSPredicate(format: "project.id == %@", NSNumber(value: project.id))
 

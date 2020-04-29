@@ -44,7 +44,7 @@ extension TodoistAPI {
     func closeTask(id: Int64, completion: @escaping (Error?) -> Void) {
         let uuid = UUID()
         let commands = [
-            TodoistCommand(type: .itemClose, uuid: uuid, args: ["id": id], temp_id: nil)
+            TodoistHTTPCommand(type: .itemClose, uuid: uuid, args: ["id": id], temp_id: nil)
         ]
 
         let parameters: Parameters
@@ -65,8 +65,8 @@ extension TodoistAPI {
     func addTask(
         content: String,
         due: String?,
-        project: Project?,
-        labels: [Label]?,
+        project: TodoistProject?,
+        labels: [TodoistLabel]?,
         priority: Priority?,
         completion: @escaping (Error?) -> Void) {
 
@@ -81,7 +81,7 @@ extension TodoistAPI {
         ]
 
         let commands = [
-            TodoistCommand(type: .itemAdd, uuid: uuid, args: JSON(args), temp_id: UUID())
+            TodoistHTTPCommand(type: .itemAdd, uuid: uuid, args: JSON(args), temp_id: UUID())
         ]
 
         let parameters: Parameters
@@ -112,7 +112,7 @@ extension TodoistAPI {
             }
 
             do {
-                let response = try self.decoder.decode(TodoistResponse.self, from: data)
+                let response = try self.decoder.decode(TodoistJSONResponse.self, from: data)
 
                 guard let sync_status = response.sync_status,
                     sync_status[uuid.uuidString] == "ok"
@@ -161,7 +161,7 @@ extension TodoistAPI {
             }
 
             do {
-                let response = try self.decoder.decode(TodoistResponse.self, from: data)
+                let response = try self.decoder.decode(TodoistJSONResponse.self, from: data)
                 self.syncToken = response.sync_token
 
                 try self.sync(response.projects ?? [], fullSync: response.full_sync)

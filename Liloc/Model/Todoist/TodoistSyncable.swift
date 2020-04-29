@@ -24,15 +24,15 @@ protocol TodoistSyncable: TodoistCoreDataRepresentable {
 
 }
 
-extension TodoistProject: TodoistSyncable {
+extension TodoistJSONProject: TodoistSyncable {
 
-    typealias CoreDataEntity = Project
+    typealias CoreDataEntity = TodoistProject
 
     var isAlive: Bool {
         is_archived == 0 && is_deleted == 0
     }
 
-    func update(_ project: Project, dao: CoreDataDAO) throws {
+    func update(_ project: TodoistProject, dao: CoreDataDAO) throws {
         project.childOrder = child_order ?? 0
         project.color = color
         project.id = id
@@ -41,21 +41,21 @@ extension TodoistProject: TodoistSyncable {
         project.name = name
 
         project.parent = try parent_id.map {
-            try dao.fetch(Project.self, id: $0)
+            try dao.fetch(TodoistProject.self, id: $0)
         }
     }
 
 }
 
-extension TodoistItem: TodoistSyncable {
+extension TodoistJSONItem: TodoistSyncable {
 
-    typealias CoreDataEntity = Task
+    typealias CoreDataEntity = TodoistTask
 
     var isAlive: Bool {
         checked == 0 && is_deleted == 0
     }
 
-    func update(_ task: Task, dao: CoreDataDAO) throws {
+    func update(_ task: TodoistTask, dao: CoreDataDAO) throws {
         task.id = id
         task.content = content
         task.dateAdded = RFC3339Date(string: date_added)?.date
@@ -67,20 +67,20 @@ extension TodoistItem: TodoistSyncable {
             task.dueDate = nil
         }
 
-        task.project = try dao.fetch(Project.self, id: project_id)
+        task.project = try dao.fetch(TodoistProject.self, id: project_id)
     }
 
 }
 
-extension TodoistLabel: TodoistSyncable {
+extension TodoistJSONLabel: TodoistSyncable {
 
-    typealias CoreDataEntity = Label
+    typealias CoreDataEntity = TodoistLabel
 
     var isAlive: Bool {
         return is_deleted == 0
     }
 
-    func update(_ entity: Label, dao: CoreDataDAO) throws {
+    func update(_ entity: TodoistLabel, dao: CoreDataDAO) throws {
         entity.id = id
         entity.name = name
         entity.color = color
@@ -90,11 +90,11 @@ extension TodoistLabel: TodoistSyncable {
 
 }
 
-extension TodoistDate: TodoistCoreDataRepresentable {
+extension TodoistJSONDate: TodoistCoreDataRepresentable {
 
-    typealias CoreDataEntity = DueDate
+    typealias CoreDataEntity = TodoistDueDate
 
-    func update(_ dueDate: DueDate, dao: CoreDataDAO) {
+    func update(_ dueDate: TodoistDueDate, dao: CoreDataDAO) {
         dueDate.date = date
         dueDate.timezone = timezone
         dueDate.string = string

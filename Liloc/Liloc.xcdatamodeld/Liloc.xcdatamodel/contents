@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E266" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="DueDate" representedClassName="DueDate" syncable="YES" codeGenerationType="class">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="TodoistDueDate" representedClassName="TodoistDueDate" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="String"/>
         <attribute name="isRecurring" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="lang" optional="YES" attributeType="String"/>
         <attribute name="string" optional="YES" attributeType="String"/>
         <attribute name="timezone" optional="YES" attributeType="String"/>
-        <relationship name="task" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Task" inverseName="dueDate" inverseEntity="Task"/>
+        <relationship name="task" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TodoistTask" inverseName="dueDate" inverseEntity="TodoistTask"/>
     </entity>
-    <entity name="Label" representedClassName="Label" syncable="YES" codeGenerationType="class">
+    <entity name="TodoistLabel" representedClassName="TodoistLabel" syncable="YES" codeGenerationType="class">
         <attribute name="color" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="isFavorite" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="itemOrder" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
-    <entity name="Project" representedClassName="Project" syncable="YES" codeGenerationType="class">
+    <entity name="TodoistProject" representedClassName="TodoistProject" syncable="YES" codeGenerationType="class">
         <attribute name="childOrder" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="color" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="inboxProject" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="children" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Project" inverseName="parent" inverseEntity="Project"/>
-        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="children" inverseEntity="Project"/>
-        <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Task" inverseName="project" inverseEntity="Task"/>
+        <relationship name="children" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TodoistProject" inverseName="parent" inverseEntity="TodoistProject"/>
+        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TodoistProject" inverseName="children" inverseEntity="TodoistProject"/>
+        <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TodoistTask" inverseName="project" inverseEntity="TodoistTask"/>
     </entity>
-    <entity name="Task" representedClassName="Task" syncable="YES" codeGenerationType="class">
+    <entity name="TodoistTask" representedClassName="TodoistTask" syncable="YES" codeGenerationType="class">
         <attribute name="content" optional="YES" attributeType="String"/>
         <attribute name="dateAdded" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="priority" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="children" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Task" inverseName="parent" inverseEntity="Task"/>
-        <relationship name="dueDate" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DueDate" inverseName="task" inverseEntity="DueDate"/>
-        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Task" inverseName="children" inverseEntity="Task"/>
-        <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="tasks" inverseEntity="Project"/>
+        <relationship name="children" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TodoistTask" inverseName="parent" inverseEntity="TodoistTask"/>
+        <relationship name="dueDate" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TodoistDueDate" inverseName="task" inverseEntity="TodoistDueDate"/>
+        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TodoistTask" inverseName="children" inverseEntity="TodoistTask"/>
+        <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TodoistProject" inverseName="tasks" inverseEntity="TodoistProject"/>
     </entity>
     <elements>
-        <element name="DueDate" positionX="-45" positionY="36" width="128" height="133"/>
-        <element name="Label" positionX="-36" positionY="81" width="128" height="118"/>
-        <element name="Project" positionX="-36" positionY="9" width="128" height="178"/>
-        <element name="Task" positionX="-54" positionY="-9" width="128" height="163"/>
+        <element name="TodoistDueDate" positionX="-45" positionY="36" width="128" height="133"/>
+        <element name="TodoistLabel" positionX="-36" positionY="81" width="128" height="118"/>
+        <element name="TodoistProject" positionX="-36" positionY="9" width="128" height="178"/>
+        <element name="TodoistTask" positionX="-54" positionY="-9" width="128" height="163"/>
     </elements>
 </model>

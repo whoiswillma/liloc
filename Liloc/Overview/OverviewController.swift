@@ -37,7 +37,7 @@ class OverviewController: UIViewController, ObservableObject {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private var projectsFRC: NSFetchedResultsController<Project>?
+    private var projectsFRC: NSFetchedResultsController<TodoistProject>?
 
     private var headerView: UIView!
 
@@ -253,7 +253,7 @@ extension OverviewController: UITableViewDelegate {
 extension OverviewController {
 
     private func setUpProjectsFRC() {
-        let request = Project.fetchRequest() as NSFetchRequest<Project>
+        let request = TodoistProject.fetchRequest() as NSFetchRequest<TodoistProject>
         request.sortDescriptors = [
             NSSortDescriptor(
                 key: "name",

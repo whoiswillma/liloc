@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension DueDate {
+extension TodoistDueDate {
 
     private static let rfc3339Day: DateFormatter = {
         let dateFormatter = DateFormatter()

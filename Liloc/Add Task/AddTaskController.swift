@@ -21,8 +21,8 @@ class AddTaskController: UIViewController {
     private let dao: CoreDataDAO
     private let todoist: TodoistAPI
 
-    private let projects: [Project]
-    private let labels: [Label]
+    private let projects: [TodoistProject]
+    private let labels: [TodoistLabel]
 
     private let processor: TaskTextProcessor
 
@@ -85,7 +85,7 @@ class AddTaskController: UIViewController {
         }
     }
 
-    private var projectToken: (priority: Project, token: UUID)? {
+    private var projectToken: (project: TodoistProject, token: UUID)? {
         didSet {
             loadViewIfNeeded()
             if let (project, _) = projectToken {
@@ -100,7 +100,7 @@ class AddTaskController: UIViewController {
         }
     }
 
-    private var labelTokens: [(Label, UUID)] = [] {
+    private var labelTokens: [(TodoistLabel, UUID)] = [] {
         didSet {
             loadViewIfNeeded()
             let justLabels = labelTokens.compactMap(\.0.name)

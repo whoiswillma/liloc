@@ -9,16 +9,16 @@
 import Foundation
 import SwiftyJSON
 
-struct TodoistResponse: Decodable {
+struct TodoistJSONResponse: Decodable {
     let full_sync: Bool
-    let projects: [TodoistProject]?
-    let items: [TodoistItem]?
-    let labels: [TodoistLabel]?
+    let projects: [TodoistJSONProject]?
+    let items: [TodoistJSONItem]?
+    let labels: [TodoistJSONLabel]?
     let sync_token: String
     let sync_status: JSON?
 }
 
-struct TodoistProject: Decodable {
+struct TodoistJSONProject: Decodable {
     let id: Int64
     let name: String
     let color: Int64
@@ -33,12 +33,12 @@ struct TodoistProject: Decodable {
     let team_inbox: Bool?
 }
 
-struct TodoistItem: Decodable {
+struct TodoistJSONItem: Decodable {
     let id: Int64
     let user_id: Int64
     let project_id: Int64
     let content: String
-    let due: TodoistDate?
+    let due: TodoistJSONDate?
     let priority: Int64?
     let parent_id: Int64?
     let child_order: Int64?
@@ -52,7 +52,7 @@ struct TodoistItem: Decodable {
     let date_added: String
 }
 
-struct TodoistLabel: Decodable {
+struct TodoistJSONLabel: Decodable {
     let id: Int64
     let name: String
     let color: Int64
@@ -61,7 +61,7 @@ struct TodoistLabel: Decodable {
     let is_favorite: Int64
 }
 
-struct TodoistDate: Decodable {
+struct TodoistJSONDate: Decodable {
     let date: String
     let timezone: String?
     let string: String
@@ -69,13 +69,13 @@ struct TodoistDate: Decodable {
     let is_recurring: Bool
 }
 
-enum TodoistCommandType: String, Encodable {
+enum TodoistHTTPCommandType: String, Encodable {
     case itemClose = "item_close"
     case itemAdd = "item_add"
 }
 
-struct TodoistCommand: Encodable {
-    let type: TodoistCommandType
+struct TodoistHTTPCommand: Encodable {
+    let type: TodoistHTTPCommandType
     let uuid: UUID
     let args: JSON
     let temp_id: UUID?

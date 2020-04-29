@@ -44,14 +44,14 @@ class CoreDataDAO {
 
 extension CoreDataDAO {
 
-    func inboxProject() throws -> Project? {
-        let request = Project.fetchRequest() as NSFetchRequest
+    func inboxProject() throws -> TodoistProject? {
+        let request = TodoistProject.fetchRequest() as NSFetchRequest
         request.predicate = NSPredicate(format: "inboxProject == YES")
         return try moc.fetch(request).first
     }
 
-    func projects() throws -> [Project] {
-        let request = Project.fetchRequest() as NSFetchRequest
+    func projects() throws -> [TodoistProject] {
+        let request = TodoistProject.fetchRequest() as NSFetchRequest
         return try moc.fetch(request)
     }
 
@@ -59,11 +59,11 @@ extension CoreDataDAO {
 
 extension CoreDataDAO {
 
-    func fetchDueDate(of task: Task) -> DueDate {
+    func fetchDueDate(of task: TodoistTask) -> TodoistDueDate {
         if let dueDate = task.dueDate {
             return dueDate
         } else {
-            let dueDate = DueDate(context: moc)
+            let dueDate = TodoistDueDate(context: moc)
             task.dueDate = dueDate
             return dueDate
         }
@@ -73,8 +73,8 @@ extension CoreDataDAO {
 
 extension CoreDataDAO {
 
-    func labels() throws -> [Label] {
-        let request = Label.fetchRequest() as NSFetchRequest
+    func labels() throws -> [TodoistLabel] {
+        let request = TodoistLabel.fetchRequest() as NSFetchRequest
         return try moc.fetch(request)
     }
 
