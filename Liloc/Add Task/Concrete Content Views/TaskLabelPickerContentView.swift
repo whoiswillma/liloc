@@ -89,7 +89,7 @@ extension TaskPickerView.Item {
         self.init(
             highlighted: false,
             fillImage: UIImage(named: "TagStroke"),
-            fillTintColor: UIColor.fromTodoistId(label.color),
+            fillTintColor: UIColor(todoistId: label.color),
             strokeImage: nil,
             strokeTintColor: nil,
             title: label.name ?? "",

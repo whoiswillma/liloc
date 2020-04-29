@@ -21,7 +21,7 @@ class OverviewController: UIViewController, ObservableObject {
     private enum Item: Hashable {
         case inbox(taskCount: Int)
         case outlook(taskCount: Int)
-        case project(name: String, color: Int64, taskCount: Int)
+        case project(id: Int64, name: String, color: Int64, taskCount: Int)
     }
 
     private let todoist: TodoistAPI
@@ -48,7 +48,7 @@ class OverviewController: UIViewController, ObservableObject {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setUpProjectsFRCIfPossible()
+        setUpProjectsFRC()
 
         setUpView()
         setUpHeaderView()
@@ -83,6 +83,7 @@ class OverviewController: UIViewController, ObservableObject {
         let projects = projectsFRC?.fetchedObjects ?? []
         snapshot.appendItems(projects.map { project in
             .project(
+                id: project.id, 
                 name: project.name ?? "",
                 color: project.color,
                 taskCount: project.tasks?.count ?? 0)
@@ -123,15 +124,15 @@ class OverviewController: UIViewController, ObservableObject {
 
             cell.titleLabel.text = "Outlook"
             cell.subtitleLabel.text =
-            String.localizedStringWithFormat(
-                NSLocalizedString("numberOfTasks", comment: ""),
-                taskCount)
+                String.localizedStringWithFormat(
+                    NSLocalizedString("numberOfTasks", comment: ""),
+                    taskCount)
             cell.strokeImageView.image = UIImage(named: "Outlook")
             cell.strokeImageView.tintColor = UIColor(named: "LilocBlue")
 
             return cell
 
-        case let .project(name, color, taskCount):
+        case let .project(id, name, color, taskCount):
             let cell = tableView
                 .dequeueReusableCell(withIdentifier: "project", for: indexPath)
                 as! ImageTitleSubtitleCell
@@ -142,9 +143,9 @@ class OverviewController: UIViewController, ObservableObject {
                     NSLocalizedString("numberOfTasks", comment: ""),
                     taskCount)
             cell.strokeImageView.image = UIImage(named: "ProjectStroke")
-            cell.strokeImageView.tintColor = UIColor.fromTodoistId(color)
+            cell.strokeImageView.tintColor = UIColor(todoistId: color)
             cell.fillImageView.image = UIImage(named: "ProjectFill")
-            cell.fillImageView.tintColor = UIColor.fromTodoistId(color).darken()
+            cell.fillImageView.tintColor = UIColor(todoistId: color).darken()
 
             cell.accessoryType = .disclosureIndicator
 
@@ -158,6 +159,7 @@ class OverviewController: UIViewController, ObservableObject {
             updateSnapshot(animated: animated)
         } catch {
             debugPrint(error)
+            fatalError()
         }
     }
 
@@ -235,6 +237,12 @@ extension OverviewController: UITableViewDelegate {
                 break
             }
 
+        case 1:
+            if let project = projectsFRC?.fetchedObjects?[indexPath.row] {
+                let projectController = ProjectController(todoist: todoist, project: project)
+                navigationController?.pushViewController(projectController, animated: true)
+            }
+
         default:
             break
         }
@@ -244,9 +252,14 @@ extension OverviewController: UITableViewDelegate {
 
 extension OverviewController {
 
-    private func setUpProjectsFRCIfPossible() {
+    private func setUpProjectsFRC() {
         let request = Project.fetchRequest() as NSFetchRequest<Project>
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Project.name, ascending: true)]
+        request.sortDescriptors = [
+            NSSortDescriptor(
+                key: "name",
+                ascending: true,
+                selector: #selector(NSString.localizedCaseInsensitiveCompare(_:)))]
+        request.predicate = NSPredicate(format: "inboxProject = FALSE")
 
         projectsFRC = NSFetchedResultsController(
             fetchRequest: request,

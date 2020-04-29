@@ -6,6 +6,7 @@
 //  Copyright © 2020 William Ma. All rights reserved.
 //
 
+import Hero
 import UIKit
 
 class OverviewRootController: UIViewController {
@@ -57,7 +58,7 @@ extension OverviewRootController {
         navigation.setNavigationBarHidden(true, animated: false)
 
         navigation.hero.isEnabled = true
-        navigation.hero.navigationAnimationType = .fade
+        navigation.hero.navigationAnimationType = .selectBy(presenting: .push(direction: .left), dismissing: .pull(direction: .right))
 
         addChild(navigation)
         view.addSubview(navigation.view)
