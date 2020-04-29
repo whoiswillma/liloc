@@ -32,7 +32,7 @@ class InboxController: UIViewController {
     }
 
     private struct Item: Hashable {
-        let task: Task
+        let task: TodoistTask
         let content: String
         let relativeDateAdded: String
     }
@@ -52,7 +52,7 @@ class InboxController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private var tasksFRC: NSFetchedResultsController<Task>?
+    private var tasksFRC: NSFetchedResultsController<TodoistTask>?
     private var sortOption: SortOption = .dateAdded {
         didSet { performFetch(animated: false) }
     }
@@ -115,7 +115,7 @@ class InboxController: UIViewController {
         switch sortOption {
         case .dateAdded:
             sortDescriptor = NSSortDescriptor(
-                keyPath: \Task.dateAdded,
+                keyPath: \TodoistTask.dateAdded,
                 ascending: true)
         case .content:
             sortDescriptor = NSSortDescriptor(
@@ -196,9 +196,9 @@ extension InboxController {
             return
         }
 
-        let request = Task.fetchRequest() as NSFetchRequest
+        let request = TodoistTask.fetchRequest() as NSFetchRequest
         request.sortDescriptors = [
-            NSSortDescriptor(keyPath: \Task.id, ascending: true)
+            NSSortDescriptor(keyPath: \TodoistTask.id, ascending: true)
         ]
         request.predicate = NSPredicate(format: "project.inboxProject == YES")
 

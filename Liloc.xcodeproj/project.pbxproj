@@ -24,7 +24,7 @@
 		5D2101BF243191A7005DD6BA /* TextInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2101BE243191A7005DD6BA /* TextInputSheet.swift */; };
 		5D2101C124319C7E005DD6BA /* UITextView_Placeholder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D2101C024319C7E005DD6BA /* UITextView_Placeholder.framework */; };
 		5D2101C224319C7E005DD6BA /* UITextView_Placeholder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5D2101C024319C7E005DD6BA /* UITextView_Placeholder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		5D222A47242BF5260080BCD3 /* TodoistJSONObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D222A46242BF5260080BCD3 /* TodoistJSONObject.swift */; };
+		5D222A47242BF5260080BCD3 /* TodoistAPIObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D222A46242BF5260080BCD3 /* TodoistAPIObjects.swift */; };
 		5D2DCAAD2437ED4200F8BAC8 /* TaskPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2DCAAC2437ED4200F8BAC8 /* TaskPickerView.swift */; };
 		5D2DCAAF2437F2BE00F8BAC8 /* TaskImageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2DCAAE2437F2BE00F8BAC8 /* TaskImageTextView.swift */; };
 		5D2DCAB12437F5E500F8BAC8 /* TaskImageTokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2DCAB02437F5E500F8BAC8 /* TaskImageTokenView.swift */; };
@@ -137,7 +137,7 @@
 		5D1F047024364C2200A8A524 /* Priority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Priority.swift; sourceTree = "<group>"; };
 		5D2101BE243191A7005DD6BA /* TextInputSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputSheet.swift; sourceTree = "<group>"; };
 		5D2101C024319C7E005DD6BA /* UITextView_Placeholder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UITextView_Placeholder.framework; path = Carthage/Build/iOS/UITextView_Placeholder.framework; sourceTree = "<group>"; };
-		5D222A46242BF5260080BCD3 /* TodoistJSONObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoistJSONObject.swift; sourceTree = "<group>"; };
+		5D222A46242BF5260080BCD3 /* TodoistAPIObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoistAPIObjects.swift; sourceTree = "<group>"; };
 		5D2DCAAC2437ED4200F8BAC8 /* TaskPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPickerView.swift; sourceTree = "<group>"; };
 		5D2DCAAE2437F2BE00F8BAC8 /* TaskImageTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskImageTextView.swift; sourceTree = "<group>"; };
 		5D2DCAB02437F5E500F8BAC8 /* TaskImageTokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskImageTokenView.swift; sourceTree = "<group>"; };
@@ -230,7 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				5DE7F0CD242506B100AD9941 /* TodoistAPI.swift */,
-				5D222A46242BF5260080BCD3 /* TodoistJSONObject.swift */,
+				5D222A46242BF5260080BCD3 /* TodoistAPIObjects.swift */,
 				5D4C4EEC242C107700496D02 /* TodoistSyncable.swift */,
 			);
 			path = Todoist;
@@ -605,7 +605,7 @@
 				5D598A542424212100FCFC16 /* OnboardingController.swift in Sources */,
 				5DD343D2242522DA00CD5AF7 /* DefaultsKeys.swift in Sources */,
 				5D1F04672433ECF000A8A524 /* TaskPickerContentView.swift in Sources */,
-				5D222A47242BF5260080BCD3 /* TodoistJSONObject.swift in Sources */,
+				5D222A47242BF5260080BCD3 /* TodoistAPIObjects.swift in Sources */,
 				5D1F046F243647D900A8A524 /* TaskPriorityPickerContentView.swift in Sources */,
 				5D598A152422EC9B00FCFC16 /* SceneDelegate.swift in Sources */,
 				5D0A742E24265B9E00D5742C /* InboxController.swift in Sources */,

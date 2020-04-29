@@ -13,11 +13,11 @@ class TaskLabelPickerContentView: TaskPickerContentView {
 
     let imageTokenView: TaskImageTokenView
 
-    private let labels: [Label]
+    private let labels: [TodoistLabel]
 
     var didSelectLabel: ((Int) -> Void)?
 
-    init(labels: [Label]) {
+    init(labels: [TodoistLabel]) {
         self.labels = labels
 
         imageTokenView = TaskImageTokenView(
@@ -85,7 +85,7 @@ extension TaskLabelPickerContentView: UICollectionViewDelegateFlowLayout {
 
 extension TaskPickerView.Item {
 
-    init(label: Label, sourceIndex: Int) {
+    init(label: TodoistLabel, sourceIndex: Int) {
         self.init(
             highlighted: false,
             fillImage: UIImage(named: "TagStroke"),

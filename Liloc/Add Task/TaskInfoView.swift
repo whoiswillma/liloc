@@ -22,7 +22,7 @@ class TaskInfoView: UIView {
         [textView, dateView, projectView, labelView, priorityView]
     }
 
-    init(projects: [Project], labels: [Label]) {
+    init(projects: [TodoistProject], labels: [TodoistLabel]) {
         super.init(frame: .zero)
 
         backgroundColor = .systemBackground

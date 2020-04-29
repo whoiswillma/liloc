@@ -12,11 +12,11 @@ class TaskProjectPickerContentView: TaskPickerContentView {
 
     let imageTextView: TaskImageTextView
 
-    private let projects: [Project]
+    private let projects: [TodoistProject]
 
     var didSelectProject: ((Int) -> Void)?
 
-    init(projects: [Project]) {
+    init(projects: [TodoistProject]) {
         self.projects = projects
 
         imageTextView = TaskImageTextView(
@@ -91,7 +91,7 @@ extension TaskProjectPickerContentView: UICollectionViewDelegateFlowLayout {
 
 extension TaskPickerView.Item {
 
-    init(project: Project, highlighted: Bool, sourceIndex: Int) {
+    init(project: TodoistProject, highlighted: Bool, sourceIndex: Int) {
         let color = UIColor(todoistId: project.color)
         self.init(
             highlighted: highlighted,
