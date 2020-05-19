@@ -67,7 +67,7 @@ extension TodoistAPI {
         due: String?,
         project: TodoistProject?,
         labels: [TodoistLabel]?,
-        priority: Priority?,
+        priority: TodoistPriority?,
         completion: @escaping (Error?) -> Void) {
 
         let uuid = UUID()
@@ -99,12 +99,13 @@ extension TodoistAPI {
         requestAndSync(uuid: uuid, parameters: parameters, completion: completion)
     }
 
-    private func requestAndSync(uuid: UUID, parameters: Parameters, completion: @escaping (Error?) -> Void) {
+    private func requestAndSync(
+        uuid: UUID,
+        parameters: Parameters,
+        completion: @escaping (Error?) -> Void) {
+
         AF.request(TodoistAPI.sync, parameters: parameters).response { response in
-            guard case let .success(dataOptional) = response.result,
-                let data = dataOptional
-                else
-            {
+            guard case let .success(.some(data)) = response.result else {
                 if let error = response.error {
                     completion(error)
                 }
@@ -153,7 +154,7 @@ extension TodoistAPI {
         ]
 
         AF.request(TodoistAPI.sync, parameters: parameters).response { response in
-            guard case let .success(dataOptional) = response.result, let data = dataOptional else {
+            guard case let .success(.some(data)) = response.result else {
                 if let error = response.error {
                     completion(error)
                 }

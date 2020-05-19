@@ -2,14 +2,14 @@
 //  TodoistSyncable.swift
 //  Liloc
 //
-//  Created by William Ma on 3/25/20.
+//  Created by William Ma on 4/28/20.
 //  Copyright © 2020 William Ma. All rights reserved.
 //
 
 import CoreData
 import Foundation
 
-protocol TodoistCoreDataRepresentable {
+protocol CoreDataRepresentable {
 
     associatedtype CoreDataEntity: NSManagedObject
 
@@ -17,7 +17,7 @@ protocol TodoistCoreDataRepresentable {
 
 }
 
-protocol TodoistSyncable: TodoistCoreDataRepresentable {
+protocol TodoistSyncable: CoreDataRepresentable {
 
     var id: Int64 { get }
     var isAlive: Bool { get }
@@ -77,7 +77,7 @@ extension TodoistJSONLabel: TodoistSyncable {
     typealias CoreDataEntity = TodoistLabel
 
     var isAlive: Bool {
-        return is_deleted == 0
+        is_deleted == 0
     }
 
     func update(_ entity: TodoistLabel, dao: CoreDataDAO) throws {
@@ -90,7 +90,7 @@ extension TodoistJSONLabel: TodoistSyncable {
 
 }
 
-extension TodoistJSONDate: TodoistCoreDataRepresentable {
+extension TodoistJSONDate: CoreDataRepresentable {
 
     typealias CoreDataEntity = TodoistDueDate
 
@@ -103,4 +103,3 @@ extension TodoistJSONDate: TodoistCoreDataRepresentable {
     }
 
 }
-

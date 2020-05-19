@@ -132,7 +132,7 @@ class OverviewController: UIViewController, ObservableObject {
 
             return cell
 
-        case let .project(id, name, color, taskCount):
+        case let .project(_, name, color, taskCount):
             let cell = tableView
                 .dequeueReusableCell(withIdentifier: "project", for: indexPath)
                 as! ImageTitleSubtitleCell

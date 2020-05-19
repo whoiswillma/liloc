@@ -27,8 +27,10 @@ class ProjectController: UIViewController {
 
     private static let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
+        dateFormatter.dateFormat = DateFormatter.dateFormat(
+            fromTemplate: "MMMMd",
+            options: 0,
+            locale: .autoupdatingCurrent)
         return dateFormatter
     }()
 

@@ -110,7 +110,7 @@ class AddTaskController: UIViewController {
         }
     }
 
-    private var priorityToken: (priority: Priority, token: UUID)? {
+    private var priorityToken: (priority: TodoistPriority, token: UUID)? {
         didSet {
             loadViewIfNeeded()
             if let (priority, _) = priorityToken {
@@ -265,7 +265,7 @@ class AddTaskController: UIViewController {
         processInputText()
     }
 
-    private func infoViewDidSelectPriority(_ priority: Priority) {
+    private func infoViewDidSelectPriority(_ priority: TodoistPriority) {
         guard let range = processor.focusedRange else {
             os_log(.error, "The focused range is missing")
             return
@@ -350,7 +350,7 @@ extension AddTaskController: LLTokenFieldDelegate {
                 let indexSubstring = priorityString[
                     priorityString.index(after: priorityString.startIndex)...]
                 if let index = Int(indexSubstring),
-                    let priority = Priority(displayPriority: index) {
+                    let priority = TodoistPriority(displayPriority: index) {
 
                     infoViewDidSelectPriority(priority)
                 }

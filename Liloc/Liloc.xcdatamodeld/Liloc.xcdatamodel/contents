@@ -36,10 +36,17 @@
         <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TodoistTask" inverseName="children" inverseEntity="TodoistTask"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TodoistProject" inverseName="tasks" inverseEntity="TodoistProject"/>
     </entity>
+    <entity name="TogglProject" representedClassName="TogglProject" syncable="YES" codeGenerationType="class">
+        <attribute name="color" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="wid" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
     <elements>
         <element name="TodoistDueDate" positionX="-45" positionY="36" width="128" height="133"/>
         <element name="TodoistLabel" positionX="-36" positionY="81" width="128" height="118"/>
         <element name="TodoistProject" positionX="-36" positionY="9" width="128" height="178"/>
         <element name="TodoistTask" positionX="-54" positionY="-9" width="128" height="163"/>
+        <element name="TogglProject" positionX="-36" positionY="81" width="128" height="103"/>
     </elements>
 </model>

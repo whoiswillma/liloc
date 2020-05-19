@@ -1,5 +1,5 @@
 //
-//  Priority.swift
+//  TodoistPriority.swift
 //  Liloc
 //
 //  Created by William Ma on 4/2/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum Priority: Int, CaseIterable {
+enum TodoistPriority: Int, CaseIterable {
 
     case one = 4
     case two = 3

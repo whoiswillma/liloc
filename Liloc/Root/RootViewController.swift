@@ -25,6 +25,14 @@ class RootController: LLContainerController<UIViewController> {
             let togglCredentials = try! KeychainAPI.toggl.fetch(),
             let dao = AppDelegate.shared.dao {
             let todoist = TodoistAPI(dao: dao, token: todoistCredentials)
+            let toggl = TogglAPI(
+                dao: dao,
+                username: togglCredentials.account,
+                password: togglCredentials.password)
+            
+            toggl.sync(full: true) { _ in
+                print("done")
+            }
 //            child =
 //                DropdownController(
 //                    background: OverviewRootController(
