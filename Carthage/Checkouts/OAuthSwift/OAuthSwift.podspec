@@ -10,8 +10,8 @@ Pod::Spec.new do |s|
     'Eric Marchand' => 'eric.marchand.n7@gmail.com'
   }
   s.source = { git: 'https://github.com/OAuthSwift/OAuthSwift.git', tag: s.version }
-  s.source_files = 'Sources/*.swift'
-  s.swift_version = '5.1'
+  s.source_files = 'Sources/**/*.swift'
+  s.swift_versions = ['5.0', '5.1']
   s.ios.deployment_target = '9.0'
   s.osx.deployment_target = '10.10'
   s.tvos.deployment_target = '9.0'

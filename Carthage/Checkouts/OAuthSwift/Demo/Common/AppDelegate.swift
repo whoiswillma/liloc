@@ -27,7 +27,7 @@ extension AppDelegate {
         if (url.host == "oauth-callback") {
             OAuthSwift.handle(url: url)
         } else {
-            // Google provider is the only one wuth your.bundle.id url schema.
+            // Google provider is the only one with your.bundle.id url schema.
             OAuthSwift.handle(url: url)
         }
     }
@@ -51,6 +51,11 @@ extension AppDelegate: UIApplicationDelegate {
         applicationHandle(url: url)
         return true
     }
+    
+    class var sharedInstance: AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
+
 }
     
 #elseif os(OSX)

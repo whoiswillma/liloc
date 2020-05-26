@@ -1,5 +1,5 @@
 //
-//  ImageTitleSubtitleCell.swift
+//  LLImageTitleSubtitleCell.swift
 //  Liloc
 //
 //  Created by William Ma on 6/14/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImageTitleSubtitleCell: UITableViewCell {
+class LLImageTitleSubtitleCell: UITableViewCell {
     
     private let imageContainer: UIView
     let fillImageView: UIImageView
@@ -24,7 +24,7 @@ class ImageTitleSubtitleCell: UITableViewCell {
         titleLabel = UILabel(frame: .zero)
         subtitleLabel = UILabel(frame: .zero)
         
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        super.init(style: .default, reuseIdentifier: reuseIdentifier)
 
         contentView.addSubview(imageContainer)
         imageContainer.snp.makeConstraints { make in

@@ -39,6 +39,7 @@
 		5D4A0E922427DABD00FCF338 /* DateTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5D4A0E902427DABD00FCF338 /* DateTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5D4A0E95242868D300FCF338 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 5D4A0E94242868D300FCF338 /* Localizable.stringsdict */; };
 		5D51BE35247D593D009D76E7 /* HoursLoggedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D51BE34247D593D009D76E7 /* HoursLoggedView.swift */; };
+		5D51BE37247D7182009D76E7 /* LinkedTogglProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D51BE36247D7182009D76E7 /* LinkedTogglProjectView.swift */; };
 		5D598A132422EC9B00FCFC16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D598A122422EC9B00FCFC16 /* AppDelegate.swift */; };
 		5D598A152422EC9B00FCFC16 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D598A142422EC9B00FCFC16 /* SceneDelegate.swift */; };
 		5D598A1D2422EC9B00FCFC16 /* Liloc.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5D598A1B2422EC9B00FCFC16 /* Liloc.xcdatamodeld */; };
@@ -75,7 +76,7 @@
 		5DD343D0242522A000CD5AF7 /* SwiftyUserDefaults.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5DD343CE242522A000CD5AF7 /* SwiftyUserDefaults.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5DD343D2242522DA00CD5AF7 /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD343D1242522DA00CD5AF7 /* DefaultsKeys.swift */; };
 		5DD343D42425550400CD5AF7 /* KeychainAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD343D32425550400CD5AF7 /* KeychainAPI.swift */; };
-		5DD343E224259CA500CD5AF7 /* ImageTitleSubtitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD343DE24259CA500CD5AF7 /* ImageTitleSubtitleCell.swift */; };
+		5DD343E224259CA500CD5AF7 /* LLImageTitleSubtitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD343DE24259CA500CD5AF7 /* LLImageTitleSubtitleCell.swift */; };
 		5DD343E52425A3DE00CD5AF7 /* OverviewTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD343E42425A3DE00CD5AF7 /* OverviewTableHeaderView.swift */; };
 		5DD578C824533C6C00D79B0A /* ProjectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD578C724533C6C00D79B0A /* ProjectController.swift */; };
 		5DD578CA24533D7F00D79B0A /* ProjectHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD578C924533D7F00D79B0A /* ProjectHeaderView.swift */; };
@@ -90,6 +91,10 @@
 		5DFB5938242D0CFE006E6165 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB5937242D0CFE006E6165 /* UIColor.swift */; };
 		5DFB593B242D9EFA006E6165 /* AddTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB593A242D9EFA006E6165 /* AddTaskController.swift */; };
 		5DFB593D242DAA97006E6165 /* LLDropdownController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB593C242DAA97006E6165 /* LLDropdownController.swift */; };
+		5DFC019B247D96300052EE93 /* PanModal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFC019A247D96300052EE93 /* PanModal.framework */; };
+		5DFC019C247D96300052EE93 /* PanModal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFC019A247D96300052EE93 /* PanModal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5DFC019E247D9C760052EE93 /* LLPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFC019D247D9C760052EE93 /* LLPickerController.swift */; };
+		5DFC01A0247DA0010052EE93 /* LLTitleSubtitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFC019F247DA0010052EE93 /* LLTitleSubtitleCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +122,7 @@
 				5D63B615242AC73800F5F516 /* SwiftyJSON.framework in Embed Frameworks */,
 				5D4A0E922427DABD00FCF338 /* DateTools.framework in Embed Frameworks */,
 				5DA8817A24325CAE006B873F /* TokenUI.framework in Embed Frameworks */,
+				5DFC019C247D96300052EE93 /* PanModal.framework in Embed Frameworks */,
 				5D598A572424312A00FCFC16 /* Alamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -153,6 +159,7 @@
 		5D4A0E902427DABD00FCF338 /* DateTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DateTools.framework; path = Carthage/Build/iOS/DateTools.framework; sourceTree = "<group>"; };
 		5D4A0E94242868D300FCF338 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		5D51BE34247D593D009D76E7 /* HoursLoggedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoursLoggedView.swift; sourceTree = "<group>"; };
+		5D51BE36247D7182009D76E7 /* LinkedTogglProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedTogglProjectView.swift; sourceTree = "<group>"; };
 		5D598A0F2422EC9B00FCFC16 /* Liloc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Liloc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D598A122422EC9B00FCFC16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D598A142422EC9B00FCFC16 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -188,7 +195,7 @@
 		5DD343CE242522A000CD5AF7 /* SwiftyUserDefaults.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyUserDefaults.framework; path = Carthage/Build/iOS/SwiftyUserDefaults.framework; sourceTree = "<group>"; };
 		5DD343D1242522DA00CD5AF7 /* DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
 		5DD343D32425550400CD5AF7 /* KeychainAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainAPI.swift; sourceTree = "<group>"; };
-		5DD343DE24259CA500CD5AF7 /* ImageTitleSubtitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTitleSubtitleCell.swift; sourceTree = "<group>"; };
+		5DD343DE24259CA500CD5AF7 /* LLImageTitleSubtitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLImageTitleSubtitleCell.swift; sourceTree = "<group>"; };
 		5DD343E42425A3DE00CD5AF7 /* OverviewTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewTableHeaderView.swift; sourceTree = "<group>"; };
 		5DD578C724533C6C00D79B0A /* ProjectController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectController.swift; sourceTree = "<group>"; };
 		5DD578C924533D7F00D79B0A /* ProjectHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectHeaderView.swift; sourceTree = "<group>"; };
@@ -203,6 +210,9 @@
 		5DFB5937242D0CFE006E6165 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		5DFB593A242D9EFA006E6165 /* AddTaskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskController.swift; sourceTree = "<group>"; };
 		5DFB593C242DAA97006E6165 /* LLDropdownController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLDropdownController.swift; sourceTree = "<group>"; };
+		5DFC019A247D96300052EE93 /* PanModal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PanModal.framework; path = Carthage/Build/iOS/PanModal.framework; sourceTree = "<group>"; };
+		5DFC019D247D9C760052EE93 /* LLPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLPickerController.swift; sourceTree = "<group>"; };
+		5DFC019F247DA0010052EE93 /* LLTitleSubtitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLTitleSubtitleCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +228,7 @@
 				5D63B614242AC73800F5F516 /* SwiftyJSON.framework in Frameworks */,
 				5D4A0E912427DABD00FCF338 /* DateTools.framework in Frameworks */,
 				5DA8817924325CAE006B873F /* TokenUI.framework in Frameworks */,
+				5DFC019B247D96300052EE93 /* PanModal.framework in Frameworks */,
 				5D598A562424312A00FCFC16 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -248,7 +259,6 @@
 			children = (
 				5D0A742D24265B9E00D5742C /* InboxController.swift */,
 				5D0A743124266B9900D5742C /* InboxHeaderView.swift */,
-				5D49C4642428734800DC4D53 /* TaskCell.swift */,
 				5D190A1F2428FC2200B63B1A /* SortOptionsView.swift */,
 			);
 			path = Inbox;
@@ -328,6 +338,7 @@
 		5D598A472424159400FCFC16 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5DFC019A247D96300052EE93 /* PanModal.framework */,
 				5DA8817824325CAE006B873F /* TokenUI.framework */,
 				5D2101C024319C7E005DD6BA /* UITextView_Placeholder.framework */,
 				5D63B613242AC73800F5F516 /* SwiftyJSON.framework */,
@@ -393,6 +404,7 @@
 				5DD578C924533D7F00D79B0A /* ProjectHeaderView.swift */,
 				5DF10D82247613BB00FED20E /* ProjectTimeTrackingCell.swift */,
 				5D51BE34247D593D009D76E7 /* HoursLoggedView.swift */,
+				5D51BE36247D7182009D76E7 /* LinkedTogglProjectView.swift */,
 				5D93784B2458D6EB003EBCE0 /* ProjectTableSectionHeaderView.swift */,
 			);
 			path = Project;
@@ -404,8 +416,8 @@
 				5D0A74282425AF7000D5742C /* OverviewRootController.swift */,
 				5DE7F0D224250D3700AD9941 /* OverviewController.swift */,
 				5DD343E42425A3DE00CD5AF7 /* OverviewTableHeaderView.swift */,
-				5DD343DE24259CA500CD5AF7 /* ImageTitleSubtitleCell.swift */,
 				5D8EFE90242FFFEA0031B9F7 /* PillView.swift */,
+				5D49C4642428734800DC4D53 /* TaskCell.swift */,
 				5D49C4632428732F00DC4D53 /* Inbox */,
 				5DD578C624533C5300D79B0A /* Project */,
 			);
@@ -462,6 +474,9 @@
 				5DFB593C242DAA97006E6165 /* LLDropdownController.swift */,
 				5DA881932432965E006B873F /* LLTokenField.swift */,
 				5D93784924564588003EBCE0 /* LLNestedImageView.swift */,
+				5DFC019D247D9C760052EE93 /* LLPickerController.swift */,
+				5DD343DE24259CA500CD5AF7 /* LLImageTitleSubtitleCell.swift */,
+				5DFC019F247DA0010052EE93 /* LLTitleSubtitleCell.swift */,
 				5DFB592A242D0A32006E6165 /* UIHDivider.swift */,
 				5D19F4C82430111D009F0A81 /* UIVDivider.swift */,
 				5DFB592B242D0A32006E6165 /* UIFont.swift */,
@@ -601,6 +616,7 @@
 				5D49C4652428734800DC4D53 /* TaskCell.swift in Sources */,
 				5DD578C824533C6C00D79B0A /* ProjectController.swift in Sources */,
 				5DD343D42425550400CD5AF7 /* KeychainAPI.swift in Sources */,
+				5DFC019E247D9C760052EE93 /* LLPickerController.swift in Sources */,
 				5D598A1D2422EC9B00FCFC16 /* Liloc.xcdatamodeld in Sources */,
 				5D598A442423F89900FCFC16 /* ServiceSignInView.swift in Sources */,
 				5DD343E52425A3DE00CD5AF7 /* OverviewTableHeaderView.swift in Sources */,
@@ -610,13 +626,14 @@
 				5DD578CA24533D7F00D79B0A /* ProjectHeaderView.swift in Sources */,
 				5D598A132422EC9B00FCFC16 /* AppDelegate.swift in Sources */,
 				5DA5867E2427068B0025F897 /* RFC3339Day.swift in Sources */,
-				5DD343E224259CA500CD5AF7 /* ImageTitleSubtitleCell.swift in Sources */,
+				5DD343E224259CA500CD5AF7 /* LLImageTitleSubtitleCell.swift in Sources */,
 				5DE7F0D324250D3700AD9941 /* OverviewController.swift in Sources */,
 				5DFB592F242D0A32006E6165 /* UIHDivider.swift in Sources */,
 				5D93784A24564588003EBCE0 /* LLNestedImageView.swift in Sources */,
 				5D8EFE91242FFFEA0031B9F7 /* PillView.swift in Sources */,
 				5D1F04692433ECFA00A8A524 /* TaskContentView.swift in Sources */,
 				5D19F4C92430111D009F0A81 /* UIVDivider.swift in Sources */,
+				5DFC01A0247DA0010052EE93 /* LLTitleSubtitleCell.swift in Sources */,
 				5D49C45E24286E8D00DC4D53 /* RFC3339Date.swift in Sources */,
 				5D598A412423EF5000FCFC16 /* OnboardingView.swift in Sources */,
 				5D598A542424212100FCFC16 /* OnboardingController.swift in Sources */,
@@ -645,6 +662,7 @@
 				5D51BE35247D593D009D76E7 /* HoursLoggedView.swift in Sources */,
 				5DA881942432965E006B873F /* LLTokenField.swift in Sources */,
 				5DAE086824339D880048C253 /* TaskTextProcessor.swift in Sources */,
+				5D51BE37247D7182009D76E7 /* LinkedTogglProjectView.swift in Sources */,
 				5D2101BF243191A7005DD6BA /* TextInputSheet.swift in Sources */,
 				5D5E157024591F5000FADCAC /* TodoistSyncable.swift in Sources */,
 			);

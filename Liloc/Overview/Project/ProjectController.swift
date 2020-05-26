@@ -32,7 +32,8 @@ class ProjectController: UIViewController {
     }
 
     private enum Item: Hashable {
-        case timeTracking
+        case timeTrackingNotLinked
+        case timeTrackingLinked(togglProjectName: String, hoursThisWeek: Int)
         case task(task:TodoistTask, content: String, dueDate: String?)
     }
 
@@ -90,12 +91,29 @@ class ProjectController: UIViewController {
         item: Item
     ) -> UITableViewCell {
         switch item {
-        case .timeTracking:
+        case let .timeTrackingLinked(togglProjectName, hoursThisWeek):
             let cell = tableView
                 .dequeueReusableCell(withIdentifier: "timeTracking", for: indexPath)
                 as! ProjectTimeTrackingCell
 
-            cell.hoursLoggedView.textLabel.text = "15hr"
+            cell.linkedTogglProjectView.delegate = self
+            cell.linkedTogglProjectView.textLabel.text = togglProjectName
+
+            cell.hoursLoggedView.textLabel.text = "\(hoursThisWeek) hr"
+            cell.hoursLoggedView.isDisabled = false
+
+            return cell
+
+        case .timeTrackingNotLinked:
+            let cell = tableView
+                .dequeueReusableCell(withIdentifier: "timeTracking", for: indexPath)
+                as! ProjectTimeTrackingCell
+
+            cell.linkedTogglProjectView.delegate = self
+            cell.linkedTogglProjectView.textLabel.text = "Link Toggl"
+
+            cell.hoursLoggedView.textLabel.text = "-- hr"
+            cell.hoursLoggedView.isDisabled = true
 
             return cell
 
@@ -141,7 +159,13 @@ class ProjectController: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
         var sectionToItems: [Section: Set<Item>] = [:]
 
-        sectionToItems[.timeTracking] = [.timeTracking]
+        if let togglProject = project.togglProject {
+            sectionToItems[.timeTracking] = [.timeTrackingLinked(
+                togglProjectName: togglProject.name ?? "unknown name",
+                hoursThisWeek: 15)]
+        } else {
+            sectionToItems[.timeTracking] = [.timeTrackingNotLinked]
+        }
 
         for task in tasks {
             let section: Section = task.dueDate?.rfcDay.map { .dueDay($0) } ?? .noDueDay
@@ -246,6 +270,15 @@ extension ProjectController: UITableViewDelegate {
         case 0: return 0
         default: return 22
         }
+    }
+
+}
+
+extension ProjectController: LinkedTogglProjectViewDelegate {
+
+    func didSelectLinkedTogglProjectView(_ view: LinkedTogglProjectView) {
+        let picker = LLPickerController(style: .init(showImage: false))
+        present(picker, animated: true)
     }
 
 }

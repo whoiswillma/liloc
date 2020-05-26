@@ -172,6 +172,8 @@ extension ViewController {
             doOAuthNoun(parameters)
         case "Lyft":
             doOAuthLyft(parameters)
+        case "Twitch":
+            doOAuthTwitch(parameters)
         default:
             print("\(service) not implemented")
         }
@@ -1350,6 +1352,44 @@ extension ViewController {
             }
         }
     }
+  
+    // MARK: Twitch
+    func doOAuthTwitch(_ serviceParameters: [String:String]){
+        let oauthswift = OAuth2Swift(
+            consumerKey:    serviceParameters["consumerKey"]!,
+            consumerSecret: serviceParameters["consumerSecret"]!,
+            authorizeUrl:   "https://id.twitch.tv/oauth2/authorize",
+            accessTokenUrl: "https://id.twitch.tv/oauth2/token",
+            responseType:   "code",
+            contentType:    "application/json"
+        )
+        self.oauthswift = oauthswift
+        oauthswift.authorizeURLHandler = getURLHandler()
+        let state = generateState(withLength: 20)
+        let _ = oauthswift.authorize(
+        withCallbackURL: URL(string: "oauth-swift://oauth-callback/twitch")!, scope: "user_read", state: state) { result in
+            switch result {
+            case .success(let (credential, _, _)):
+                self.showTokenAlert(name: serviceParameters["name"], credential: credential)
+                self.testTwitch(oauthswift,credential.oauthToken)
+            case .failure(let error):
+                print(error.description)
+            }
+        }
+    }
+    
+    func testTwitch(_ oauthswift: OAuth2Swift, _ oauthToken: String) {
+        let _ = oauthswift.client.get(
+        "https://api.twitch.tv/kraken/user?oauth_token=\(oauthToken)", headers: ["Accept":"application/vnd.twitchtv.v5+json"]) { result in
+            switch result {
+            case .success(let response):
+                let dataString = response.string!
+                print(dataString)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }
 
 let services = Services()
@@ -1512,8 +1552,15 @@ extension ViewController {
             }
             #endif
             return OAuthSwiftOpenURLExternally.sharedInstance
+        case .asWeb:
+            #if os(iOS)
+            if #available(iOS 13.0, tvOS 13.0, *) {
+                return ASWebAuthenticationURLHandler(callbackUrlScheme: "oauth-swift://oauth-callback/", presentationContextProvider: self)
+            }
+            #endif
+            return OAuthSwiftOpenURLExternally.sharedInstance
         }
-        
+
         #if os(OSX)
         // a better way is
         // - to make this ViewController implement OAuthSwiftURLHandlerType and assigned in oauthswift object
@@ -1622,6 +1669,19 @@ extension ViewController: NSTableViewDataSource, NSTableViewDelegate {
                 tableView.deselectRow(row)
             }
         }
+    }
+}
+#endif
+
+#if os(iOS)
+import SafariServices
+#if canImport(AuthenticationServices)
+import AuthenticationServices
+#endif
+@available(iOS 13.0, tvOS 13.0, macCatalyst 13.0, *)
+extension ViewController: ASWebAuthenticationPresentationContextProviding {
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        return UIApplication.shared.topWindow ?? ASPresentationAnchor()
     }
 }
 #endif

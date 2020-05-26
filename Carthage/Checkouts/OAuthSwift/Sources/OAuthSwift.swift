@@ -18,7 +18,7 @@ open class OAuthSwift: NSObject, OAuthSwiftRequestHandle {
     open var version: OAuthSwiftCredential.Version { return self.client.credential.version }
 
     /// Handle the authorize url into a web view or browser
-    open var authorizeURLHandler: OAuthSwiftURLHandlerType = OAuthSwiftOpenURLExternally.sharedInstance
+    open var authorizeURLHandler: OAuthSwiftURLHandlerType = OAuthSwiftURLHandlerTypeFactory.default
 
     fileprivate var currentRequests: [String: OAuthSwiftRequestHandle] = [:]
 
@@ -103,7 +103,7 @@ extension OAuthSwift {
     public typealias Parameters = [String: Any]
     public typealias Headers = [String: String]
     public typealias ConfigParameters = [String: String]
-    /// MARK: callback alias
+    // MARK: callback alias
     public typealias TokenSuccess = (credential: OAuthSwiftCredential, response: OAuthSwiftResponse?, parameters: Parameters)
     public typealias TokenCompletionHandler = (Result<TokenSuccess, OAuthSwiftError>) -> Void
     public typealias TokenRenewedHandler = (Result<OAuthSwiftCredential, Never>) -> Void

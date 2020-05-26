@@ -99,7 +99,7 @@ class OverviewController: UIViewController, ObservableObject {
         case let .inbox(taskCount):
             let cell = tableView
                 .dequeueReusableCell(withIdentifier: "topLevel", for: indexPath)
-                as! ImageTitleSubtitleCell
+                as! LLImageTitleSubtitleCell
 
             cell.titleLabel.text = "Inbox"
             cell.subtitleLabel.text =
@@ -120,7 +120,7 @@ class OverviewController: UIViewController, ObservableObject {
         case let .outlook(taskCount):
             let cell = tableView
                 .dequeueReusableCell(withIdentifier: "topLevel", for: indexPath)
-                as! ImageTitleSubtitleCell
+                as! LLImageTitleSubtitleCell
 
             cell.titleLabel.text = "Outlook"
             cell.subtitleLabel.text =
@@ -135,7 +135,7 @@ class OverviewController: UIViewController, ObservableObject {
         case let .project(_, name, color, taskCount):
             let cell = tableView
                 .dequeueReusableCell(withIdentifier: "project", for: indexPath)
-                as! ImageTitleSubtitleCell
+                as! LLImageTitleSubtitleCell
 
             cell.titleLabel.text = name
             cell.subtitleLabel.text =
@@ -315,8 +315,8 @@ extension OverviewController {
         dataSource.defaultRowAnimation = .middle
         tableView.dataSource = dataSource
         tableView.delegate = self
-        tableView.register(ImageTitleSubtitleCell.self, forCellReuseIdentifier: "topLevel")
-        tableView.register(ImageTitleSubtitleCell.self, forCellReuseIdentifier: "project")
+        tableView.register(LLImageTitleSubtitleCell.self, forCellReuseIdentifier: "topLevel")
+        tableView.register(LLImageTitleSubtitleCell.self, forCellReuseIdentifier: "project")
         tableView.tableFooterView = UIView(frame: .zero)
 
         let refreshControl = UIRefreshControl()

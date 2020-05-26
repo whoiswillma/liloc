@@ -7,4 +7,5 @@ github "MatthewYork/DateTools" "swift"
 github "SwiftyJSON/SwiftyJSON"
 github "devxoul/UITextView-Placeholder"
 github "mischa-hildebrand/AlignedCollectionViewFlowLayout"
+github "slackhq/PanModal"
 

@@ -8,7 +8,7 @@ Swift based OAuth library for iOS and macOS.
 
 ## Support OAuth1.0, OAuth2.0
 
-Twitter, Flickr, Github, Instagram, Foursquare, Fitbit, Withings, Linkedin, Dropbox, Dribbble, Salesforce, BitBucket, GoogleDrive, Smugmug, Intuit, Zaim, Tumblr, Slack, Uber, Gitter, Facebook, Spotify, Typetalk, SoundCloud, etc
+Twitter, Flickr, Github, Instagram, Foursquare, Fitbit, Withings, Linkedin, Dropbox, Dribbble, Salesforce, BitBucket, GoogleDrive, Smugmug, Intuit, Zaim, Tumblr, Slack, Uber, Gitter, Facebook, Spotify, Typetalk, SoundCloud, Twitch, etc
 
 ## Installation
 
@@ -70,12 +70,25 @@ func application(_ app: UIApplication, open url: URL, options: [UIApplication.Op
   return true
 }
 ```
+- On iOS 13, UIKit will notify `UISceneDelegate` instead of `UIApplicationDelegate`.
+- Implement `UISceneDelegate` method
+```swift
+func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        guard let url = URLContexts.first?.url else {
+            return
+        }
+        if (url.host == "oauth-callback") {
+            OAuthSwift.handle(url: url)
+        }
+}
+```
+
 :warning: Any other application may try to open a URL with your url scheme. So you can check the source application, for instance for safari controller :
 ```
 if (options[.sourceApplication] as? String == "com.apple.SafariViewService") {
 ```
 
-- On macOS you must register an handler on `NSAppleEventManager` for event type `kAEGetURL` (see demo code)
+- On macOS you must register a handler on `NSAppleEventManager` for event type `kAEGetURL` (see demo code)
 ```swift
 func applicationDidFinishLaunching(_ aNotification: NSNotification) {
     NSAppleEventManager.shared().setEventHandler(self, andSelector:#selector(AppDelegate.handleGetURL(event:withReplyEvent:)), forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))

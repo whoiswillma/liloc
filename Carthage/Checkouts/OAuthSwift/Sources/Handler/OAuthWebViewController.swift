@@ -8,7 +8,7 @@
 
 import Foundation
 
-#if os(iOS)  || os(tvOS)
+#if os(iOS) || os(tvOS)
     import UIKit
     public typealias OAuthViewController = UIViewController
 #elseif os(watchOS)
@@ -35,7 +35,7 @@ public protocol OAuthWebViewControllerDelegate: class {
     func oauthWebViewControllerDidDisappear()
 }
 
-/// A web view controller, which handler OAuthSwift authentification.
+/// A web view controller, which handler OAuthSwift authentification. Must be override to display a web view.
 open class OAuthWebViewController: OAuthViewController, OAuthSwiftURLHandlerType {
 
     #if os(iOS) || os(tvOS) || os(OSX)

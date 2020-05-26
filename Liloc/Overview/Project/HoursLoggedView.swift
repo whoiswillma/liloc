@@ -13,14 +13,22 @@ class HoursLoggedView: UIView {
     private(set) var imageView: UIImageView!
     private(set) var textLabel: UILabel!
 
+    var isDisabled: Bool = false {
+        didSet {
+            let tintColor = isDisabled ? UIColor.systemGray : nil
+            imageView.tintColor = tintColor
+            textLabel.textColor = tintColor
+        }
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        imageView = UIImageView(image: UIImage(systemName: "timer"))
+        imageView = UIImageView(image: UIImage(systemName: "clock"))
         imageView.contentMode = .scaleAspectFit
         addSubview(imageView)
         imageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(2)
+            make.top.equalToSuperview().inset(8)
             make.centerX.equalToSuperview()
             make.leading.greaterThanOrEqualToSuperview()
             make.trailing.lessThanOrEqualToSuperview()
@@ -28,11 +36,12 @@ class HoursLoggedView: UIView {
         }
 
         textLabel = UILabel()
+        textLabel.font = .preferredFont(forTextStyle: .body)
         textLabel.textAlignment = .center
         addSubview(textLabel)
         textLabel.snp.makeConstraints { make in
             make.top.equalTo(imageView.snp.bottom).offset(2)
-            make.bottom.leading.trailing.equalToSuperview().inset(2)
+            make.bottom.leading.trailing.equalToSuperview().inset(8)
         }
     }
 
