@@ -38,6 +38,7 @@
 		5D4A0E912427DABD00FCF338 /* DateTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D4A0E902427DABD00FCF338 /* DateTools.framework */; };
 		5D4A0E922427DABD00FCF338 /* DateTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5D4A0E902427DABD00FCF338 /* DateTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5D4A0E95242868D300FCF338 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 5D4A0E94242868D300FCF338 /* Localizable.stringsdict */; };
+		5D51BE35247D593D009D76E7 /* HoursLoggedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D51BE34247D593D009D76E7 /* HoursLoggedView.swift */; };
 		5D598A132422EC9B00FCFC16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D598A122422EC9B00FCFC16 /* AppDelegate.swift */; };
 		5D598A152422EC9B00FCFC16 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D598A142422EC9B00FCFC16 /* SceneDelegate.swift */; };
 		5D598A1D2422EC9B00FCFC16 /* Liloc.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5D598A1B2422EC9B00FCFC16 /* Liloc.xcdatamodeld */; };
@@ -80,6 +81,7 @@
 		5DD578CA24533D7F00D79B0A /* ProjectHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD578C924533D7F00D79B0A /* ProjectHeaderView.swift */; };
 		5DE7F0CE242506B100AD9941 /* TodoistAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE7F0CD242506B100AD9941 /* TodoistAPI.swift */; };
 		5DE7F0D324250D3700AD9941 /* OverviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE7F0D224250D3700AD9941 /* OverviewController.swift */; };
+		5DF10D83247613BB00FED20E /* ProjectTimeTrackingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF10D82247613BB00FED20E /* ProjectTimeTrackingCell.swift */; };
 		5DFB592E242D0A32006E6165 /* LLLayerShadowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB5929242D0A32006E6165 /* LLLayerShadowManager.swift */; };
 		5DFB592F242D0A32006E6165 /* UIHDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB592A242D0A32006E6165 /* UIHDivider.swift */; };
 		5DFB5930242D0A32006E6165 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB592B242D0A32006E6165 /* UIFont.swift */; };
@@ -150,6 +152,7 @@
 		5D49C4642428734800DC4D53 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		5D4A0E902427DABD00FCF338 /* DateTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DateTools.framework; path = Carthage/Build/iOS/DateTools.framework; sourceTree = "<group>"; };
 		5D4A0E94242868D300FCF338 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
+		5D51BE34247D593D009D76E7 /* HoursLoggedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoursLoggedView.swift; sourceTree = "<group>"; };
 		5D598A0F2422EC9B00FCFC16 /* Liloc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Liloc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D598A122422EC9B00FCFC16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D598A142422EC9B00FCFC16 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -191,6 +194,7 @@
 		5DD578C924533D7F00D79B0A /* ProjectHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectHeaderView.swift; sourceTree = "<group>"; };
 		5DE7F0CD242506B100AD9941 /* TodoistAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoistAPI.swift; sourceTree = "<group>"; };
 		5DE7F0D224250D3700AD9941 /* OverviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewController.swift; sourceTree = "<group>"; };
+		5DF10D82247613BB00FED20E /* ProjectTimeTrackingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTimeTrackingCell.swift; sourceTree = "<group>"; };
 		5DFB5929242D0A32006E6165 /* LLLayerShadowManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLLayerShadowManager.swift; sourceTree = "<group>"; };
 		5DFB592A242D0A32006E6165 /* UIHDivider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIHDivider.swift; sourceTree = "<group>"; };
 		5DFB592B242D0A32006E6165 /* UIFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
@@ -387,6 +391,8 @@
 			children = (
 				5DD578C724533C6C00D79B0A /* ProjectController.swift */,
 				5DD578C924533D7F00D79B0A /* ProjectHeaderView.swift */,
+				5DF10D82247613BB00FED20E /* ProjectTimeTrackingCell.swift */,
+				5D51BE34247D593D009D76E7 /* HoursLoggedView.swift */,
 				5D93784B2458D6EB003EBCE0 /* ProjectTableSectionHeaderView.swift */,
 			);
 			path = Project;
@@ -587,6 +593,7 @@
 				5D3FCC25243162580012ABC1 /* TaskInfoView.swift in Sources */,
 				5D598A5F2424345300FCFC16 /* TogglSignInController.swift in Sources */,
 				5D0D0CBD2438DC6F0004BA7D /* TaskLabelPickerContentView.swift in Sources */,
+				5DF10D83247613BB00FED20E /* ProjectTimeTrackingCell.swift in Sources */,
 				5DFB593B242D9EFA006E6165 /* AddTaskController.swift in Sources */,
 				5DFB5932242D0A32006E6165 /* LLTableViewHeaderManager.swift in Sources */,
 				5DFB593D242DAA97006E6165 /* LLDropdownController.swift in Sources */,
@@ -635,6 +642,7 @@
 				5D2DCAAD2437ED4200F8BAC8 /* TaskPickerView.swift in Sources */,
 				5D190A202428FC2200B63B1A /* SortOptionsView.swift in Sources */,
 				5D5E156E24591ED400FADCAC /* TogglAPIObjects.swift in Sources */,
+				5D51BE35247D593D009D76E7 /* HoursLoggedView.swift in Sources */,
 				5DA881942432965E006B873F /* LLTokenField.swift in Sources */,
 				5DAE086824339D880048C253 /* TaskTextProcessor.swift in Sources */,
 				5D2101BF243191A7005DD6BA /* TextInputSheet.swift in Sources */,

@@ -11,14 +11,29 @@ import UIKit
 
 class ProjectController: UIViewController {
 
-    private struct Section: Hashable {
-        let day: RFC3339Day?
+    private enum Section: Hashable, Comparable {
+
+        static func < (lhs: ProjectController.Section, rhs: ProjectController.Section) -> Bool {
+            lhs.order < rhs.order
+        }
+
+        case timeTracking
+        case noDueDay
+        case dueDay(RFC3339Day)
+
+        private var order: Int {
+            switch self {
+            case .timeTracking: return 0
+            case .noDueDay: return 1
+            case .dueDay: return 2
+            }
+        }
+
     }
 
-    private struct Item: Hashable {
-        let task: TodoistTask
-        let content: String
-        let dueDate: String?
+    private enum Item: Hashable {
+        case timeTracking
+        case task(task:TodoistTask, content: String, dueDate: String?)
     }
 
     private static let relativeDateFormatter: RelativeDateTimeFormatter = {
@@ -74,26 +89,38 @@ class ProjectController: UIViewController {
         indexPath: IndexPath,
         item: Item
     ) -> UITableViewCell {
-        let cell = tableView
-            .dequeueReusableCell(withIdentifier: "task", for: indexPath)
-            as! TaskCell
+        switch item {
+        case .timeTracking:
+            let cell = tableView
+                .dequeueReusableCell(withIdentifier: "timeTracking", for: indexPath)
+                as! ProjectTimeTrackingCell
 
-        cell.contentLabel.text = item.content
-        cell.leftSubtitleLabel.text = item.dueDate
+            cell.hoursLoggedView.textLabel.text = "15hr"
 
-        cell.isCompleted = false
-        cell.didPressComplete = {
-            cell.isCompleted = true
+            return cell
 
-            self.todoist.closeTask(id: item.task.id) { error in
-                if let error = error {
-                    debugPrint(error)
-                    fatalError()
+        case let .task(task: task, content: content, dueDate: dueDate):
+            let cell = tableView
+                .dequeueReusableCell(withIdentifier: "task", for: indexPath)
+                as! TaskCell
+
+            cell.contentLabel.text = content
+            cell.leftSubtitleLabel.text = dueDate
+
+            cell.isCompleted = false
+            cell.didPressComplete = {
+                cell.isCompleted = true
+
+                self.todoist.closeTask(id: task.id) { error in
+                    if let error = error {
+                        debugPrint(error)
+                        fatalError()
+                    }
                 }
             }
-        }
 
-        return cell
+            return cell
+        }
     }
 
     private func performFetch(animated: Bool) {
@@ -114,9 +141,11 @@ class ProjectController: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
         var sectionToItems: [Section: Set<Item>] = [:]
 
+        sectionToItems[.timeTracking] = [.timeTracking]
+
         for task in tasks {
-            let section = Section(day: task.dueDate?.rfcDay)
-            let item = Item(
+            let section: Section = task.dueDate?.rfcDay.map { .dueDay($0) } ?? .noDueDay
+            let item: Item = .task(
                 task: task,
                 content: task.content ?? "",
                 dueDate: task.dueDate?.string ?? "no due date")
@@ -124,13 +153,16 @@ class ProjectController: UIViewController {
         }
 
         let sectionsAndItems = sectionToItems.sorted {
-            switch ($0.key.day, $1.key.day) {
-            case (nil, _): return true
-            case (_, nil): return false
-            case let (.some(lhs), .some(rhs)): return lhs.date < rhs.date
-            }
+            $0.key < $1.key
         }.map { (key, value) -> (Section, [Item]) in
-            (key, value.sorted { $0.content < $1.content })
+            (key, value.sorted { lhs, rhs in
+                switch (lhs, rhs) {
+                case let (.task(_, lhsContent, _), .task(_, rhsContent, _)):
+                    return lhsContent < rhsContent
+                default:
+                    return true
+                }
+            })
         }
 
         for (section, items) in sectionsAndItems {
@@ -160,10 +192,31 @@ extension ProjectController: NSFetchedResultsControllerDelegate {
 extension ProjectController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as! ProjectTableSectionHeaderView
+        let section = dataSource.snapshot().sectionIdentifiers[section]
+        switch section {
+        case .timeTracking:
+            return UIView()
 
-        let titleString = NSMutableAttributedString()
-        if let date = dataSource.snapshot().sectionIdentifiers[section].day?.date {
+        case .noDueDay:
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header")
+                as! ProjectTableSectionHeaderView
+            let titleString = NSMutableAttributedString()
+
+            titleString.append(
+            NSAttributedString(
+                string: "No due date",
+                attributes: [.font: UIFont.preferredFont(forTextStyle: .headline)]))
+
+            header.label.attributedText = titleString
+
+            return header
+
+        case let .dueDay(day):
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header")
+                as! ProjectTableSectionHeaderView
+            let titleString = NSMutableAttributedString()
+
+            let date = day.date
 
             let absoluteDate = ProjectController.dateFormatter.string(from: date)
             titleString.append(
@@ -181,15 +234,18 @@ extension ProjectController: UITableViewDelegate {
                 NSAttributedString(
                     string: relativeDate,
                     attributes: [.font: UIFont.preferredFont(forTextStyle: .body)]))
-        } else {
-            titleString.append(
-                NSAttributedString(
-                    string: "No due date",
-                    attributes: [.font: UIFont.preferredFont(forTextStyle: .headline)]))
-        }
-        header.label.attributedText = titleString
 
-        return header
+            header.label.attributedText = titleString
+
+            return header
+        }
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch section {
+        case 0: return 0
+        default: return 22
+        }
     }
 
 }
@@ -245,6 +301,7 @@ extension ProjectController {
         dataSource.defaultRowAnimation = .fade
         tableView.delegate = self
         tableView.register(TaskCell.self, forCellReuseIdentifier: "task")
+        tableView.register(ProjectTimeTrackingCell.self, forCellReuseIdentifier: "timeTracking")
         tableView.register(ProjectTableSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
         tableView.tableFooterView = UIView()
 

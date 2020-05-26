@@ -53,14 +53,33 @@ class TogglAPI {
                 }
 
                 do {
-                    let response = try self.decoder.decode(TogglResponse<TogglJSONUserData>.self, from: data)
-
-                    try self.dao.saveContext()
-
+                    let response = try self.decoder.decode(
+                        TogglResponse<TogglJSONUserData>.self,
+                        from: data)
+                    let data = response.data
+                    try self.syncProjects(data.projects)
                     completion(nil)
                 } catch {
                     completion(error)
                 }
+        }
+    }
+
+    private func syncProjects(_ jsonProjects: [TogglJSONProject]) throws {
+        var encountered: Set<TogglProject> = []
+        for jsonProject in jsonProjects where jsonProject.active {
+            let project = try dao.fetch(TogglProject.self, id: jsonProject.id)
+
+            project.id = jsonProject.id
+            project.color = jsonProject.color
+            project.name = jsonProject.name
+
+            encountered.insert(project)
+        }
+
+        let projects = try dao.fetchAll(TogglProject.self)
+        for project in projects where !encountered.contains(project) {
+            dao.delete(project)
         }
     }
 

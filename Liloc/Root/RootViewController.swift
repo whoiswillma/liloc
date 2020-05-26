@@ -31,7 +31,7 @@ class RootController: LLContainerController<UIViewController> {
                 password: togglCredentials.password)
             
             toggl.sync(full: true) { _ in
-                print("done")
+
             }
 //            child =
 //                DropdownController(

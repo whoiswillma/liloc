@@ -193,7 +193,7 @@ extension TodoistAPI {
                 }
             }
 
-            let entities: [Entity] = try dao.moc.fetch(Entity.fetchRequest()) as? [Entity] ?? []
+            let entities: [Entity] = try dao.fetchAll(Entity.self)
             for entity in entities where !alive.contains(entity) {
                 dao.delete(entity)
             }

@@ -33,7 +33,11 @@ class CoreDataDAO {
     }
 
     func fetch<T: NSManagedObject>(_ type: T.Type, id: Int64) throws -> T {
-        return try get(type, id: id) ?? T(context: moc)
+        try get(type, id: id) ?? T(context: moc)
+    }
+
+    func fetchAll<T: NSManagedObject>(_ type: T.Type) throws -> [T] {
+        try moc.fetch(T.fetchRequest()) as? [T] ?? []
     }
 
     func delete(_ object: NSManagedObject) {
@@ -41,6 +45,8 @@ class CoreDataDAO {
     }
 
 }
+
+// MARK: - Todoist
 
 extension CoreDataDAO {
 
