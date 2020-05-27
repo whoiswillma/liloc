@@ -41,7 +41,7 @@ class RootController: LLContainerController<UIViewController> {
 //                    background: OverviewRootController(
 //                        dao: dao,
 //                        todoist: todoist))
-            child = OverviewRootController(dao: dao, todoist: todoist)
+            child = OverviewRootController(dao: dao, todoist: todoist, toggl: toggl)
         } else {
             present(OnboardingNavigationController(), animated: true)
         }

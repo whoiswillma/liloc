@@ -7,7 +7,6 @@
 //
 
 import CoreData
-import Hero
 import SwiftUI
 import UIKit
 
@@ -24,12 +23,14 @@ class OverviewController: UIViewController, ObservableObject {
         case project(id: Int64, name: String, color: Int64, taskCount: Int)
     }
 
-    private let todoist: TodoistAPI
     private let dao: CoreDataDAO
+    private let todoist: TodoistAPI
+    private let toggl: TogglAPI
 
-    init(dao: CoreDataDAO, todoist: TodoistAPI) {
+    init(dao: CoreDataDAO, todoist: TodoistAPI, toggl: TogglAPI) {
         self.dao = dao
         self.todoist = todoist
+        self.toggl = toggl
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -239,7 +240,7 @@ extension OverviewController: UITableViewDelegate {
 
         case 1:
             if let project = projectsFRC?.fetchedObjects?[indexPath.row] {
-                let projectController = ProjectController(dao: dao, todoist: todoist, project: project)
+                let projectController = ProjectController(dao: dao, todoist: todoist, toggl: toggl, project: project)
                 navigationController?.pushViewController(projectController, animated: true)
             }
 

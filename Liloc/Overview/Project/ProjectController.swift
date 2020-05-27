@@ -6,6 +6,8 @@
 //  Copyright © 2020 William Ma. All rights reserved.
 //
 
+import os.log
+
 import CoreData
 import UIKit
 
@@ -13,7 +15,10 @@ class ProjectController: UIViewController {
 
     private enum Section: Hashable, Comparable {
 
-        static func < (lhs: ProjectController.Section, rhs: ProjectController.Section) -> Bool {
+        static func < (
+            lhs: ProjectController.Section,
+            rhs: ProjectController.Section) -> Bool {
+
             lhs.order < rhs.order
         }
 
@@ -33,7 +38,7 @@ class ProjectController: UIViewController {
 
     private enum Item: Hashable {
         case timeTrackingNotLinked
-        case timeTrackingLinked(togglProjectName: String, hoursThisWeek: Int)
+        case timeTrackingLinked(togglProjectName: String, hoursThisWeek: String)
         case task(task:TodoistTask, content: String, dueDate: String?)
     }
 
@@ -52,11 +57,15 @@ class ProjectController: UIViewController {
 
     private let dao: CoreDataDAO
     private let todoist: TodoistAPI
+    private let toggl: TogglAPI
+
     private let project: TodoistProject
 
-    init(dao: CoreDataDAO, todoist: TodoistAPI, project: TodoistProject) {
+    init(dao: CoreDataDAO, todoist: TodoistAPI, toggl: TogglAPI, project: TodoistProject) {
         self.dao = dao
         self.todoist = todoist
+        self.toggl = toggl
+
         self.project = project
 
         super.init(nibName: nil, bundle: nil)
@@ -101,7 +110,7 @@ class ProjectController: UIViewController {
             cell.linkedTogglProjectView.delegate = self
             cell.linkedTogglProjectView.textLabel.text = togglProjectName
 
-            cell.hoursLoggedView.textLabel.text = "\(hoursThisWeek) hr"
+            cell.hoursLoggedView.textLabel.text = hoursThisWeek
             cell.hoursLoggedView.isDisabled = false
 
             return cell
@@ -147,6 +156,16 @@ class ProjectController: UIViewController {
         updateSortDescriptors()
         try! tasksFRC?.performFetch()
         updateSnapshot(animated: animated)
+
+        if let togglProject = project.togglProject {
+            toggl.syncReports(togglProject, referenceDate: referenceDate) { [weak self] error in
+                if let error = error {
+                    os_log(.error, "Error while syncing toggl report: %@", error.localizedDescription)
+                }
+
+                self?.updateSnapshot(animated: animated)
+            }
+        }
     }
 
     private func updateSortDescriptors() {
@@ -162,9 +181,21 @@ class ProjectController: UIViewController {
         var sectionToItems: [Section: Set<Item>] = [:]
 
         if let togglProject = project.togglProject {
+
+            let hoursThisWeek: String
+            if let reportReference = togglProject.report?.referenceDate,
+                reportReference.sameDay(as: referenceDate) {
+
+                let milliseconds = togglProject.report?.timeToday ?? 0
+                let hours = milliseconds / 1000 / 60 / 60
+                hoursThisWeek = "\(hours) hr"
+            } else {
+                hoursThisWeek = "-- hr"
+            }
+
             sectionToItems[.timeTracking] = [.timeTrackingLinked(
                 togglProjectName: togglProject.name ?? "unknown name",
-                hoursThisWeek: 15)]
+                hoursThisWeek: hoursThisWeek)]
         } else {
             sectionToItems[.timeTracking] = [.timeTrackingNotLinked]
         }
@@ -285,7 +316,7 @@ extension ProjectController: LinkedTogglProjectViewDelegate {
                 item: project,
                 image: nil,
                 title: project.name ?? "unknown name",
-                subtitle: "\(project.id)")
+                subtitle: project.todoistProject.map { $0.name ?? "unknown todoist name" } ?? "unlinked")
         }
 
         let picker = LLPickerController(
@@ -304,11 +335,32 @@ extension ProjectController: LLPickerControllerDelegate {
             return
         }
 
-        project.togglProject = togglProject
-        try! dao.saveContext()
-        updateSnapshot(animated: false)
+        let linkTogglProject = {
+            self.project.togglProject = togglProject
+            try! self.dao.saveContext()
+            self.updateSnapshot(animated: false)
 
-        pickerController.dismiss(animated: true)
+            pickerController.dismiss(animated: true)
+        }
+
+        if togglProject.todoistProject != nil, togglProject.todoistProject !== project {
+            let togglProjectName = togglProject.name ?? "\"\""
+            let oldProjectName = togglProject.todoistProject?.name ?? "\"\""
+            let newProjectName = project.name ?? "\"\""
+
+            let alertController = UIAlertController(
+                title: "Unlink from \(oldProjectName)",
+                message: "Are you sure you want to unlink \(togglProjectName) from \(oldProjectName), and instead link it to \(newProjectName)",
+                preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                linkTogglProject()
+            })
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+            pickerController.present(alertController, animated: true)
+        } else {
+            linkTogglProject()
+        }
     }
 
 }

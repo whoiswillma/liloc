@@ -32,6 +32,10 @@ class CoreDataDAO {
         return try moc.fetch(request).first as? T
     }
 
+    func new<T: NSManagedObject>(_ type: T.Type) -> T {
+        T(context: moc)
+    }
+
     func fetch<T: NSManagedObject>(_ type: T.Type, id: Int64) throws -> T {
         try get(type, id: id) ?? T(context: moc)
     }

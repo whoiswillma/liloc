@@ -29,7 +29,12 @@ class TogglAPI {
     private let decoder = JSONDecoder()
 
     /// YYYY-MM-DD
-    private let iso8601DateFormatter: ISO8601DateFormatter
+    private let iso8601DateFormatter: ISO8601DateFormatter = {
+        let dateFormatter = ISO8601DateFormatter()
+        dateFormatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
+        dateFormatter.timeZone = .current
+        return dateFormatter
+    }()
 
     private var apiToken: String?
     private var workspaceId: Int64?
@@ -39,9 +44,6 @@ class TogglAPI {
         self.password = password
 
         self.dao = dao
-
-        self.iso8601DateFormatter = ISO8601DateFormatter()
-        self.iso8601DateFormatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
     }
 
     func sync(completion: @escaping (Error?) -> Void) {
@@ -91,6 +93,10 @@ class TogglAPI {
             project.color = jsonProject.color
             project.name = jsonProject.name
 
+            if project.report == nil {
+                project.report = dao.new(TogglProjectReport.self)
+            }
+
             encountered.insert(project)
         }
 
@@ -98,6 +104,8 @@ class TogglAPI {
         for project in projects where !encountered.contains(project) {
             dao.delete(project)
         }
+
+        try dao.saveContext()
     }
 
     func syncReports(_ project: TogglProject, referenceDate: Date = Date(), _ completion: @escaping (Error?) -> Void) {
@@ -140,7 +148,7 @@ class TogglAPI {
                         TogglReportsResponse.self,
                         from: data)
 
-                    project.report?.asOf = referenceDate
+                    project.report?.referenceDate = referenceDate
                     project.report?.timeToday = response.total_grand
 
                     try self.dao.saveContext()

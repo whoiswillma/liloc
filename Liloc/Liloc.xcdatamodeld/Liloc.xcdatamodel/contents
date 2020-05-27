@@ -45,7 +45,7 @@
         <relationship name="todoistProject" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TodoistProject" inverseName="togglProject" inverseEntity="TodoistProject"/>
     </entity>
     <entity name="TogglProjectReport" representedClassName="TogglProjectReport" syncable="YES" codeGenerationType="class">
-        <attribute name="asOf" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="referenceDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="timeToday" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TogglProject" inverseName="report" inverseEntity="TogglProject"/>
     </entity>

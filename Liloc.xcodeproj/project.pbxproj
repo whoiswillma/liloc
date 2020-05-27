@@ -95,7 +95,7 @@
 		5DFC019C247D96300052EE93 /* PanModal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFC019A247D96300052EE93 /* PanModal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5DFC019E247D9C760052EE93 /* LLPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFC019D247D9C760052EE93 /* LLPickerController.swift */; };
 		5DFC01A0247DA0010052EE93 /* LLTitleSubtitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFC019F247DA0010052EE93 /* LLTitleSubtitleCell.swift */; };
-		5DFC01A4247EA5F20052EE93 /* TimeTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFC01A3247EA5F20052EE93 /* TimeTrackingView.swift */; };
+		5DFC01A7247EC4D30052EE93 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFC01A6247EC4D30052EE93 /* Date.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -215,6 +215,7 @@
 		5DFC019D247D9C760052EE93 /* LLPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLPickerController.swift; sourceTree = "<group>"; };
 		5DFC019F247DA0010052EE93 /* LLTitleSubtitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLTitleSubtitleCell.swift; sourceTree = "<group>"; };
 		5DFC01A3247EA5F20052EE93 /* TimeTrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTrackingView.swift; sourceTree = "<group>"; };
+		5DFC01A6247EC4D30052EE93 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -307,6 +308,7 @@
 				5DA5867F24270AC10025F897 /* Settings Bundle */,
 				5DFB5928242CF9F1006E6165 /* UI */,
 				5DA5868424270E1C0025F897 /* User Defaults */,
+				5DFC01A5247EC4C70052EE93 /* Extensions */,
 				5D598A1E2422EC9D00FCFC16 /* Assets.xcassets */,
 				5D598A202422EC9D00FCFC16 /* LaunchScreen.storyboard */,
 				5D598A232422EC9D00FCFC16 /* Info.plist */,
@@ -502,6 +504,14 @@
 			path = "Add Task";
 			sourceTree = "<group>";
 		};
+		5DFC01A5247EC4C70052EE93 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5DFC01A6247EC4D30052EE93 /* Date.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -620,9 +630,9 @@
 				5DD578C824533C6C00D79B0A /* ProjectController.swift in Sources */,
 				5DD343D42425550400CD5AF7 /* KeychainAPI.swift in Sources */,
 				5DFC019E247D9C760052EE93 /* LLPickerController.swift in Sources */,
-				5DFC01A4247EA5F20052EE93 /* TimeTrackingView.swift in Sources */,
 				5D598A1D2422EC9B00FCFC16 /* Liloc.xcdatamodeld in Sources */,
 				5D598A442423F89900FCFC16 /* ServiceSignInView.swift in Sources */,
+				5DFC01A7247EC4D30052EE93 /* Date.swift in Sources */,
 				5DD343E52425A3DE00CD5AF7 /* OverviewTableHeaderView.swift in Sources */,
 				5DFB592E242D0A32006E6165 /* LLLayerShadowManager.swift in Sources */,
 				5DD343CB2425163B00CD5AF7 /* RootViewController.swift in Sources */,

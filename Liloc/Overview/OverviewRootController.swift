@@ -6,21 +6,22 @@
 //  Copyright © 2020 William Ma. All rights reserved.
 //
 
-import Hero
 import UIKit
 
 class OverviewRootController: UIViewController {
 
     private let dao: CoreDataDAO
     private let todoist: TodoistAPI
+    private let toggl: TogglAPI
 
     private var navigation: UINavigationController!
 
     private var pillView: PillView!
 
-    init(dao: CoreDataDAO, todoist: TodoistAPI) {
+    init(dao: CoreDataDAO, todoist: TodoistAPI, toggl: TogglAPI) {
         self.dao = dao
         self.todoist = todoist
+        self.toggl = toggl
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -51,14 +52,11 @@ extension OverviewRootController {
 
     private func setUpNavigation() {
         navigation = UINavigationController(rootViewController:
-            OverviewController(dao: dao, todoist: todoist))
+            OverviewController(dao: dao, todoist: todoist, toggl: toggl))
 
         navigation.interactivePopGestureRecognizer?.delegate = nil
 
         navigation.setNavigationBarHidden(true, animated: false)
-
-        navigation.hero.isEnabled = true
-        navigation.hero.navigationAnimationType = .selectBy(presenting: .push(direction: .left), dismissing: .pull(direction: .right))
 
         addChild(navigation)
         view.addSubview(navigation.view)
