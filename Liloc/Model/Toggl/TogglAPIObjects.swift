@@ -10,6 +10,7 @@ import Foundation
 
 struct TogglJSONUserData: Decodable {
     let id: Int64
+    let api_token: String
     let default_wid: Int64
     let projects: [TogglJSONProject]
 }

@@ -6,6 +6,7 @@
 //  Copyright © 2020 William Ma. All rights reserved.
 //
 
+import os.log
 import SwiftyUserDefaults
 import UIKit
 
@@ -30,8 +31,10 @@ class RootController: LLContainerController<UIViewController> {
                 username: togglCredentials.account,
                 password: togglCredentials.password)
             
-            toggl.sync(full: true) { _ in
-
+            toggl.sync { error in
+                if let error = error {
+                    os_log(.error, "Error syncing with toggl: %@", error.localizedDescription)
+                }
             }
 //            child =
 //                DropdownController(

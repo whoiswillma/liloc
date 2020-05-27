@@ -41,13 +41,20 @@
         <attribute name="color" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="report" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TogglProjectReport" inverseName="project" inverseEntity="TogglProjectReport"/>
         <relationship name="todoistProject" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TodoistProject" inverseName="togglProject" inverseEntity="TodoistProject"/>
+    </entity>
+    <entity name="TogglProjectReport" representedClassName="TogglProjectReport" syncable="YES" codeGenerationType="class">
+        <attribute name="asOf" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="timeToday" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TogglProject" inverseName="report" inverseEntity="TogglProject"/>
     </entity>
     <elements>
         <element name="TodoistDueDate" positionX="-45" positionY="36" width="128" height="133"/>
         <element name="TodoistLabel" positionX="-36" positionY="81" width="128" height="118"/>
         <element name="TodoistProject" positionX="-36" positionY="9" width="128" height="193"/>
         <element name="TodoistTask" positionX="-54" positionY="-9" width="128" height="163"/>
-        <element name="TogglProject" positionX="-36" positionY="81" width="128" height="103"/>
+        <element name="TogglProject" positionX="-36" positionY="81" width="128" height="118"/>
+        <element name="TogglProjectReport" positionX="-36" positionY="90" width="128" height="88"/>
     </elements>
 </model>

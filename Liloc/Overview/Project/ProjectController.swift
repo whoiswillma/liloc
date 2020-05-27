@@ -50,10 +50,12 @@ class ProjectController: UIViewController {
         return dateFormatter
     }()
 
+    private let dao: CoreDataDAO
     private let todoist: TodoistAPI
     private let project: TodoistProject
 
-    init(todoist: TodoistAPI, project: TodoistProject) {
+    init(dao: CoreDataDAO, todoist: TodoistAPI, project: TodoistProject) {
+        self.dao = dao
         self.todoist = todoist
         self.project = project
 
@@ -277,8 +279,36 @@ extension ProjectController: UITableViewDelegate {
 extension ProjectController: LinkedTogglProjectViewDelegate {
 
     func didSelectLinkedTogglProjectView(_ view: LinkedTogglProjectView) {
-        let picker = LLPickerController(style: .init(showImage: false))
+        let togglProjects = (try? dao.fetchAll(TogglProject.self)) ?? []
+        let items = togglProjects.map { project in
+            LLPickerController.Item(
+                item: project,
+                image: nil,
+                title: project.name ?? "unknown name",
+                subtitle: "\(project.id)")
+        }
+
+        let picker = LLPickerController(
+            style: .init(title: "Choose Toggl Project", showImages: false, showSections: false),
+            sectionToItems: [("", items)])
+        picker.delegate = self
         present(picker, animated: true)
+    }
+
+}
+
+extension ProjectController: LLPickerControllerDelegate {
+
+    func pickerController(_ pickerController: LLPickerController, didSelectItems items: [LLPickerController.Item]) {
+        guard let item = items.first, let togglProject = item.item as? TogglProject else {
+            return
+        }
+
+        project.togglProject = togglProject
+        try! dao.saveContext()
+        updateSnapshot(animated: false)
+
+        pickerController.dismiss(animated: true)
     }
 
 }

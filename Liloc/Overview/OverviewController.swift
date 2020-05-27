@@ -239,7 +239,7 @@ extension OverviewController: UITableViewDelegate {
 
         case 1:
             if let project = projectsFRC?.fetchedObjects?[indexPath.row] {
-                let projectController = ProjectController(todoist: todoist, project: project)
+                let projectController = ProjectController(dao: dao, todoist: todoist, project: project)
                 navigationController?.pushViewController(projectController, animated: true)
             }
 
