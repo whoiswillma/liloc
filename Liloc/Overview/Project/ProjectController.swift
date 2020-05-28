@@ -38,7 +38,7 @@ class ProjectController: UIViewController {
 
     private enum Item: Hashable {
         case timeTrackingNotLinked
-        case timeTrackingLinked(togglProjectName: String, hoursThisWeek: String)
+        case timeTrackingLinked(togglProjectName: String, minutesToday: Int)
         case task(task:TodoistTask, content: String, dueDate: String?)
     }
 
@@ -102,7 +102,7 @@ class ProjectController: UIViewController {
         item: Item
     ) -> UITableViewCell {
         switch item {
-        case let .timeTrackingLinked(togglProjectName, hoursThisWeek):
+        case let .timeTrackingLinked(togglProjectName, minutesToday):
             let cell = tableView
                 .dequeueReusableCell(withIdentifier: "timeTracking", for: indexPath)
                 as! ProjectTimeTrackingCell
@@ -110,7 +110,7 @@ class ProjectController: UIViewController {
             cell.linkedTogglProjectView.delegate = self
             cell.linkedTogglProjectView.textLabel.text = togglProjectName
 
-            cell.hoursLoggedView.textLabel.text = hoursThisWeek
+            cell.hoursLoggedView.textLabel.text = "\(minutesToday)m\ntoday"
             cell.hoursLoggedView.isDisabled = false
 
             return cell
@@ -123,7 +123,7 @@ class ProjectController: UIViewController {
             cell.linkedTogglProjectView.delegate = self
             cell.linkedTogglProjectView.textLabel.text = "Link Toggl"
 
-            cell.hoursLoggedView.textLabel.text = "-- hr"
+            cell.hoursLoggedView.textLabel.text = "--m\ntoday"
             cell.hoursLoggedView.isDisabled = true
 
             return cell
@@ -182,20 +182,19 @@ class ProjectController: UIViewController {
 
         if let togglProject = project.togglProject {
 
-            let hoursThisWeek: String
+            let minutesToday: Int
             if let reportReference = togglProject.report?.referenceDate,
                 reportReference.sameDay(as: referenceDate) {
 
-                let milliseconds = togglProject.report?.timeToday ?? 0
-                let hours = milliseconds / 1000 / 60 / 60
-                hoursThisWeek = "\(hours) hr"
+                let milliseconds = Int(togglProject.report?.timeToday ?? 0)
+                minutesToday = milliseconds / 1000 / 60
             } else {
-                hoursThisWeek = "-- hr"
+                minutesToday = 0
             }
 
             sectionToItems[.timeTracking] = [.timeTrackingLinked(
                 togglProjectName: togglProject.name ?? "unknown name",
-                hoursThisWeek: hoursThisWeek)]
+                minutesToday: minutesToday)]
         } else {
             sectionToItems[.timeTracking] = [.timeTrackingNotLinked]
         }

@@ -17,7 +17,7 @@ class TogglAPI {
     }
 
     private struct TogglReportsResponse: Decodable {
-        let total_grand: Int64
+        let total_grand: Int64?
     }
 
     private let username: String
@@ -124,7 +124,8 @@ class TogglAPI {
             "user_agent": "liloc (dot) app (at) gmail (dot) com",
             "workspace_id": workspaceId,
             "since": day,
-            "until": day
+            "until": day,
+            "project_ids": [project.id]
         ]
 
         let credentials = "\(apiToken):api_token".data(using: .utf8)
@@ -149,7 +150,7 @@ class TogglAPI {
                         from: data)
 
                     project.report?.referenceDate = referenceDate
-                    project.report?.timeToday = response.total_grand
+                    project.report?.timeToday = response.total_grand ?? 0
 
                     try self.dao.saveContext()
 

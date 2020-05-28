@@ -15,9 +15,8 @@ class HoursLoggedView: UIView {
 
     var isDisabled: Bool = false {
         didSet {
-            let tintColor = isDisabled ? UIColor.systemGray : nil
-            imageView.tintColor = tintColor
-            textLabel.textColor = tintColor
+            imageView.tintColor = isDisabled ? .systemGray : nil
+            textLabel.textColor = isDisabled ? .systemGray : .secondaryLabel
         }
     }
 
@@ -38,6 +37,7 @@ class HoursLoggedView: UIView {
         textLabel = UILabel()
         textLabel.font = .preferredFont(forTextStyle: .body)
         textLabel.textAlignment = .center
+        textLabel.numberOfLines = 0
         addSubview(textLabel)
         textLabel.snp.makeConstraints { make in
             make.top.equalTo(imageView.snp.bottom).offset(2)

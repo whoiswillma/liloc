@@ -27,6 +27,9 @@ class ProjectTimeTrackingCell: UITableViewCell {
         roundedRectView.layer.cornerCurve = .continuous
 
         scrollView = UIScrollView()
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.alwaysBounceHorizontal = true
 
         stackView = UIStackView()
         stackView.axis = .horizontal
