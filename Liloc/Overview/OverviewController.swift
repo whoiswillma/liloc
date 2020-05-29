@@ -7,7 +7,6 @@
 //
 
 import CoreData
-import Hero
 import SwiftUI
 import UIKit
 
@@ -24,12 +23,14 @@ class OverviewController: UIViewController, ObservableObject {
         case project(id: Int64, name: String, color: Int64, taskCount: Int)
     }
 
-    private let todoist: TodoistAPI
     private let dao: CoreDataDAO
+    private let todoist: TodoistAPI
+    private let toggl: TogglAPI
 
-    init(dao: CoreDataDAO, todoist: TodoistAPI) {
+    init(dao: CoreDataDAO, todoist: TodoistAPI, toggl: TogglAPI) {
         self.dao = dao
         self.todoist = todoist
+        self.toggl = toggl
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -99,7 +100,7 @@ class OverviewController: UIViewController, ObservableObject {
         case let .inbox(taskCount):
             let cell = tableView
                 .dequeueReusableCell(withIdentifier: "topLevel", for: indexPath)
-                as! ImageTitleSubtitleCell
+                as! LLImageTitleSubtitleCell
 
             cell.titleLabel.text = "Inbox"
             cell.subtitleLabel.text =
@@ -120,7 +121,7 @@ class OverviewController: UIViewController, ObservableObject {
         case let .outlook(taskCount):
             let cell = tableView
                 .dequeueReusableCell(withIdentifier: "topLevel", for: indexPath)
-                as! ImageTitleSubtitleCell
+                as! LLImageTitleSubtitleCell
 
             cell.titleLabel.text = "Outlook"
             cell.subtitleLabel.text =
@@ -132,10 +133,10 @@ class OverviewController: UIViewController, ObservableObject {
 
             return cell
 
-        case let .project(id, name, color, taskCount):
+        case let .project(_, name, color, taskCount):
             let cell = tableView
                 .dequeueReusableCell(withIdentifier: "project", for: indexPath)
-                as! ImageTitleSubtitleCell
+                as! LLImageTitleSubtitleCell
 
             cell.titleLabel.text = name
             cell.subtitleLabel.text =
@@ -239,7 +240,7 @@ extension OverviewController: UITableViewDelegate {
 
         case 1:
             if let project = projectsFRC?.fetchedObjects?[indexPath.row] {
-                let projectController = ProjectController(todoist: todoist, project: project)
+                let projectController = ProjectController(dao: dao, todoist: todoist, toggl: toggl, project: project)
                 navigationController?.pushViewController(projectController, animated: true)
             }
 
@@ -315,8 +316,8 @@ extension OverviewController {
         dataSource.defaultRowAnimation = .middle
         tableView.dataSource = dataSource
         tableView.delegate = self
-        tableView.register(ImageTitleSubtitleCell.self, forCellReuseIdentifier: "topLevel")
-        tableView.register(ImageTitleSubtitleCell.self, forCellReuseIdentifier: "project")
+        tableView.register(LLImageTitleSubtitleCell.self, forCellReuseIdentifier: "topLevel")
+        tableView.register(LLImageTitleSubtitleCell.self, forCellReuseIdentifier: "project")
         tableView.tableFooterView = UIView(frame: .zero)
 
         let refreshControl = UIRefreshControl()

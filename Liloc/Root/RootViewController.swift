@@ -6,6 +6,7 @@
 //  Copyright © 2020 William Ma. All rights reserved.
 //
 
+import os.log
 import SwiftyUserDefaults
 import UIKit
 
@@ -25,12 +26,22 @@ class RootController: LLContainerController<UIViewController> {
             let togglCredentials = try! KeychainAPI.toggl.fetch(),
             let dao = AppDelegate.shared.dao {
             let todoist = TodoistAPI(dao: dao, token: todoistCredentials)
+            let toggl = TogglAPI(
+                dao: dao,
+                username: togglCredentials.account,
+                password: togglCredentials.password)
+            
+            toggl.sync { error in
+                if let error = error {
+                    os_log(.error, "Error syncing with toggl: %@", error.localizedDescription)
+                }
+            }
 //            child =
 //                DropdownController(
 //                    background: OverviewRootController(
 //                        dao: dao,
 //                        todoist: todoist))
-            child = OverviewRootController(dao: dao, todoist: todoist)
+            child = OverviewRootController(dao: dao, todoist: todoist, toggl: toggl)
         } else {
             present(OnboardingNavigationController(), animated: true)
         }

@@ -20,7 +20,7 @@
 		5D1F04692433ECFA00A8A524 /* TaskContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1F04682433ECFA00A8A524 /* TaskContentView.swift */; };
 		5D1F046D24363D6E00A8A524 /* TaskProjectPickerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1F046C24363D6E00A8A524 /* TaskProjectPickerContentView.swift */; };
 		5D1F046F243647D900A8A524 /* TaskPriorityPickerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1F046E243647D900A8A524 /* TaskPriorityPickerContentView.swift */; };
-		5D1F047124364C2200A8A524 /* Priority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1F047024364C2200A8A524 /* Priority.swift */; };
+		5D1F047124364C2200A8A524 /* TodoistPriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1F047024364C2200A8A524 /* TodoistPriority.swift */; };
 		5D2101BF243191A7005DD6BA /* TextInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2101BE243191A7005DD6BA /* TextInputSheet.swift */; };
 		5D2101C124319C7E005DD6BA /* UITextView_Placeholder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D2101C024319C7E005DD6BA /* UITextView_Placeholder.framework */; };
 		5D2101C224319C7E005DD6BA /* UITextView_Placeholder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5D2101C024319C7E005DD6BA /* UITextView_Placeholder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -38,7 +38,7 @@
 		5D4A0E912427DABD00FCF338 /* DateTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D4A0E902427DABD00FCF338 /* DateTools.framework */; };
 		5D4A0E922427DABD00FCF338 /* DateTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5D4A0E902427DABD00FCF338 /* DateTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5D4A0E95242868D300FCF338 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 5D4A0E94242868D300FCF338 /* Localizable.stringsdict */; };
-		5D4C4EED242C107700496D02 /* TodoistSyncable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4C4EEC242C107700496D02 /* TodoistSyncable.swift */; };
+		5D51BE35247D593D009D76E7 /* HoursLoggedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D51BE34247D593D009D76E7 /* HoursLoggedView.swift */; };
 		5D598A132422EC9B00FCFC16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D598A122422EC9B00FCFC16 /* AppDelegate.swift */; };
 		5D598A152422EC9B00FCFC16 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D598A142422EC9B00FCFC16 /* SceneDelegate.swift */; };
 		5D598A1D2422EC9B00FCFC16 /* Liloc.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5D598A1B2422EC9B00FCFC16 /* Liloc.xcdatamodeld */; };
@@ -52,6 +52,8 @@
 		5D598A562424312A00FCFC16 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D598A552424312A00FCFC16 /* Alamofire.framework */; };
 		5D598A572424312A00FCFC16 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5D598A552424312A00FCFC16 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5D598A5F2424345300FCFC16 /* TogglSignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D598A5E2424345300FCFC16 /* TogglSignInController.swift */; };
+		5D5E156E24591ED400FADCAC /* TogglAPIObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E156D24591ED400FADCAC /* TogglAPIObjects.swift */; };
+		5D5E157024591F5000FADCAC /* TodoistSyncable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E156F24591F5000FADCAC /* TodoistSyncable.swift */; };
 		5D63B614242AC73800F5F516 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D63B613242AC73800F5F516 /* SwiftyJSON.framework */; };
 		5D63B615242AC73800F5F516 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5D63B613242AC73800F5F516 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5D8EC6932458EEDC00F5D125 /* RFC3339DayTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8EC6922458EEDC00F5D125 /* RFC3339DayTest.swift */; };
@@ -73,12 +75,13 @@
 		5DD343D0242522A000CD5AF7 /* SwiftyUserDefaults.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5DD343CE242522A000CD5AF7 /* SwiftyUserDefaults.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5DD343D2242522DA00CD5AF7 /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD343D1242522DA00CD5AF7 /* DefaultsKeys.swift */; };
 		5DD343D42425550400CD5AF7 /* KeychainAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD343D32425550400CD5AF7 /* KeychainAPI.swift */; };
-		5DD343E224259CA500CD5AF7 /* ImageTitleSubtitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD343DE24259CA500CD5AF7 /* ImageTitleSubtitleCell.swift */; };
+		5DD343E224259CA500CD5AF7 /* LLImageTitleSubtitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD343DE24259CA500CD5AF7 /* LLImageTitleSubtitleCell.swift */; };
 		5DD343E52425A3DE00CD5AF7 /* OverviewTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD343E42425A3DE00CD5AF7 /* OverviewTableHeaderView.swift */; };
 		5DD578C824533C6C00D79B0A /* ProjectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD578C724533C6C00D79B0A /* ProjectController.swift */; };
 		5DD578CA24533D7F00D79B0A /* ProjectHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD578C924533D7F00D79B0A /* ProjectHeaderView.swift */; };
 		5DE7F0CE242506B100AD9941 /* TodoistAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE7F0CD242506B100AD9941 /* TodoistAPI.swift */; };
 		5DE7F0D324250D3700AD9941 /* OverviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE7F0D224250D3700AD9941 /* OverviewController.swift */; };
+		5DF10D83247613BB00FED20E /* ProjectStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF10D82247613BB00FED20E /* ProjectStatsCell.swift */; };
 		5DFB592E242D0A32006E6165 /* LLLayerShadowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB5929242D0A32006E6165 /* LLLayerShadowManager.swift */; };
 		5DFB592F242D0A32006E6165 /* UIHDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB592A242D0A32006E6165 /* UIHDivider.swift */; };
 		5DFB5930242D0A32006E6165 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB592B242D0A32006E6165 /* UIFont.swift */; };
@@ -87,6 +90,13 @@
 		5DFB5938242D0CFE006E6165 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB5937242D0CFE006E6165 /* UIColor.swift */; };
 		5DFB593B242D9EFA006E6165 /* AddTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB593A242D9EFA006E6165 /* AddTaskController.swift */; };
 		5DFB593D242DAA97006E6165 /* LLDropdownController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB593C242DAA97006E6165 /* LLDropdownController.swift */; };
+		5DFC019B247D96300052EE93 /* PanModal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFC019A247D96300052EE93 /* PanModal.framework */; };
+		5DFC019C247D96300052EE93 /* PanModal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFC019A247D96300052EE93 /* PanModal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5DFC019E247D9C760052EE93 /* LLPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFC019D247D9C760052EE93 /* LLPickerController.swift */; };
+		5DFC01A0247DA0010052EE93 /* LLTitleSubtitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFC019F247DA0010052EE93 /* LLTitleSubtitleCell.swift */; };
+		5DFC01A7247EC4D30052EE93 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFC01A6247EC4D30052EE93 /* Date.swift */; };
+		5DFC01A924801F6C0052EE93 /* ProjectTogglCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFC01A824801F6C0052EE93 /* ProjectTogglCell.swift */; };
+		5DFC01AB24802F390052EE93 /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFC01AA24802F390052EE93 /* Optional.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +124,7 @@
 				5D63B615242AC73800F5F516 /* SwiftyJSON.framework in Embed Frameworks */,
 				5D4A0E922427DABD00FCF338 /* DateTools.framework in Embed Frameworks */,
 				5DA8817A24325CAE006B873F /* TokenUI.framework in Embed Frameworks */,
+				5DFC019C247D96300052EE93 /* PanModal.framework in Embed Frameworks */,
 				5D598A572424312A00FCFC16 /* Alamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -134,7 +145,7 @@
 		5D1F04682433ECFA00A8A524 /* TaskContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskContentView.swift; sourceTree = "<group>"; };
 		5D1F046C24363D6E00A8A524 /* TaskProjectPickerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskProjectPickerContentView.swift; sourceTree = "<group>"; };
 		5D1F046E243647D900A8A524 /* TaskPriorityPickerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPriorityPickerContentView.swift; sourceTree = "<group>"; };
-		5D1F047024364C2200A8A524 /* Priority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Priority.swift; sourceTree = "<group>"; };
+		5D1F047024364C2200A8A524 /* TodoistPriority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoistPriority.swift; sourceTree = "<group>"; };
 		5D2101BE243191A7005DD6BA /* TextInputSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputSheet.swift; sourceTree = "<group>"; };
 		5D2101C024319C7E005DD6BA /* UITextView_Placeholder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UITextView_Placeholder.framework; path = Carthage/Build/iOS/UITextView_Placeholder.framework; sourceTree = "<group>"; };
 		5D222A46242BF5260080BCD3 /* TodoistAPIObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoistAPIObjects.swift; sourceTree = "<group>"; };
@@ -149,7 +160,7 @@
 		5D49C4642428734800DC4D53 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		5D4A0E902427DABD00FCF338 /* DateTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DateTools.framework; path = Carthage/Build/iOS/DateTools.framework; sourceTree = "<group>"; };
 		5D4A0E94242868D300FCF338 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
-		5D4C4EEC242C107700496D02 /* TodoistSyncable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoistSyncable.swift; sourceTree = "<group>"; };
+		5D51BE34247D593D009D76E7 /* HoursLoggedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoursLoggedView.swift; sourceTree = "<group>"; };
 		5D598A0F2422EC9B00FCFC16 /* Liloc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Liloc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D598A122422EC9B00FCFC16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D598A142422EC9B00FCFC16 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -165,6 +176,8 @@
 		5D598A532424212100FCFC16 /* OnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingController.swift; sourceTree = "<group>"; };
 		5D598A552424312A00FCFC16 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		5D598A5E2424345300FCFC16 /* TogglSignInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogglSignInController.swift; sourceTree = "<group>"; };
+		5D5E156D24591ED400FADCAC /* TogglAPIObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogglAPIObjects.swift; sourceTree = "<group>"; };
+		5D5E156F24591F5000FADCAC /* TodoistSyncable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoistSyncable.swift; sourceTree = "<group>"; };
 		5D63B613242AC73800F5F516 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		5D8EC6922458EEDC00F5D125 /* RFC3339DayTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFC3339DayTest.swift; sourceTree = "<group>"; };
 		5D8EFE90242FFFEA0031B9F7 /* PillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillView.swift; sourceTree = "<group>"; };
@@ -183,12 +196,13 @@
 		5DD343CE242522A000CD5AF7 /* SwiftyUserDefaults.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyUserDefaults.framework; path = Carthage/Build/iOS/SwiftyUserDefaults.framework; sourceTree = "<group>"; };
 		5DD343D1242522DA00CD5AF7 /* DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
 		5DD343D32425550400CD5AF7 /* KeychainAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainAPI.swift; sourceTree = "<group>"; };
-		5DD343DE24259CA500CD5AF7 /* ImageTitleSubtitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTitleSubtitleCell.swift; sourceTree = "<group>"; };
+		5DD343DE24259CA500CD5AF7 /* LLImageTitleSubtitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLImageTitleSubtitleCell.swift; sourceTree = "<group>"; };
 		5DD343E42425A3DE00CD5AF7 /* OverviewTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewTableHeaderView.swift; sourceTree = "<group>"; };
 		5DD578C724533C6C00D79B0A /* ProjectController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectController.swift; sourceTree = "<group>"; };
 		5DD578C924533D7F00D79B0A /* ProjectHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectHeaderView.swift; sourceTree = "<group>"; };
 		5DE7F0CD242506B100AD9941 /* TodoistAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoistAPI.swift; sourceTree = "<group>"; };
 		5DE7F0D224250D3700AD9941 /* OverviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewController.swift; sourceTree = "<group>"; };
+		5DF10D82247613BB00FED20E /* ProjectStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectStatsCell.swift; sourceTree = "<group>"; };
 		5DFB5929242D0A32006E6165 /* LLLayerShadowManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLLayerShadowManager.swift; sourceTree = "<group>"; };
 		5DFB592A242D0A32006E6165 /* UIHDivider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIHDivider.swift; sourceTree = "<group>"; };
 		5DFB592B242D0A32006E6165 /* UIFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
@@ -197,6 +211,12 @@
 		5DFB5937242D0CFE006E6165 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		5DFB593A242D9EFA006E6165 /* AddTaskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskController.swift; sourceTree = "<group>"; };
 		5DFB593C242DAA97006E6165 /* LLDropdownController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLDropdownController.swift; sourceTree = "<group>"; };
+		5DFC019A247D96300052EE93 /* PanModal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PanModal.framework; path = Carthage/Build/iOS/PanModal.framework; sourceTree = "<group>"; };
+		5DFC019D247D9C760052EE93 /* LLPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLPickerController.swift; sourceTree = "<group>"; };
+		5DFC019F247DA0010052EE93 /* LLTitleSubtitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLTitleSubtitleCell.swift; sourceTree = "<group>"; };
+		5DFC01A6247EC4D30052EE93 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		5DFC01A824801F6C0052EE93 /* ProjectTogglCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTogglCell.swift; sourceTree = "<group>"; };
+		5DFC01AA24802F390052EE93 /* Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optional.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +232,7 @@
 				5D63B614242AC73800F5F516 /* SwiftyJSON.framework in Frameworks */,
 				5D4A0E912427DABD00FCF338 /* DateTools.framework in Frameworks */,
 				5DA8817924325CAE006B873F /* TokenUI.framework in Frameworks */,
+				5DFC019B247D96300052EE93 /* PanModal.framework in Frameworks */,
 				5D598A562424312A00FCFC16 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,9 +250,10 @@
 		5D222A48242BF52E0080BCD3 /* Todoist */ = {
 			isa = PBXGroup;
 			children = (
+				5D1F047024364C2200A8A524 /* TodoistPriority.swift */,
 				5DE7F0CD242506B100AD9941 /* TodoistAPI.swift */,
 				5D222A46242BF5260080BCD3 /* TodoistAPIObjects.swift */,
-				5D4C4EEC242C107700496D02 /* TodoistSyncable.swift */,
+				5D5E156F24591F5000FADCAC /* TodoistSyncable.swift */,
 			);
 			path = Todoist;
 			sourceTree = "<group>";
@@ -241,7 +263,6 @@
 			children = (
 				5D0A742D24265B9E00D5742C /* InboxController.swift */,
 				5D0A743124266B9900D5742C /* InboxHeaderView.swift */,
-				5D49C4642428734800DC4D53 /* TaskCell.swift */,
 				5D190A1F2428FC2200B63B1A /* SortOptionsView.swift */,
 			);
 			path = Inbox;
@@ -286,8 +307,10 @@
 				5D598A372423ECF200FCFC16 /* Onboarding */,
 				5D4A0E93242868BC00FCF338 /* Localization */,
 				5DA5867F24270AC10025F897 /* Settings Bundle */,
+				5D8174742481556D002836EE /* LL */,
 				5DFB5928242CF9F1006E6165 /* UI */,
 				5DA5868424270E1C0025F897 /* User Defaults */,
+				5DFC01A5247EC4C70052EE93 /* Extensions */,
 				5D598A1E2422EC9D00FCFC16 /* Assets.xcassets */,
 				5D598A202422EC9D00FCFC16 /* LaunchScreen.storyboard */,
 				5D598A232422EC9D00FCFC16 /* Info.plist */,
@@ -321,6 +344,7 @@
 		5D598A472424159400FCFC16 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5DFC019A247D96300052EE93 /* PanModal.framework */,
 				5DA8817824325CAE006B873F /* TokenUI.framework */,
 				5D2101C024319C7E005DD6BA /* UITextView_Placeholder.framework */,
 				5D63B613242AC73800F5F516 /* SwiftyJSON.framework */,
@@ -332,6 +356,31 @@
 				5D598A482424159400FCFC16 /* OAuthSwift.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5D5E156C24591EC600FADCAC /* Toggl */ = {
+			isa = PBXGroup;
+			children = (
+				5DD343CC24251C6000CD5AF7 /* TogglAPI.swift */,
+				5D5E156D24591ED400FADCAC /* TogglAPIObjects.swift */,
+			);
+			path = Toggl;
+			sourceTree = "<group>";
+		};
+		5D8174742481556D002836EE /* LL */ = {
+			isa = PBXGroup;
+			children = (
+				5DFB592C242D0A32006E6165 /* LLContainerController.swift */,
+				5DFB5929242D0A32006E6165 /* LLLayerShadowManager.swift */,
+				5DFB592D242D0A32006E6165 /* LLTableViewHeaderManager.swift */,
+				5DFB593C242DAA97006E6165 /* LLDropdownController.swift */,
+				5DA881932432965E006B873F /* LLTokenField.swift */,
+				5D93784924564588003EBCE0 /* LLNestedImageView.swift */,
+				5DFC019D247D9C760052EE93 /* LLPickerController.swift */,
+				5DD343DE24259CA500CD5AF7 /* LLImageTitleSubtitleCell.swift */,
+				5DFC019F247DA0010052EE93 /* LLTitleSubtitleCell.swift */,
+			);
+			path = LL;
 			sourceTree = "<group>";
 		};
 		5DA5867F24270AC10025F897 /* Settings Bundle */ = {
@@ -356,7 +405,7 @@
 			children = (
 				5DE7F0D824250EF500AD9941 /* CoreData */,
 				5D222A48242BF52E0080BCD3 /* Todoist */,
-				5DD343CC24251C6000CD5AF7 /* TogglAPI.swift */,
+				5D5E156C24591EC600FADCAC /* Toggl */,
 				5DD343D32425550400CD5AF7 /* KeychainAPI.swift */,
 			);
 			path = Model;
@@ -375,6 +424,9 @@
 			children = (
 				5DD578C724533C6C00D79B0A /* ProjectController.swift */,
 				5DD578C924533D7F00D79B0A /* ProjectHeaderView.swift */,
+				5DFC01A824801F6C0052EE93 /* ProjectTogglCell.swift */,
+				5DF10D82247613BB00FED20E /* ProjectStatsCell.swift */,
+				5D51BE34247D593D009D76E7 /* HoursLoggedView.swift */,
 				5D93784B2458D6EB003EBCE0 /* ProjectTableSectionHeaderView.swift */,
 			);
 			path = Project;
@@ -386,8 +438,8 @@
 				5D0A74282425AF7000D5742C /* OverviewRootController.swift */,
 				5DE7F0D224250D3700AD9941 /* OverviewController.swift */,
 				5DD343E42425A3DE00CD5AF7 /* OverviewTableHeaderView.swift */,
-				5DD343DE24259CA500CD5AF7 /* ImageTitleSubtitleCell.swift */,
 				5D8EFE90242FFFEA0031B9F7 /* PillView.swift */,
+				5D49C4642428734800DC4D53 /* TaskCell.swift */,
 				5D49C4632428732F00DC4D53 /* Inbox */,
 				5DD578C624533C5300D79B0A /* Project */,
 			);
@@ -401,7 +453,6 @@
 				5DA5867B2427015C0025F897 /* DueDate.swift */,
 				5DA5867D2427068B0025F897 /* RFC3339Day.swift */,
 				5D49C45D24286E8D00DC4D53 /* RFC3339Date.swift */,
-				5D1F047024364C2200A8A524 /* Priority.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -439,16 +490,8 @@
 		5DFB5928242CF9F1006E6165 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				5DFB592C242D0A32006E6165 /* LLContainerController.swift */,
-				5DFB5929242D0A32006E6165 /* LLLayerShadowManager.swift */,
-				5DFB592D242D0A32006E6165 /* LLTableViewHeaderManager.swift */,
-				5DFB593C242DAA97006E6165 /* LLDropdownController.swift */,
-				5DA881932432965E006B873F /* LLTokenField.swift */,
-				5D93784924564588003EBCE0 /* LLNestedImageView.swift */,
 				5DFB592A242D0A32006E6165 /* UIHDivider.swift */,
 				5D19F4C82430111D009F0A81 /* UIVDivider.swift */,
-				5DFB592B242D0A32006E6165 /* UIFont.swift */,
-				5DFB5937242D0CFE006E6165 /* UIColor.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -465,6 +508,17 @@
 				5DE9BAEF24421739009146A5 /* Concrete Content Views */,
 			);
 			path = "Add Task";
+			sourceTree = "<group>";
+		};
+		5DFC01A5247EC4C70052EE93 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5DFC01A6247EC4D30052EE93 /* Date.swift */,
+				5DFC01AA24802F390052EE93 /* Optional.swift */,
+				5DFB592B242D0A32006E6165 /* UIFont.swift */,
+				5DFB5937242D0CFE006E6165 /* UIColor.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -576,16 +630,20 @@
 				5D3FCC25243162580012ABC1 /* TaskInfoView.swift in Sources */,
 				5D598A5F2424345300FCFC16 /* TogglSignInController.swift in Sources */,
 				5D0D0CBD2438DC6F0004BA7D /* TaskLabelPickerContentView.swift in Sources */,
+				5DFC01A924801F6C0052EE93 /* ProjectTogglCell.swift in Sources */,
+				5DF10D83247613BB00FED20E /* ProjectStatsCell.swift in Sources */,
 				5DFB593B242D9EFA006E6165 /* AddTaskController.swift in Sources */,
 				5DFB5932242D0A32006E6165 /* LLTableViewHeaderManager.swift in Sources */,
 				5DFB593D242DAA97006E6165 /* LLDropdownController.swift in Sources */,
 				5D2DCAB12437F5E500F8BAC8 /* TaskImageTokenView.swift in Sources */,
 				5D49C4652428734800DC4D53 /* TaskCell.swift in Sources */,
 				5DD578C824533C6C00D79B0A /* ProjectController.swift in Sources */,
-				5D4C4EED242C107700496D02 /* TodoistSyncable.swift in Sources */,
 				5DD343D42425550400CD5AF7 /* KeychainAPI.swift in Sources */,
+				5DFC019E247D9C760052EE93 /* LLPickerController.swift in Sources */,
 				5D598A1D2422EC9B00FCFC16 /* Liloc.xcdatamodeld in Sources */,
+				5DFC01AB24802F390052EE93 /* Optional.swift in Sources */,
 				5D598A442423F89900FCFC16 /* ServiceSignInView.swift in Sources */,
+				5DFC01A7247EC4D30052EE93 /* Date.swift in Sources */,
 				5DD343E52425A3DE00CD5AF7 /* OverviewTableHeaderView.swift in Sources */,
 				5DFB592E242D0A32006E6165 /* LLLayerShadowManager.swift in Sources */,
 				5DD343CB2425163B00CD5AF7 /* RootViewController.swift in Sources */,
@@ -593,13 +651,14 @@
 				5DD578CA24533D7F00D79B0A /* ProjectHeaderView.swift in Sources */,
 				5D598A132422EC9B00FCFC16 /* AppDelegate.swift in Sources */,
 				5DA5867E2427068B0025F897 /* RFC3339Day.swift in Sources */,
-				5DD343E224259CA500CD5AF7 /* ImageTitleSubtitleCell.swift in Sources */,
+				5DD343E224259CA500CD5AF7 /* LLImageTitleSubtitleCell.swift in Sources */,
 				5DE7F0D324250D3700AD9941 /* OverviewController.swift in Sources */,
 				5DFB592F242D0A32006E6165 /* UIHDivider.swift in Sources */,
 				5D93784A24564588003EBCE0 /* LLNestedImageView.swift in Sources */,
 				5D8EFE91242FFFEA0031B9F7 /* PillView.swift in Sources */,
 				5D1F04692433ECFA00A8A524 /* TaskContentView.swift in Sources */,
 				5D19F4C92430111D009F0A81 /* UIVDivider.swift in Sources */,
+				5DFC01A0247DA0010052EE93 /* LLTitleSubtitleCell.swift in Sources */,
 				5D49C45E24286E8D00DC4D53 /* RFC3339Date.swift in Sources */,
 				5D598A412423EF5000FCFC16 /* OnboardingView.swift in Sources */,
 				5D598A542424212100FCFC16 /* OnboardingController.swift in Sources */,
@@ -621,12 +680,15 @@
 				5DFB5930242D0A32006E6165 /* UIFont.swift in Sources */,
 				5D0A743224266B9900D5742C /* InboxHeaderView.swift in Sources */,
 				5DE7F0CE242506B100AD9941 /* TodoistAPI.swift in Sources */,
-				5D1F047124364C2200A8A524 /* Priority.swift in Sources */,
+				5D1F047124364C2200A8A524 /* TodoistPriority.swift in Sources */,
 				5D2DCAAD2437ED4200F8BAC8 /* TaskPickerView.swift in Sources */,
 				5D190A202428FC2200B63B1A /* SortOptionsView.swift in Sources */,
+				5D5E156E24591ED400FADCAC /* TogglAPIObjects.swift in Sources */,
+				5D51BE35247D593D009D76E7 /* HoursLoggedView.swift in Sources */,
 				5DA881942432965E006B873F /* LLTokenField.swift in Sources */,
 				5DAE086824339D880048C253 /* TaskTextProcessor.swift in Sources */,
 				5D2101BF243191A7005DD6BA /* TextInputSheet.swift in Sources */,
+				5D5E157024591F5000FADCAC /* TodoistSyncable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

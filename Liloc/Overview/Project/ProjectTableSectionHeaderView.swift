@@ -22,8 +22,8 @@ class ProjectTableSectionHeaderView: UITableViewHeaderFooterView {
         label.font = .preferredFont(forTextStyle: .headline)
         contentView.addSubview(label)
         label.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.top.bottom.equalToSuperview().inset(4)
+            make.leading.equalToSuperview().inset(20).priority(999)
+            make.center.equalToSuperview()
         }
     }
 

@@ -13,7 +13,7 @@ class TaskPriorityPickerContentView: TaskPickerContentView {
 
     let imageTextView: TaskImageTextView
 
-    var didSelectPriority: ((Priority) -> Void)?
+    var didSelectPriority: ((TodoistPriority) -> Void)?
 
     init() {
         self.imageTextView = TaskImageTextView(
@@ -38,7 +38,7 @@ class TaskPriorityPickerContentView: TaskPickerContentView {
 
     func setUpSnapshot() {
         pickerView.setItems(
-            Priority.allCases.enumerated().map {
+            TodoistPriority.allCases.enumerated().map {
                 .init(priority: $0.element, sourceIndex: $0.offset)
             },
             animated: false)
@@ -73,7 +73,7 @@ extension TaskPriorityPickerContentView: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath) {
-        guard let priority = Priority(displayPriority: indexPath.row + 1) else {
+        guard let priority = TodoistPriority(displayPriority: indexPath.row + 1) else {
             os_log("Unable to construct priority from number: %d", indexPath.row + 1)
             return
         }
@@ -84,7 +84,7 @@ extension TaskPriorityPickerContentView: UICollectionViewDelegateFlowLayout {
 
 extension TaskPickerView.Item {
 
-    init(priority: Priority, sourceIndex: Int) {
+    init(priority: TodoistPriority, sourceIndex: Int) {
         self.init(
             highlighted: false,
             fillImage: UIImage(named: "FlagFill"),
