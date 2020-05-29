@@ -159,6 +159,8 @@ class ProjectController: UIViewController {
                 }
             }
 
+            cell.priority = TodoistPriority(rawValue: task.priority)
+
             return cell
         }
     }
@@ -414,6 +416,8 @@ extension ProjectController {
 
     private func setUpView() {
         view.backgroundColor = .systemBackground
+
+        view.tintColor = UIColor(todoistId: project.color).darken()
     }
 
     private func setUpHeaderView() {

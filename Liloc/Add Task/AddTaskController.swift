@@ -116,7 +116,7 @@ class AddTaskController: UIViewController {
             if let (priority, _) = priorityToken {
                 infoView.priorityView.imageTextView.textView.text = priority.longDescription
                 infoView.priorityView.imageTextView.strokeImageView.tintColor = priority.color
-                infoView.priorityView.imageTextView.fillImageView.tintColor = priority.color?.darken()
+                infoView.priorityView.imageTextView.fillImageView.tintColor = priority.color?.lighten()
             } else {
                 infoView.priorityView.imageTextView.textView.text = nil
                 infoView.priorityView.imageTextView.strokeImageView.tintColor = .systemGray

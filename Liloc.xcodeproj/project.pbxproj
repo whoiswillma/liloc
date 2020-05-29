@@ -198,7 +198,7 @@
 		5DD343D32425550400CD5AF7 /* KeychainAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainAPI.swift; sourceTree = "<group>"; };
 		5DD343DE24259CA500CD5AF7 /* LLImageTitleSubtitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLImageTitleSubtitleCell.swift; sourceTree = "<group>"; };
 		5DD343E42425A3DE00CD5AF7 /* OverviewTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewTableHeaderView.swift; sourceTree = "<group>"; };
-		5DD578C724533C6C00D79B0A /* ProjectController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectController.swift; sourceTree = "<group>"; };
+		5DD578C724533C6C00D79B0A /* ProjectController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		5DD578C924533D7F00D79B0A /* ProjectHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectHeaderView.swift; sourceTree = "<group>"; };
 		5DE7F0CD242506B100AD9941 /* TodoistAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoistAPI.swift; sourceTree = "<group>"; };
 		5DE7F0D224250D3700AD9941 /* OverviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewController.swift; sourceTree = "<group>"; };

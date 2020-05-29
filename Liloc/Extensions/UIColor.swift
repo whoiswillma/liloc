@@ -57,8 +57,12 @@ extension UIColor {
         return UIColor(hue: h, saturation: s, brightness: max(0, min(1, factor * b + constant)), alpha: a)
     }
 
-    func darken() -> UIColor {
+    func lighten() -> UIColor {
         adjustBrightness(constant: 0.15).adjustSaturation(constant: -0.15)
+    }
+
+    func darken() -> UIColor {
+        adjustBrightness(constant: -0.15)
     }
 
 }

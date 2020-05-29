@@ -33,6 +33,7 @@ class InboxController: UIViewController {
 
     private struct Item: Hashable {
         let task: TodoistTask
+        let priority: TodoistPriority
         let content: String
         let relativeDateAdded: String
     }
@@ -101,6 +102,8 @@ class InboxController: UIViewController {
             }
         }
 
+        cell.priority = item.priority
+
         return cell
     }
 
@@ -134,6 +137,7 @@ class InboxController: UIViewController {
         snapshot.appendItems(tasks.map {
             Item(
                 task: $0,
+                priority: TodoistPriority(rawValue: $0.priority) ?? .four,
                 content: $0.content ?? "",
                 relativeDateAdded: InboxController.dateAddedFormatter.string(for: $0.dateAdded) ?? "unknown") })
         dataSource.apply(snapshot, animatingDifferences: animated)

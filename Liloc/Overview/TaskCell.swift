@@ -10,6 +10,12 @@ import UIKit
 
 class TaskCell: UITableViewCell {
 
+    var priority: TodoistPriority! {
+        didSet {
+            completeButton.tintColor = priority.color
+        }
+    }
+
     private(set) var completeButton: UIButton!
     var isCompleted: Bool = false {
         didSet {
@@ -43,6 +49,7 @@ class TaskCell: UITableViewCell {
         completeButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
 
         contentLabel = UILabel()
+        contentLabel.numberOfLines = 0
 
         leftSubtitleLabel = UILabel()
         leftSubtitleLabel.font = .preferredFont(forTextStyle: .subheadline)
@@ -82,6 +89,8 @@ class TaskCell: UITableViewCell {
             make.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview().inset(8)
         }
+
+        priority = .four
     }
 
     required init?(coder: NSCoder) {
