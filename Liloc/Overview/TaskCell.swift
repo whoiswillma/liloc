@@ -31,6 +31,8 @@ class TaskCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
+        selectionStyle = .none
+
         completeButton = UIButton(type: .system)
         completeButton.setImage(UIImage(named: "Circle"), for: .normal)
         completeButton.addTarget(

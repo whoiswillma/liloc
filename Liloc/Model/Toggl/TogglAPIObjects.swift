@@ -22,3 +22,7 @@ struct TogglJSONProject: Decodable {
     let active: Bool
     let color: String
 }
+
+struct TogglJSONReport: Decodable {
+    let total_grand: Int64?
+}

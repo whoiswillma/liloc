@@ -8,16 +8,14 @@
 
 import os.log
 import Alamofire
+import Combine
 import Foundation
+import PromiseKit
 
 class TogglAPI {
 
     private struct TogglAPIResponse<T: Decodable>: Decodable {
         let data: T
-    }
-
-    private struct TogglReportsResponse: Decodable {
-        let total_grand: Int64?
     }
 
     private let username: String
@@ -36,8 +34,10 @@ class TogglAPI {
         return dateFormatter
     }()
 
-    private var apiToken: String?
-    private var workspaceId: Int64?
+    private let apiToken = CurrentValueSubject<String?, Never>(nil)
+    private let workspaceId = CurrentValueSubject<Int64?, Never>(nil)
+
+    private var cancellables: Set<AnyCancellable> = []
 
     init(dao: CoreDataDAO, username: String, password: String) {
         self.username = username
@@ -74,8 +74,8 @@ class TogglAPI {
                     let data = response.data
                     try self.syncProjects(data.projects)
 
-                    self.apiToken = data.api_token
-                    self.workspaceId = data.default_wid
+                    self.apiToken.send(data.api_token)
+                    self.workspaceId.send(data.default_wid)
 
                     completion(nil)
                 } catch {
@@ -108,16 +108,34 @@ class TogglAPI {
         try dao.saveContext()
     }
 
-    func syncReports(_ project: TogglProject, referenceDate: Date = Date(), _ completion: @escaping (Error?) -> Void) {
-        guard let workspaceId = workspaceId else {
-            os_log(.error, "Attempted to sync reports while workspaceId was missing")
-            return
-        }
+    func syncReports(_ project: TogglProject, referenceDate: Date, _ completion: @escaping (Error?) -> Void) {
+        self.apiToken.sink { apiToken in
+            guard let apiToken = apiToken else {
+                return
+            }
 
-        guard let apiToken = apiToken else {
-            os_log(.error, "Attempted to sync reports while apiToken was missing")
-            return
-        }
+            self.workspaceId.sink { workspaceId in
+                guard let workspaceId = workspaceId else {
+                    return
+                }
+
+                self.syncReports(
+                    project,
+                    referenceDate: referenceDate,
+                    apiToken: apiToken,
+                    workspaceId: workspaceId,
+                    completion: completion)
+
+            }.store(in: &self.cancellables)
+        }.store(in: &self.cancellables)
+    }
+
+    private func syncReports(
+        _ project: TogglProject,
+        referenceDate: Date,
+        apiToken: String,
+        workspaceId: Int64,
+        completion: @escaping (Error?) -> Void) {
 
         let day = iso8601DateFormatter.string(from: referenceDate)
         let parameters: Parameters = [
@@ -146,7 +164,7 @@ class TogglAPI {
 
                 do {
                     let response = try self.decoder.decode(
-                        TogglReportsResponse.self,
+                        TogglJSONReport.self,
                         from: data)
 
                     project.report?.referenceDate = referenceDate

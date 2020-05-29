@@ -13,32 +13,25 @@ import UIKit
 
 class ProjectController: UIViewController {
 
-    private enum Section: Hashable, Comparable {
+    private enum CellId: String {
+        case toggl
+        case stats
+        case task
+    }
 
-        static func < (
-            lhs: ProjectController.Section,
-            rhs: ProjectController.Section) -> Bool {
-
-            lhs.order < rhs.order
-        }
-
-        case timeTracking
+    private enum Section: Hashable {
+        case toggl
         case noDueDay
         case dueDay(RFC3339Day)
+    }
 
-        private var order: Int {
-            switch self {
-            case .timeTracking: return 0
-            case .noDueDay: return 1
-            case .dueDay: return 2
-            }
-        }
-
+    private struct Stats: Hashable {
+        let minutesToday: Int
     }
 
     private enum Item: Hashable {
-        case timeTrackingNotLinked
-        case timeTrackingLinked(togglProjectName: String, minutesToday: Int)
+        case togglProject(linkedProjectName: String?)
+        case timeTracking(Stats?)
         case task(task:TodoistTask, content: String, dueDate: String?)
     }
 
@@ -102,29 +95,47 @@ class ProjectController: UIViewController {
         item: Item
     ) -> UITableViewCell {
         switch item {
-        case let .timeTrackingLinked(togglProjectName, minutesToday):
+        case .togglProject(linkedProjectName: .none):
             let cell = tableView
-                .dequeueReusableCell(withIdentifier: "timeTracking", for: indexPath)
-                as! ProjectTimeTrackingCell
+                .dequeueReusableCell(withIdentifier: CellId.toggl.rawValue, for: indexPath)
+                as! ProjectTogglCell
 
-            cell.linkedTogglProjectView.delegate = self
-            cell.linkedTogglProjectView.textLabel.text = togglProjectName
+            cell.delegate = self
 
-            cell.hoursLoggedView.textLabel.text = "\(minutesToday)m\ntoday"
-            cell.hoursLoggedView.isDisabled = false
+            cell.projectLinkButton.setTitle("link project", for: .normal)
+            cell.entriesButton.isEnabled = false
 
             return cell
 
-        case .timeTrackingNotLinked:
+        case let .togglProject(linkedProjectName: .some(projectName)):
             let cell = tableView
-                .dequeueReusableCell(withIdentifier: "timeTracking", for: indexPath)
-                as! ProjectTimeTrackingCell
+                .dequeueReusableCell(withIdentifier: CellId.toggl.rawValue, for: indexPath)
+                as! ProjectTogglCell
 
-            cell.linkedTogglProjectView.delegate = self
-            cell.linkedTogglProjectView.textLabel.text = "Link Toggl"
+            cell.delegate = self
 
-            cell.hoursLoggedView.textLabel.text = "--m\ntoday"
+            cell.projectLinkButton.setTitle(projectName, for: .normal)
+            cell.entriesButton.isEnabled = true
+
+            return cell
+
+        case .timeTracking(.none):
+            let cell = tableView
+                .dequeueReusableCell(withIdentifier: CellId.stats.rawValue, for: indexPath)
+                as! ProjectStatsCell
+
+            cell.hoursLoggedView.textLabel.text = "--m"
             cell.hoursLoggedView.isDisabled = true
+
+            return cell
+
+        case let .timeTracking(.some(stats)):
+            let cell = tableView
+                .dequeueReusableCell(withIdentifier: CellId.stats.rawValue, for: indexPath)
+                as! ProjectStatsCell
+
+            cell.hoursLoggedView.textLabel.text = "\(stats.minutesToday)m"
+            cell.hoursLoggedView.isDisabled = false
 
             return cell
 
@@ -176,10 +187,20 @@ class ProjectController: UIViewController {
     }
 
     private func updateSnapshot(animated: Bool) {
-        let tasks = tasksFRC?.fetchedObjects ?? []
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
-        var sectionToItems: [Section: Set<Item>] = [:]
 
+        addTogglSection(&snapshot)
+        addTaskSections(&snapshot)
+
+        dataSource.apply(snapshot, animatingDifferences: animated)
+
+        headerView.subtitleLabel.text =
+            String.localizedStringWithFormat(
+                NSLocalizedString("numberOfTasks", comment: ""),
+                tasksFRC?.fetchedObjects?.count ?? 0)
+    }
+
+    private func addTogglSection(_ snapshot: inout NSDiffableDataSourceSnapshot<Section, Item>) {
         if let togglProject = project.togglProject {
 
             let minutesToday: Int
@@ -192,46 +213,46 @@ class ProjectController: UIViewController {
                 minutesToday = 0
             }
 
-            sectionToItems[.timeTracking] = [.timeTrackingLinked(
-                togglProjectName: togglProject.name ?? "unknown name",
-                minutesToday: minutesToday)]
+            let stats = Stats(minutesToday: minutesToday)
+            snapshot.appendSections([.toggl])
+            snapshot.appendItems([
+                .togglProject(linkedProjectName: togglProject.name ?? "unknown name"),
+                .timeTracking(stats)
+            ])
         } else {
-            sectionToItems[.timeTracking] = [.timeTrackingNotLinked]
+            snapshot.appendSections([.toggl])
+            snapshot.appendItems([
+                .togglProject(linkedProjectName: nil),
+                .timeTracking(nil)
+            ])
         }
+    }
 
+    private func addTaskSections(_ snapshot: inout NSDiffableDataSourceSnapshot<Section, Item>) {
+        let tasks = tasksFRC?.fetchedObjects ?? []
+
+        var dayToTasks: [RFC3339Day?: Set<TodoistTask>] = [:]
         for task in tasks {
-            let section: Section = task.dueDate?.rfcDay.map { .dueDay($0) } ?? .noDueDay
-            let item: Item = .task(
-                task: task,
-                content: task.content ?? "",
-                dueDate: task.dueDate?.string ?? "no due date")
-            sectionToItems[section, default: []].insert(item)
+            dayToTasks[task.dueDate?.rfcDay, default: []].insert(task)
         }
 
-        let sectionsAndItems = sectionToItems.sorted {
-            $0.key < $1.key
-        }.map { (key, value) -> (Section, [Item]) in
-            (key, value.sorted { lhs, rhs in
-                switch (lhs, rhs) {
-                case let (.task(_, lhsContent, _), .task(_, rhsContent, _)):
-                    return lhsContent < rhsContent
-                default:
-                    return true
-                }
+        let sortedDayToTasks: [(RFC3339Day?, [TodoistTask])] = dayToTasks.sorted {
+            $0.key?.date ?< $1.key?.date
+        }.map { (day, tasks) -> (RFC3339Day?, [TodoistTask]) in
+            (day, tasks.sorted { lhs, rhs in
+                lhs.content ?< rhs.content
             })
         }
 
-        for (section, items) in sectionsAndItems {
-            snapshot.appendSections([section])
-            snapshot.appendItems(items)
+        for (day, tasks) in sortedDayToTasks {
+            snapshot.appendSections([day.map(Section.dueDay) ?? .noDueDay])
+            snapshot.appendItems(tasks.map { task in
+                .task(
+                    task: task,
+                    content: task.content ?? "",
+                    dueDate: task.dueDate?.string ?? "no due date")
+            })
         }
-
-        dataSource.apply(snapshot, animatingDifferences: animated)
-
-        headerView.subtitleLabel.text =
-            String.localizedStringWithFormat(
-                NSLocalizedString("numberOfTasks", comment: ""),
-                tasksFRC?.fetchedObjects?.count ?? 0)
     }
 
 }
@@ -250,7 +271,7 @@ extension ProjectController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let section = dataSource.snapshot().sectionIdentifiers[section]
         switch section {
-        case .timeTracking:
+        case .toggl:
             return UIView()
 
         case .noDueDay:
@@ -306,9 +327,9 @@ extension ProjectController: UITableViewDelegate {
 
 }
 
-extension ProjectController: LinkedTogglProjectViewDelegate {
+extension ProjectController: ProjectTogglCellDelegate {
 
-    func didSelectLinkedTogglProjectView(_ view: LinkedTogglProjectView) {
+    func projectLinkButtonPressed(on cell: ProjectTogglCell) {
         let togglProjects = (try? dao.fetchAll(TogglProject.self)) ?? []
         let items = togglProjects.map { project in
             LLPickerController.Item(
@@ -323,6 +344,10 @@ extension ProjectController: LinkedTogglProjectViewDelegate {
             sectionToItems: [("", items)])
         picker.delegate = self
         present(picker, animated: true)
+    }
+
+    func entriesButtonPressed(on cell: ProjectTogglCell) {
+        fatalError()
     }
 
 }
@@ -414,9 +439,11 @@ extension ProjectController {
             cellProvider: cellProvider)
         dataSource.defaultRowAnimation = .fade
         tableView.delegate = self
-        tableView.register(TaskCell.self, forCellReuseIdentifier: "task")
-        tableView.register(ProjectTimeTrackingCell.self, forCellReuseIdentifier: "timeTracking")
+        tableView.register(TaskCell.self, forCellReuseIdentifier: CellId.task.rawValue)
+        tableView.register(ProjectStatsCell.self, forCellReuseIdentifier: CellId.stats.rawValue)
+        tableView.register(ProjectTogglCell.self, forCellReuseIdentifier: CellId.toggl.rawValue)
         tableView.register(ProjectTableSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
+        tableView.delaysContentTouches = false
         tableView.tableFooterView = UIView()
 
         view.insertSubview(tableView, belowSubview: headerView)

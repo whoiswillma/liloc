@@ -39,7 +39,6 @@
 		5D4A0E922427DABD00FCF338 /* DateTools.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5D4A0E902427DABD00FCF338 /* DateTools.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5D4A0E95242868D300FCF338 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 5D4A0E94242868D300FCF338 /* Localizable.stringsdict */; };
 		5D51BE35247D593D009D76E7 /* HoursLoggedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D51BE34247D593D009D76E7 /* HoursLoggedView.swift */; };
-		5D51BE37247D7182009D76E7 /* LinkedTogglProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D51BE36247D7182009D76E7 /* LinkedTogglProjectView.swift */; };
 		5D598A132422EC9B00FCFC16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D598A122422EC9B00FCFC16 /* AppDelegate.swift */; };
 		5D598A152422EC9B00FCFC16 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D598A142422EC9B00FCFC16 /* SceneDelegate.swift */; };
 		5D598A1D2422EC9B00FCFC16 /* Liloc.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5D598A1B2422EC9B00FCFC16 /* Liloc.xcdatamodeld */; };
@@ -82,7 +81,7 @@
 		5DD578CA24533D7F00D79B0A /* ProjectHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD578C924533D7F00D79B0A /* ProjectHeaderView.swift */; };
 		5DE7F0CE242506B100AD9941 /* TodoistAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE7F0CD242506B100AD9941 /* TodoistAPI.swift */; };
 		5DE7F0D324250D3700AD9941 /* OverviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE7F0D224250D3700AD9941 /* OverviewController.swift */; };
-		5DF10D83247613BB00FED20E /* ProjectTimeTrackingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF10D82247613BB00FED20E /* ProjectTimeTrackingCell.swift */; };
+		5DF10D83247613BB00FED20E /* ProjectStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF10D82247613BB00FED20E /* ProjectStatsCell.swift */; };
 		5DFB592E242D0A32006E6165 /* LLLayerShadowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB5929242D0A32006E6165 /* LLLayerShadowManager.swift */; };
 		5DFB592F242D0A32006E6165 /* UIHDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB592A242D0A32006E6165 /* UIHDivider.swift */; };
 		5DFB5930242D0A32006E6165 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB592B242D0A32006E6165 /* UIFont.swift */; };
@@ -96,6 +95,8 @@
 		5DFC019E247D9C760052EE93 /* LLPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFC019D247D9C760052EE93 /* LLPickerController.swift */; };
 		5DFC01A0247DA0010052EE93 /* LLTitleSubtitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFC019F247DA0010052EE93 /* LLTitleSubtitleCell.swift */; };
 		5DFC01A7247EC4D30052EE93 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFC01A6247EC4D30052EE93 /* Date.swift */; };
+		5DFC01A924801F6C0052EE93 /* ProjectTogglCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFC01A824801F6C0052EE93 /* ProjectTogglCell.swift */; };
+		5DFC01AB24802F390052EE93 /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFC01AA24802F390052EE93 /* Optional.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -160,7 +161,6 @@
 		5D4A0E902427DABD00FCF338 /* DateTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DateTools.framework; path = Carthage/Build/iOS/DateTools.framework; sourceTree = "<group>"; };
 		5D4A0E94242868D300FCF338 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		5D51BE34247D593D009D76E7 /* HoursLoggedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoursLoggedView.swift; sourceTree = "<group>"; };
-		5D51BE36247D7182009D76E7 /* LinkedTogglProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedTogglProjectView.swift; sourceTree = "<group>"; };
 		5D598A0F2422EC9B00FCFC16 /* Liloc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Liloc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D598A122422EC9B00FCFC16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D598A142422EC9B00FCFC16 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -202,7 +202,7 @@
 		5DD578C924533D7F00D79B0A /* ProjectHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectHeaderView.swift; sourceTree = "<group>"; };
 		5DE7F0CD242506B100AD9941 /* TodoistAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoistAPI.swift; sourceTree = "<group>"; };
 		5DE7F0D224250D3700AD9941 /* OverviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewController.swift; sourceTree = "<group>"; };
-		5DF10D82247613BB00FED20E /* ProjectTimeTrackingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTimeTrackingCell.swift; sourceTree = "<group>"; };
+		5DF10D82247613BB00FED20E /* ProjectStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectStatsCell.swift; sourceTree = "<group>"; };
 		5DFB5929242D0A32006E6165 /* LLLayerShadowManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLLayerShadowManager.swift; sourceTree = "<group>"; };
 		5DFB592A242D0A32006E6165 /* UIHDivider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIHDivider.swift; sourceTree = "<group>"; };
 		5DFB592B242D0A32006E6165 /* UIFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
@@ -214,8 +214,9 @@
 		5DFC019A247D96300052EE93 /* PanModal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PanModal.framework; path = Carthage/Build/iOS/PanModal.framework; sourceTree = "<group>"; };
 		5DFC019D247D9C760052EE93 /* LLPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLPickerController.swift; sourceTree = "<group>"; };
 		5DFC019F247DA0010052EE93 /* LLTitleSubtitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLTitleSubtitleCell.swift; sourceTree = "<group>"; };
-		5DFC01A3247EA5F20052EE93 /* TimeTrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTrackingView.swift; sourceTree = "<group>"; };
 		5DFC01A6247EC4D30052EE93 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		5DFC01A824801F6C0052EE93 /* ProjectTogglCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTogglCell.swift; sourceTree = "<group>"; };
+		5DFC01AA24802F390052EE93 /* Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optional.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,6 +307,7 @@
 				5D598A372423ECF200FCFC16 /* Onboarding */,
 				5D4A0E93242868BC00FCF338 /* Localization */,
 				5DA5867F24270AC10025F897 /* Settings Bundle */,
+				5D8174742481556D002836EE /* LL */,
 				5DFB5928242CF9F1006E6165 /* UI */,
 				5DA5868424270E1C0025F897 /* User Defaults */,
 				5DFC01A5247EC4C70052EE93 /* Extensions */,
@@ -365,6 +367,22 @@
 			path = Toggl;
 			sourceTree = "<group>";
 		};
+		5D8174742481556D002836EE /* LL */ = {
+			isa = PBXGroup;
+			children = (
+				5DFB592C242D0A32006E6165 /* LLContainerController.swift */,
+				5DFB5929242D0A32006E6165 /* LLLayerShadowManager.swift */,
+				5DFB592D242D0A32006E6165 /* LLTableViewHeaderManager.swift */,
+				5DFB593C242DAA97006E6165 /* LLDropdownController.swift */,
+				5DA881932432965E006B873F /* LLTokenField.swift */,
+				5D93784924564588003EBCE0 /* LLNestedImageView.swift */,
+				5DFC019D247D9C760052EE93 /* LLPickerController.swift */,
+				5DD343DE24259CA500CD5AF7 /* LLImageTitleSubtitleCell.swift */,
+				5DFC019F247DA0010052EE93 /* LLTitleSubtitleCell.swift */,
+			);
+			path = LL;
+			sourceTree = "<group>";
+		};
 		5DA5867F24270AC10025F897 /* Settings Bundle */ = {
 			isa = PBXGroup;
 			children = (
@@ -406,10 +424,9 @@
 			children = (
 				5DD578C724533C6C00D79B0A /* ProjectController.swift */,
 				5DD578C924533D7F00D79B0A /* ProjectHeaderView.swift */,
-				5DFC01A3247EA5F20052EE93 /* TimeTrackingView.swift */,
-				5DF10D82247613BB00FED20E /* ProjectTimeTrackingCell.swift */,
+				5DFC01A824801F6C0052EE93 /* ProjectTogglCell.swift */,
+				5DF10D82247613BB00FED20E /* ProjectStatsCell.swift */,
 				5D51BE34247D593D009D76E7 /* HoursLoggedView.swift */,
-				5D51BE36247D7182009D76E7 /* LinkedTogglProjectView.swift */,
 				5D93784B2458D6EB003EBCE0 /* ProjectTableSectionHeaderView.swift */,
 			);
 			path = Project;
@@ -473,19 +490,8 @@
 		5DFB5928242CF9F1006E6165 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				5DFB592C242D0A32006E6165 /* LLContainerController.swift */,
-				5DFB5929242D0A32006E6165 /* LLLayerShadowManager.swift */,
-				5DFB592D242D0A32006E6165 /* LLTableViewHeaderManager.swift */,
-				5DFB593C242DAA97006E6165 /* LLDropdownController.swift */,
-				5DA881932432965E006B873F /* LLTokenField.swift */,
-				5D93784924564588003EBCE0 /* LLNestedImageView.swift */,
-				5DFC019D247D9C760052EE93 /* LLPickerController.swift */,
-				5DD343DE24259CA500CD5AF7 /* LLImageTitleSubtitleCell.swift */,
-				5DFC019F247DA0010052EE93 /* LLTitleSubtitleCell.swift */,
 				5DFB592A242D0A32006E6165 /* UIHDivider.swift */,
 				5D19F4C82430111D009F0A81 /* UIVDivider.swift */,
-				5DFB592B242D0A32006E6165 /* UIFont.swift */,
-				5DFB5937242D0CFE006E6165 /* UIColor.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -508,6 +514,9 @@
 			isa = PBXGroup;
 			children = (
 				5DFC01A6247EC4D30052EE93 /* Date.swift */,
+				5DFC01AA24802F390052EE93 /* Optional.swift */,
+				5DFB592B242D0A32006E6165 /* UIFont.swift */,
+				5DFB5937242D0CFE006E6165 /* UIColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -621,7 +630,8 @@
 				5D3FCC25243162580012ABC1 /* TaskInfoView.swift in Sources */,
 				5D598A5F2424345300FCFC16 /* TogglSignInController.swift in Sources */,
 				5D0D0CBD2438DC6F0004BA7D /* TaskLabelPickerContentView.swift in Sources */,
-				5DF10D83247613BB00FED20E /* ProjectTimeTrackingCell.swift in Sources */,
+				5DFC01A924801F6C0052EE93 /* ProjectTogglCell.swift in Sources */,
+				5DF10D83247613BB00FED20E /* ProjectStatsCell.swift in Sources */,
 				5DFB593B242D9EFA006E6165 /* AddTaskController.swift in Sources */,
 				5DFB5932242D0A32006E6165 /* LLTableViewHeaderManager.swift in Sources */,
 				5DFB593D242DAA97006E6165 /* LLDropdownController.swift in Sources */,
@@ -631,6 +641,7 @@
 				5DD343D42425550400CD5AF7 /* KeychainAPI.swift in Sources */,
 				5DFC019E247D9C760052EE93 /* LLPickerController.swift in Sources */,
 				5D598A1D2422EC9B00FCFC16 /* Liloc.xcdatamodeld in Sources */,
+				5DFC01AB24802F390052EE93 /* Optional.swift in Sources */,
 				5D598A442423F89900FCFC16 /* ServiceSignInView.swift in Sources */,
 				5DFC01A7247EC4D30052EE93 /* Date.swift in Sources */,
 				5DD343E52425A3DE00CD5AF7 /* OverviewTableHeaderView.swift in Sources */,
@@ -676,7 +687,6 @@
 				5D51BE35247D593D009D76E7 /* HoursLoggedView.swift in Sources */,
 				5DA881942432965E006B873F /* LLTokenField.swift in Sources */,
 				5DAE086824339D880048C253 /* TaskTextProcessor.swift in Sources */,
-				5D51BE37247D7182009D76E7 /* LinkedTogglProjectView.swift in Sources */,
 				5D2101BF243191A7005DD6BA /* TextInputSheet.swift in Sources */,
 				5D5E157024591F5000FADCAC /* TodoistSyncable.swift in Sources */,
 			);
