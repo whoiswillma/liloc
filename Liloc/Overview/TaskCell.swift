@@ -49,6 +49,7 @@ class TaskCell: UITableViewCell {
         completeButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
 
         contentLabel = UILabel()
+        contentLabel.numberOfLines = 0
 
         leftSubtitleLabel = UILabel()
         leftSubtitleLabel.font = .preferredFont(forTextStyle: .subheadline)

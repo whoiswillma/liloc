@@ -65,7 +65,7 @@ extension OverviewRootController: UINavigationControllerDelegate {
 
         let duration = viewController.transitionCoordinator?.transitionDuration ?? 0
         if animated {
-            UIView.animate(withDuration: duration) {
+            UIView.animate(withDuration: duration / 2) {
                 self.updatePillViewTintColor()
             }
         }
