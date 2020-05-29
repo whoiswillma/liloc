@@ -59,6 +59,7 @@ extension TodoistJSONItem: TodoistSyncable {
         task.id = id
         task.content = content
         task.dateAdded = RFC3339Date(string: date_added)?.date
+        task.priority = priority ?? TodoistPriority.four.rawValue
 
         if let jsonDue = due {
             let dueDate = dao.fetchDueDate(of: task)

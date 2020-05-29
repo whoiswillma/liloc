@@ -10,6 +10,12 @@ import UIKit
 
 class TaskCell: UITableViewCell {
 
+    var priority: TodoistPriority! {
+        didSet {
+            completeButton.tintColor = priority.color
+        }
+    }
+
     private(set) var completeButton: UIButton!
     var isCompleted: Bool = false {
         didSet {
@@ -82,6 +88,8 @@ class TaskCell: UITableViewCell {
             make.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview().inset(8)
         }
+
+        priority = .four
     }
 
     required init?(coder: NSCoder) {

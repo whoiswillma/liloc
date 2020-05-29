@@ -46,6 +46,37 @@ class OverviewRootController: UIViewController {
 
     }
 
+    private func updatePillViewTintColor() {
+        guard let viewController = navigation.viewControllers.last else {
+            return
+        }
+
+        pillView.tintColor = viewController.view.tintColor
+    }
+
+}
+
+extension OverviewRootController: UINavigationControllerDelegate {
+
+    func navigationController(
+        _ navigationController: UINavigationController,
+        willShow viewController: UIViewController,
+        animated: Bool) {
+
+        let duration = viewController.transitionCoordinator?.transitionDuration ?? 0
+        if animated {
+            UIView.animate(withDuration: duration) {
+                self.updatePillViewTintColor()
+            }
+        }
+
+        viewController.transitionCoordinator?.animate(alongsideTransition: nil, completion: { context in
+            UIView.animate(withDuration: duration) {
+                self.updatePillViewTintColor()
+            }
+        })
+    }
+
 }
 
 extension OverviewRootController {
@@ -53,6 +84,7 @@ extension OverviewRootController {
     private func setUpNavigation() {
         navigation = UINavigationController(rootViewController:
             OverviewController(dao: dao, todoist: todoist, toggl: toggl))
+        navigation.delegate = self
 
         navigation.interactivePopGestureRecognizer?.delegate = nil
 
@@ -65,7 +97,7 @@ extension OverviewRootController {
     }
 
     private func setUpPillView() {
-        let pillView = PillView()
+        pillView = PillView()
 
         pillView.leftButton.setImage(UIImage(named: "Plus"), for: .normal)
         pillView.leftButton.setTitle("Add Task", for: .normal)

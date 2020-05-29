@@ -8,11 +8,23 @@
 
 import UIKit
 
-enum TodoistPriority: Int, CaseIterable {
+/// The priority of a task in Todoist
+///
+/// _Why are the raw values in reverse order of the case names?_
+/// The Todoist API represents the highest priority with the number (4), but
+/// the client represents it as "Priority 1".
+enum TodoistPriority: Int64, CaseIterable {
 
+    /// The highest priority
     case one = 4
+
+    /// The second-highest priority
     case two = 3
+
+    /// The third-highest priority
     case three = 2
+
+    /// The lowest priority
     case four = 1
 
     var displayPriority: Int {

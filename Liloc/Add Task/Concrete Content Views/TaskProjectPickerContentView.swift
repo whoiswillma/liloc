@@ -98,7 +98,7 @@ extension TaskPickerView.Item {
             fillImage: UIImage(named: "ProjectStroke"),
             fillTintColor: color,
             strokeImage: UIImage(named: "ProjectFill"),
-            strokeTintColor: color.darken(),
+            strokeTintColor: color.lighten(),
             title: project.name ?? "",
             sourceIndex: sourceIndex)
     }

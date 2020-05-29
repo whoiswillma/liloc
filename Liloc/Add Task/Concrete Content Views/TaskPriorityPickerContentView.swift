@@ -88,7 +88,7 @@ extension TaskPickerView.Item {
         self.init(
             highlighted: false,
             fillImage: UIImage(named: "FlagFill"),
-            fillTintColor: priority.color?.darken(),
+            fillTintColor: priority.color?.lighten(),
             strokeImage: UIImage(named: "FlagStroke"),
             strokeTintColor: priority.color,
             title: priority.shortDescription,

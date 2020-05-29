@@ -146,7 +146,7 @@ class OverviewController: UIViewController, ObservableObject {
             cell.strokeImageView.image = UIImage(named: "ProjectStroke")
             cell.strokeImageView.tintColor = UIColor(todoistId: color)
             cell.fillImageView.image = UIImage(named: "ProjectFill")
-            cell.fillImageView.tintColor = UIColor(todoistId: color).darken()
+            cell.fillImageView.tintColor = UIColor(todoistId: color).lighten()
 
             cell.accessoryType = .disclosureIndicator
 
