@@ -95,6 +95,7 @@ class TogglAPI {
 
             if project.report == nil {
                 project.report = dao.new(TogglProjectReport.self)
+                project.report?.id = UUID()
             }
 
             encountered.insert(project)

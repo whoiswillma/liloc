@@ -56,6 +56,10 @@
 		5D5E157024591F5000FADCAC /* TodoistSyncable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E156F24591F5000FADCAC /* TodoistSyncable.swift */; };
 		5D63B614242AC73800F5F516 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D63B613242AC73800F5F516 /* SwiftyJSON.framework */; };
 		5D63B615242AC73800F5F516 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5D63B613242AC73800F5F516 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5D81747D2481D880002836EE /* CRRefresh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D81747C2481D880002836EE /* CRRefresh.framework */; };
+		5D81747E2481D880002836EE /* CRRefresh.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5D81747C2481D880002836EE /* CRRefresh.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5D8174802482F27F002836EE /* ProjectHeaderAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D81747F2482F27F002836EE /* ProjectHeaderAnimator.swift */; };
+		5D81748324833AC4002836EE /* SingleFetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D81748224833AC4002836EE /* SingleFetchedResultsController.swift */; };
 		5D8EC6932458EEDC00F5D125 /* RFC3339DayTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8EC6922458EEDC00F5D125 /* RFC3339DayTest.swift */; };
 		5D8EFE91242FFFEA0031B9F7 /* PillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8EFE90242FFFEA0031B9F7 /* PillView.swift */; };
 		5D93784A24564588003EBCE0 /* LLNestedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D93784924564588003EBCE0 /* LLNestedImageView.swift */; };
@@ -123,6 +127,7 @@
 				5D598A4A2424159400FCFC16 /* OAuthSwift.framework in Embed Frameworks */,
 				5D63B615242AC73800F5F516 /* SwiftyJSON.framework in Embed Frameworks */,
 				5D4A0E922427DABD00FCF338 /* DateTools.framework in Embed Frameworks */,
+				5D81747E2481D880002836EE /* CRRefresh.framework in Embed Frameworks */,
 				5DA8817A24325CAE006B873F /* TokenUI.framework in Embed Frameworks */,
 				5DFC019C247D96300052EE93 /* PanModal.framework in Embed Frameworks */,
 				5D598A572424312A00FCFC16 /* Alamofire.framework in Embed Frameworks */,
@@ -179,6 +184,9 @@
 		5D5E156D24591ED400FADCAC /* TogglAPIObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogglAPIObjects.swift; sourceTree = "<group>"; };
 		5D5E156F24591F5000FADCAC /* TodoistSyncable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoistSyncable.swift; sourceTree = "<group>"; };
 		5D63B613242AC73800F5F516 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
+		5D81747C2481D880002836EE /* CRRefresh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CRRefresh.framework; path = Carthage/Build/iOS/CRRefresh.framework; sourceTree = "<group>"; };
+		5D81747F2482F27F002836EE /* ProjectHeaderAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectHeaderAnimator.swift; sourceTree = "<group>"; };
+		5D81748224833AC4002836EE /* SingleFetchedResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleFetchedResultsController.swift; sourceTree = "<group>"; };
 		5D8EC6922458EEDC00F5D125 /* RFC3339DayTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFC3339DayTest.swift; sourceTree = "<group>"; };
 		5D8EFE90242FFFEA0031B9F7 /* PillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillView.swift; sourceTree = "<group>"; };
 		5D93784924564588003EBCE0 /* LLNestedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLNestedImageView.swift; sourceTree = "<group>"; };
@@ -231,6 +239,7 @@
 				5D598A492424159400FCFC16 /* OAuthSwift.framework in Frameworks */,
 				5D63B614242AC73800F5F516 /* SwiftyJSON.framework in Frameworks */,
 				5D4A0E912427DABD00FCF338 /* DateTools.framework in Frameworks */,
+				5D81747D2481D880002836EE /* CRRefresh.framework in Frameworks */,
 				5DA8817924325CAE006B873F /* TokenUI.framework in Frameworks */,
 				5DFC019B247D96300052EE93 /* PanModal.framework in Frameworks */,
 				5D598A562424312A00FCFC16 /* Alamofire.framework in Frameworks */,
@@ -344,6 +353,7 @@
 		5D598A472424159400FCFC16 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5D81747C2481D880002836EE /* CRRefresh.framework */,
 				5DFC019A247D96300052EE93 /* PanModal.framework */,
 				5DA8817824325CAE006B873F /* TokenUI.framework */,
 				5D2101C024319C7E005DD6BA /* UITextView_Placeholder.framework */,
@@ -428,6 +438,7 @@
 				5DF10D82247613BB00FED20E /* ProjectStatsCell.swift */,
 				5D51BE34247D593D009D76E7 /* HoursLoggedView.swift */,
 				5D93784B2458D6EB003EBCE0 /* ProjectTableSectionHeaderView.swift */,
+				5D81747F2482F27F002836EE /* ProjectHeaderAnimator.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -453,6 +464,7 @@
 				5DA5867B2427015C0025F897 /* DueDate.swift */,
 				5DA5867D2427068B0025F897 /* RFC3339Day.swift */,
 				5D49C45D24286E8D00DC4D53 /* RFC3339Date.swift */,
+				5D81748224833AC4002836EE /* SingleFetchedResultsController.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -651,6 +663,7 @@
 				5DD578CA24533D7F00D79B0A /* ProjectHeaderView.swift in Sources */,
 				5D598A132422EC9B00FCFC16 /* AppDelegate.swift in Sources */,
 				5DA5867E2427068B0025F897 /* RFC3339Day.swift in Sources */,
+				5D81748324833AC4002836EE /* SingleFetchedResultsController.swift in Sources */,
 				5DD343E224259CA500CD5AF7 /* LLImageTitleSubtitleCell.swift in Sources */,
 				5DE7F0D324250D3700AD9941 /* OverviewController.swift in Sources */,
 				5DFB592F242D0A32006E6165 /* UIHDivider.swift in Sources */,
@@ -664,6 +677,7 @@
 				5D598A542424212100FCFC16 /* OnboardingController.swift in Sources */,
 				5DD343D2242522DA00CD5AF7 /* DefaultsKeys.swift in Sources */,
 				5D1F04672433ECF000A8A524 /* TaskPickerContentView.swift in Sources */,
+				5D8174802482F27F002836EE /* ProjectHeaderAnimator.swift in Sources */,
 				5D222A47242BF5260080BCD3 /* TodoistAPIObjects.swift in Sources */,
 				5D1F046F243647D900A8A524 /* TaskPriorityPickerContentView.swift in Sources */,
 				5D598A152422EC9B00FCFC16 /* SceneDelegate.swift in Sources */,
