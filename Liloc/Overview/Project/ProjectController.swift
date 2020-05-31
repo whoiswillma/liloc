@@ -9,6 +9,7 @@
 import os.log
 
 import CoreData
+import CRRefresh
 import UIKit
 
 class ProjectController: UIViewController {
@@ -32,7 +33,7 @@ class ProjectController: UIViewController {
     private enum Item: Hashable {
         case togglProject(linkedProjectName: String?)
         case timeTracking(Stats?)
-        case task(task:TodoistTask, content: String, dueDate: String?)
+        case task(task: TodoistTask, content: String, dueDate: String?)
     }
 
     private static let relativeDateFormatter: RelativeDateTimeFormatter = {
@@ -69,6 +70,7 @@ class ProjectController: UIViewController {
     }
 
     private var tasksFRC: NSFetchedResultsController<TodoistTask>?
+    private var projectReportFRC: NSFetchedResultsController<TogglProjectReport>?
 
     private var headerView: ProjectHeaderView!
 
@@ -77,16 +79,21 @@ class ProjectController: UIViewController {
 
     private let referenceDate = Date()
 
+    private var userTaskCompletionEnabled = true
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setUpTasksFRC()
+        setUpProjectReportFRC()
 
         setUpView()
         setUpHeaderView()
         setUpTableView()
 
         performFetch(animated: false)
+
+        refreshTogglProjectReport()
     }
 
     private func cellProvider(
@@ -149,6 +156,11 @@ class ProjectController: UIViewController {
 
             cell.isCompleted = false
             cell.didPressComplete = {
+                guard self.userTaskCompletionEnabled else {
+                    return
+                }
+                self.userTaskCompletionEnabled = false
+
                 cell.isCompleted = true
 
                 self.todoist.closeTask(id: task.id) { error in
@@ -168,17 +180,8 @@ class ProjectController: UIViewController {
     private func performFetch(animated: Bool) {
         updateSortDescriptors()
         try! tasksFRC?.performFetch()
+        try! projectReportFRC?.performFetch()
         updateSnapshot(animated: animated)
-
-        if let togglProject = project.togglProject {
-            toggl.syncReports(togglProject, referenceDate: referenceDate) { [weak self] error in
-                if let error = error {
-                    os_log(.error, "Error while syncing toggl report: %@", error.localizedDescription)
-                }
-
-                self?.updateSnapshot(animated: animated)
-            }
-        }
     }
 
     private func updateSortDescriptors() {
@@ -200,16 +203,17 @@ class ProjectController: UIViewController {
             String.localizedStringWithFormat(
                 NSLocalizedString("numberOfTasks", comment: ""),
                 tasksFRC?.fetchedObjects?.count ?? 0)
+
+        userTaskCompletionEnabled = true
     }
 
     private func addTogglSection(_ snapshot: inout NSDiffableDataSourceSnapshot<Section, Item>) {
-        if let togglProject = project.togglProject {
-
+        if let report = projectReportFRC?.fetchedObjects?.first {
             let minutesToday: Int
-            if let reportReference = togglProject.report?.referenceDate,
+            if let reportReference = report.referenceDate,
                 reportReference.sameDay(as: referenceDate) {
 
-                let milliseconds = Int(togglProject.report?.timeToday ?? 0)
+                let milliseconds = Int(report.timeToday)
                 minutesToday = milliseconds / 1000 / 60
             } else {
                 minutesToday = 0
@@ -218,7 +222,7 @@ class ProjectController: UIViewController {
             let stats = Stats(minutesToday: minutesToday)
             snapshot.appendSections([.toggl])
             snapshot.appendItems([
-                .togglProject(linkedProjectName: togglProject.name ?? "unknown name"),
+                .togglProject(linkedProjectName: report.project?.name ?? "unknown name"),
                 .timeTracking(stats)
             ])
         } else {
@@ -254,6 +258,32 @@ class ProjectController: UIViewController {
                     content: task.content ?? "",
                     dueDate: task.dueDate?.string ?? "no due date")
             })
+        }
+    }
+
+    private func refreshTogglProjectReport(_ completion: (() -> Void)? = nil) {
+        if let togglProject = project.togglProject {
+            toggl.syncReports(togglProject, referenceDate: referenceDate) { error in
+                if let error = error {
+                    debugPrint(error)
+                    fatalError()
+                }
+
+                completion?()
+            }
+        } else {
+            completion?()
+        }
+    }
+
+    private func refreshTodoistProject(_ completion: (() -> Void)? = nil) {
+        todoist.sync(full: false) { error in
+            if let error = error {
+                debugPrint(error)
+                fatalError()
+            }
+
+            completion?()
         }
     }
 
@@ -327,6 +357,12 @@ extension ProjectController: UITableViewDelegate {
         }
     }
 
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let cell = cell as? TaskCell {
+            cell.isCompleted = false
+        }
+    }
+
 }
 
 extension ProjectController: ProjectTogglCellDelegate {
@@ -394,10 +430,6 @@ extension ProjectController: LLPickerControllerDelegate {
 extension ProjectController {
 
     private func setUpTasksFRC() {
-        guard let dao = AppDelegate.shared.dao else {
-            return
-        }
-
         let request = TodoistTask.fetchRequest() as NSFetchRequest
         request.sortDescriptors = [
             NSSortDescriptor(keyPath: \TodoistTask.id, ascending: true)
@@ -408,10 +440,29 @@ extension ProjectController {
             fetchRequest: request,
             managedObjectContext: dao.moc,
             sectionNameKeyPath: nil,
-            cacheName: nil
-        )
+            cacheName: nil)
 
         tasksFRC?.delegate = self
+    }
+
+    private func setUpProjectReportFRC() {
+        // assumption: there's only one report object for each toggl project
+
+        let request = TogglProjectReport.fetchRequest() as NSFetchRequest
+        request.predicate = NSPredicate(format: "project.todoistProject.id == %@", NSNumber(value: project.id))
+
+        // this sort descriptor is pointless but we have to provide one anyways
+        request.sortDescriptors = [
+            NSSortDescriptor(keyPath: \TogglProjectReport.id, ascending: true)
+        ]
+
+        projectReportFRC = NSFetchedResultsController(
+            fetchRequest: request,
+            managedObjectContext: dao.moc,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+
+        projectReportFRC?.delegate = self
     }
 
     private func setUpView() {
@@ -454,6 +505,17 @@ extension ProjectController {
         tableView.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
+        }
+
+        let animator = ProjectHeaderAnimator()
+        tableView.cr.addHeadRefresh(animator: animator) { [weak self] in
+            animator.titleLabel.text = "Refreshing Todoist"
+            self?.refreshTodoistProject {
+                animator.titleLabel.text = "Refreshing Toggl"
+                self?.refreshTogglProjectReport {
+                    self?.tableView.cr.endHeaderRefresh()
+                }
+            }
         }
     }
 
