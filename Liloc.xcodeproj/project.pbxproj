@@ -59,6 +59,7 @@
 		5D81747D2481D880002836EE /* CRRefresh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D81747C2481D880002836EE /* CRRefresh.framework */; };
 		5D81747E2481D880002836EE /* CRRefresh.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5D81747C2481D880002836EE /* CRRefresh.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5D8174802482F27F002836EE /* ProjectHeaderAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D81747F2482F27F002836EE /* ProjectHeaderAnimator.swift */; };
+		5D81748324833AC4002836EE /* SingleFetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D81748224833AC4002836EE /* SingleFetchedResultsController.swift */; };
 		5D8EC6932458EEDC00F5D125 /* RFC3339DayTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8EC6922458EEDC00F5D125 /* RFC3339DayTest.swift */; };
 		5D8EFE91242FFFEA0031B9F7 /* PillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8EFE90242FFFEA0031B9F7 /* PillView.swift */; };
 		5D93784A24564588003EBCE0 /* LLNestedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D93784924564588003EBCE0 /* LLNestedImageView.swift */; };
@@ -185,6 +186,7 @@
 		5D63B613242AC73800F5F516 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		5D81747C2481D880002836EE /* CRRefresh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CRRefresh.framework; path = Carthage/Build/iOS/CRRefresh.framework; sourceTree = "<group>"; };
 		5D81747F2482F27F002836EE /* ProjectHeaderAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectHeaderAnimator.swift; sourceTree = "<group>"; };
+		5D81748224833AC4002836EE /* SingleFetchedResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleFetchedResultsController.swift; sourceTree = "<group>"; };
 		5D8EC6922458EEDC00F5D125 /* RFC3339DayTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFC3339DayTest.swift; sourceTree = "<group>"; };
 		5D8EFE90242FFFEA0031B9F7 /* PillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillView.swift; sourceTree = "<group>"; };
 		5D93784924564588003EBCE0 /* LLNestedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLNestedImageView.swift; sourceTree = "<group>"; };
@@ -462,6 +464,7 @@
 				5DA5867B2427015C0025F897 /* DueDate.swift */,
 				5DA5867D2427068B0025F897 /* RFC3339Day.swift */,
 				5D49C45D24286E8D00DC4D53 /* RFC3339Date.swift */,
+				5D81748224833AC4002836EE /* SingleFetchedResultsController.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -660,6 +663,7 @@
 				5DD578CA24533D7F00D79B0A /* ProjectHeaderView.swift in Sources */,
 				5D598A132422EC9B00FCFC16 /* AppDelegate.swift in Sources */,
 				5DA5867E2427068B0025F897 /* RFC3339Day.swift in Sources */,
+				5D81748324833AC4002836EE /* SingleFetchedResultsController.swift in Sources */,
 				5DD343E224259CA500CD5AF7 /* LLImageTitleSubtitleCell.swift in Sources */,
 				5DE7F0D324250D3700AD9941 /* OverviewController.swift in Sources */,
 				5DFB592F242D0A32006E6165 /* UIHDivider.swift in Sources */,

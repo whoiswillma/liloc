@@ -70,7 +70,7 @@ class ProjectController: UIViewController {
     }
 
     private var tasksFRC: NSFetchedResultsController<TodoistTask>?
-    private var projectReportFRC: NSFetchedResultsController<TogglProjectReport>?
+    private var projectSFRC: SingleFetchedResultController<TodoistProject>?
 
     private var headerView: ProjectHeaderView!
 
@@ -180,7 +180,6 @@ class ProjectController: UIViewController {
     private func performFetch(animated: Bool) {
         updateSortDescriptors()
         try! tasksFRC?.performFetch()
-        try! projectReportFRC?.performFetch()
         updateSnapshot(animated: animated)
     }
 
@@ -208,7 +207,7 @@ class ProjectController: UIViewController {
     }
 
     private func addTogglSection(_ snapshot: inout NSDiffableDataSourceSnapshot<Section, Item>) {
-        if let report = projectReportFRC?.fetchedObjects?.first {
+        if let report = project.togglProject?.report {
             let minutesToday: Int
             if let reportReference = report.referenceDate,
                 reportReference.sameDay(as: referenceDate) {
@@ -400,7 +399,6 @@ extension ProjectController: LLPickerControllerDelegate {
         let linkTogglProject = {
             self.project.togglProject = togglProject
             try! self.dao.saveContext()
-            self.updateSnapshot(animated: false)
 
             pickerController.dismiss(animated: true)
         }
@@ -448,21 +446,13 @@ extension ProjectController {
     private func setUpProjectReportFRC() {
         // assumption: there's only one report object for each toggl project
 
-        let request = TogglProjectReport.fetchRequest() as NSFetchRequest
-        request.predicate = NSPredicate(format: "project.todoistProject.id == %@", NSNumber(value: project.id))
+        let predicate = NSPredicate(format: "id == %@", NSNumber(value: project.id))
+        projectSFRC = SingleFetchedResultController(
+            predicate: predicate,
+            managedObjectContext: dao.moc) { [weak self] _, _  in
 
-        // this sort descriptor is pointless but we have to provide one anyways
-        request.sortDescriptors = [
-            NSSortDescriptor(keyPath: \TogglProjectReport.id, ascending: true)
-        ]
-
-        projectReportFRC = NSFetchedResultsController(
-            fetchRequest: request,
-            managedObjectContext: dao.moc,
-            sectionNameKeyPath: nil,
-            cacheName: nil)
-
-        projectReportFRC?.delegate = self
+                self?.updateSnapshot(animated: true)
+        }
     }
 
     private func setUpView() {
