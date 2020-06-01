@@ -86,6 +86,8 @@
 		5DE7F0CE242506B100AD9941 /* TodoistAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE7F0CD242506B100AD9941 /* TodoistAPI.swift */; };
 		5DE7F0D324250D3700AD9941 /* OverviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE7F0D224250D3700AD9941 /* OverviewController.swift */; };
 		5DF10D83247613BB00FED20E /* ProjectStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF10D82247613BB00FED20E /* ProjectStatsCell.swift */; };
+		5DFA9F6924840582003CB5F9 /* UIClosureBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFA9F6824840582003CB5F9 /* UIClosureBarButtonItem.swift */; };
+		5DFA9F6C2484182C003CB5F9 /* TimeTrackingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFA9F6B2484182C003CB5F9 /* TimeTrackingController.swift */; };
 		5DFB592E242D0A32006E6165 /* LLLayerShadowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB5929242D0A32006E6165 /* LLLayerShadowManager.swift */; };
 		5DFB592F242D0A32006E6165 /* UIHDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB592A242D0A32006E6165 /* UIHDivider.swift */; };
 		5DFB5930242D0A32006E6165 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB592B242D0A32006E6165 /* UIFont.swift */; };
@@ -211,6 +213,8 @@
 		5DE7F0CD242506B100AD9941 /* TodoistAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoistAPI.swift; sourceTree = "<group>"; };
 		5DE7F0D224250D3700AD9941 /* OverviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewController.swift; sourceTree = "<group>"; };
 		5DF10D82247613BB00FED20E /* ProjectStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectStatsCell.swift; sourceTree = "<group>"; };
+		5DFA9F6824840582003CB5F9 /* UIClosureBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIClosureBarButtonItem.swift; sourceTree = "<group>"; };
+		5DFA9F6B2484182C003CB5F9 /* TimeTrackingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTrackingController.swift; sourceTree = "<group>"; };
 		5DFB5929242D0A32006E6165 /* LLLayerShadowManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLLayerShadowManager.swift; sourceTree = "<group>"; };
 		5DFB592A242D0A32006E6165 /* UIHDivider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIHDivider.swift; sourceTree = "<group>"; };
 		5DFB592B242D0A32006E6165 /* UIFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
@@ -313,6 +317,7 @@
 				5DD343C72425161200CD5AF7 /* Root */,
 				5DFB5939242D9ECC006E6165 /* Add Task */,
 				5DE7F0D124250D0D00AD9941 /* Overview */,
+				5DFA9F6D248466DC003CB5F9 /* Focus */,
 				5D598A372423ECF200FCFC16 /* Onboarding */,
 				5D4A0E93242868BC00FCF338 /* Localization */,
 				5DA5867F24270AC10025F897 /* Settings Bundle */,
@@ -453,6 +458,7 @@
 				5D49C4642428734800DC4D53 /* TaskCell.swift */,
 				5D49C4632428732F00DC4D53 /* Inbox */,
 				5DD578C624533C5300D79B0A /* Project */,
+				5DFA9F6A248417F1003CB5F9 /* Time Tracking */,
 			);
 			path = Overview;
 			sourceTree = "<group>";
@@ -499,9 +505,25 @@
 			path = "Concrete Content Views";
 			sourceTree = "<group>";
 		};
+		5DFA9F6A248417F1003CB5F9 /* Time Tracking */ = {
+			isa = PBXGroup;
+			children = (
+				5DFA9F6B2484182C003CB5F9 /* TimeTrackingController.swift */,
+			);
+			path = "Time Tracking";
+			sourceTree = "<group>";
+		};
+		5DFA9F6D248466DC003CB5F9 /* Focus */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Focus;
+			sourceTree = "<group>";
+		};
 		5DFB5928242CF9F1006E6165 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				5DFA9F6824840582003CB5F9 /* UIClosureBarButtonItem.swift */,
 				5DFB592A242D0A32006E6165 /* UIHDivider.swift */,
 				5D19F4C82430111D009F0A81 /* UIVDivider.swift */,
 			);
@@ -658,6 +680,7 @@
 				5DFC01A7247EC4D30052EE93 /* Date.swift in Sources */,
 				5DD343E52425A3DE00CD5AF7 /* OverviewTableHeaderView.swift in Sources */,
 				5DFB592E242D0A32006E6165 /* LLLayerShadowManager.swift in Sources */,
+				5DFA9F6C2484182C003CB5F9 /* TimeTrackingController.swift in Sources */,
 				5DD343CB2425163B00CD5AF7 /* RootViewController.swift in Sources */,
 				5DA5867C2427015C0025F897 /* DueDate.swift in Sources */,
 				5DD578CA24533D7F00D79B0A /* ProjectHeaderView.swift in Sources */,
@@ -666,6 +689,7 @@
 				5D81748324833AC4002836EE /* SingleFetchedResultsController.swift in Sources */,
 				5DD343E224259CA500CD5AF7 /* LLImageTitleSubtitleCell.swift in Sources */,
 				5DE7F0D324250D3700AD9941 /* OverviewController.swift in Sources */,
+				5DFA9F6924840582003CB5F9 /* UIClosureBarButtonItem.swift in Sources */,
 				5DFB592F242D0A32006E6165 /* UIHDivider.swift in Sources */,
 				5D93784A24564588003EBCE0 /* LLNestedImageView.swift in Sources */,
 				5D8EFE91242FFFEA0031B9F7 /* PillView.swift in Sources */,

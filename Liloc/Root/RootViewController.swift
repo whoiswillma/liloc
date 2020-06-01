@@ -36,11 +36,7 @@ class RootController: LLContainerController<UIViewController> {
                     os_log(.error, "Error syncing with toggl: %@", error.localizedDescription)
                 }
             }
-//            child =
-//                DropdownController(
-//                    background: OverviewRootController(
-//                        dao: dao,
-//                        todoist: todoist))
+            
             child = OverviewRootController(dao: dao, todoist: todoist, toggl: toggl)
         } else {
             present(OnboardingNavigationController(), animated: true)

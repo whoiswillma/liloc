@@ -110,7 +110,6 @@ class ProjectController: UIViewController {
             cell.delegate = self
 
             cell.projectLinkButton.setTitle("link project", for: .normal)
-            cell.entriesButton.isEnabled = false
 
             return cell
 
@@ -122,7 +121,6 @@ class ProjectController: UIViewController {
             cell.delegate = self
 
             cell.projectLinkButton.setTitle(projectName, for: .normal)
-            cell.entriesButton.isEnabled = true
 
             return cell
 
@@ -286,6 +284,12 @@ class ProjectController: UIViewController {
         }
     }
 
+    @objc private func unlinkTogglProject() {
+        project.togglProject = nil
+
+        try! dao.saveContext()
+    }
+
 }
 
 extension ProjectController: NSFetchedResultsControllerDelegate {
@@ -379,6 +383,18 @@ extension ProjectController: ProjectTogglCellDelegate {
         let picker = LLPickerController(
             style: .init(title: "Choose Toggl Project", showImages: false, showSections: false),
             sectionToItems: [("", items)])
+
+        if project.togglProject != nil {
+            picker.barButtonItems = [
+                UIClosureBarButtonItem(
+                        title: "Unlink Toggl",
+                        style: .plain) { [weak picker] in
+                            self.project.togglProject = nil
+                            picker?.dismiss(animated: true)
+                }
+            ]
+        }
+
         picker.delegate = self
         present(picker, animated: true)
     }

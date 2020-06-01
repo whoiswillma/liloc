@@ -18,7 +18,6 @@ protocol ProjectTogglCellDelegate: AnyObject {
 class ProjectTogglCell: UITableViewCell {
 
     private(set) var projectLinkButton: UIButton!
-    private(set) var entriesButton: UIButton!
 
     weak var delegate: ProjectTogglCellDelegate?
 
@@ -33,34 +32,13 @@ class ProjectTogglCell: UITableViewCell {
         projectLinkButton.setTitle("link project", for: .normal)
         projectLinkButton.imageEdgeInsets = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 8)
         projectLinkButton.imageView?.contentMode = .scaleAspectFit
+        projectLinkButton.contentHorizontalAlignment = .leading
         projectLinkButton.addTarget(self, action: #selector(projectLinkButtonPressed(_:)), for: .touchUpInside)
-
-        entriesButton = UIButton(type: .system)
-        entriesButton.titleLabel?.font = .preferredFont(forTextStyle: .headline)
-        entriesButton.setImage(UIImage(systemName: "book"), for: .normal)
-        entriesButton.setTitle("view entries", for: .normal)
-        entriesButton.imageEdgeInsets = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 8)
-        entriesButton.imageView?.contentMode = .scaleAspectFit
-        entriesButton.addTarget(self, action: #selector(entriesButtonPressed(_:)), for: .touchUpInside)
 
         addSubview(projectLinkButton)
         projectLinkButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(20)
+            make.leading.trailing.equalToSuperview().inset(20)
             make.top.bottom.equalToSuperview().inset(4)
-        }
-
-        addSubview(entriesButton)
-        entriesButton.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(4)
-            make.trailing.equalToSuperview().inset(20)
-        }
-
-        let separator = UIVDivider()
-        addSubview(separator)
-        separator.snp.makeConstraints { make in
-            make.top.bottom.centerX.equalToSuperview()
-            make.leading.equalTo(projectLinkButton.snp.trailing)
-            make.trailing.equalTo(entriesButton.snp.leading)
         }
 
         // hide the separator

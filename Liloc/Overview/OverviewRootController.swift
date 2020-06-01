@@ -46,12 +46,11 @@ class OverviewRootController: UIViewController {
 
     }
 
-    private func updatePillViewTintColor() {
-        guard let viewController = navigation.viewControllers.last else {
-            return
-        }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
 
-        pillView.tintColor = viewController.view.tintColor
+        navigation.additionalSafeAreaInsets
+            = UIEdgeInsets(top: 0, left: 0, bottom: pillView.frame.height + 16, right: 0)
     }
 
 }
@@ -66,13 +65,13 @@ extension OverviewRootController: UINavigationControllerDelegate {
         let duration = viewController.transitionCoordinator?.transitionDuration ?? 0
         if animated {
             UIView.animate(withDuration: duration / 2) {
-                self.updatePillViewTintColor()
+                self.pillView.tintColor = viewController.view.tintColor
             }
         }
 
         viewController.transitionCoordinator?.animate(alongsideTransition: nil, completion: { context in
             UIView.animate(withDuration: duration) {
-                self.updatePillViewTintColor()
+                self.pillView.tintColor = self.navigation.viewControllers.last?.view.tintColor
             }
         })
     }

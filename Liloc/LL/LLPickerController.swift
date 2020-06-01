@@ -34,6 +34,14 @@ class LLPickerController: UIViewController {
 
     let style: Style
     let sectionToItems: [(String, [Item])]
+    var barButtonItems: [UIBarButtonItem] {
+        get { content.toolbarItems ?? [] }
+        set {
+            loadViewIfNeeded()
+            navigation.isToolbarHidden = newValue.isEmpty
+            content.toolbarItems = newValue
+        }
+    }
 
     private var navigation: UINavigationController!
     private var content: LLPickerContentController!
