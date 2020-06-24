@@ -26,3 +26,13 @@ struct TogglJSONProject: Decodable {
 struct TogglJSONReport: Decodable {
     let total_grand: Int64?
 }
+
+struct TogglJSONTimeEntry: Decodable {
+    let id: Int64
+    let wid: Int64?
+    let pid: Int64?
+    let start: String
+    let duration: Int64?
+    let description: String?
+    let tags: [String]?
+}

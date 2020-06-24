@@ -72,8 +72,11 @@
 		5DA8817924325CAE006B873F /* TokenUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DA8817824325CAE006B873F /* TokenUI.framework */; };
 		5DA8817A24325CAE006B873F /* TokenUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5DA8817824325CAE006B873F /* TokenUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5DA881942432965E006B873F /* LLTokenField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA881932432965E006B873F /* LLTokenField.swift */; };
+		5DAC86532496753800464C2C /* SkeletonView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DAC86522496753800464C2C /* SkeletonView.framework */; };
+		5DAC86542496753800464C2C /* SkeletonView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5DAC86522496753800464C2C /* SkeletonView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5DAC865624967BCC00464C2C /* TogglCurrentTimeEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAC865524967BCC00464C2C /* TogglCurrentTimeEntry.swift */; };
 		5DAE086824339D880048C253 /* TaskTextProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAE086724339D880048C253 /* TaskTextProcessor.swift */; };
-		5DD343CB2425163B00CD5AF7 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD343CA2425163B00CD5AF7 /* RootViewController.swift */; };
+		5DD343CB2425163B00CD5AF7 /* RootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD343CA2425163B00CD5AF7 /* RootController.swift */; };
 		5DD343CD24251C6000CD5AF7 /* TogglAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD343CC24251C6000CD5AF7 /* TogglAPI.swift */; };
 		5DD343CF242522A000CD5AF7 /* SwiftyUserDefaults.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DD343CE242522A000CD5AF7 /* SwiftyUserDefaults.framework */; };
 		5DD343D0242522A000CD5AF7 /* SwiftyUserDefaults.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5DD343CE242522A000CD5AF7 /* SwiftyUserDefaults.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -83,11 +86,13 @@
 		5DD343E52425A3DE00CD5AF7 /* OverviewTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD343E42425A3DE00CD5AF7 /* OverviewTableHeaderView.swift */; };
 		5DD578C824533C6C00D79B0A /* ProjectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD578C724533C6C00D79B0A /* ProjectController.swift */; };
 		5DD578CA24533D7F00D79B0A /* ProjectHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD578C924533D7F00D79B0A /* ProjectHeaderView.swift */; };
+		5DE4E8A024A2A27F00586E5B /* Secret.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5DE4E89F24A2A27F00586E5B /* Secret.plist */; };
+		5DE4E8A224A2A2E000586E5B /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE4E8A124A2A2E000586E5B /* Secret.swift */; };
+		5DE4E8A424A2A65700586E5B /* Cached.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE4E8A324A2A65700586E5B /* Cached.swift */; };
 		5DE7F0CE242506B100AD9941 /* TodoistAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE7F0CD242506B100AD9941 /* TodoistAPI.swift */; };
 		5DE7F0D324250D3700AD9941 /* OverviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE7F0D224250D3700AD9941 /* OverviewController.swift */; };
 		5DF10D83247613BB00FED20E /* ProjectStatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF10D82247613BB00FED20E /* ProjectStatsCell.swift */; };
 		5DFA9F6924840582003CB5F9 /* UIClosureBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFA9F6824840582003CB5F9 /* UIClosureBarButtonItem.swift */; };
-		5DFA9F6C2484182C003CB5F9 /* TimeTrackingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFA9F6B2484182C003CB5F9 /* TimeTrackingController.swift */; };
 		5DFB592E242D0A32006E6165 /* LLLayerShadowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB5929242D0A32006E6165 /* LLLayerShadowManager.swift */; };
 		5DFB592F242D0A32006E6165 /* UIHDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB592A242D0A32006E6165 /* UIHDivider.swift */; };
 		5DFB5930242D0A32006E6165 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB592B242D0A32006E6165 /* UIFont.swift */; };
@@ -124,6 +129,7 @@
 			files = (
 				5D2101C224319C7E005DD6BA /* UITextView_Placeholder.framework in Embed Frameworks */,
 				5D0A742C24265A3000D5742C /* Hero.framework in Embed Frameworks */,
+				5DAC86542496753800464C2C /* SkeletonView.framework in Embed Frameworks */,
 				5D41B8A424245E40009FEABB /* SnapKit.framework in Embed Frameworks */,
 				5DD343D0242522A000CD5AF7 /* SwiftyUserDefaults.framework in Embed Frameworks */,
 				5D598A4A2424159400FCFC16 /* OAuthSwift.framework in Embed Frameworks */,
@@ -200,8 +206,10 @@
 		5DA5868224270DA90025F897 /* SettingsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundle.swift; sourceTree = "<group>"; };
 		5DA8817824325CAE006B873F /* TokenUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TokenUI.framework; path = Carthage/Build/iOS/TokenUI.framework; sourceTree = "<group>"; };
 		5DA881932432965E006B873F /* LLTokenField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLTokenField.swift; sourceTree = "<group>"; };
+		5DAC86522496753800464C2C /* SkeletonView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkeletonView.framework; path = Carthage/Build/iOS/SkeletonView.framework; sourceTree = "<group>"; };
+		5DAC865524967BCC00464C2C /* TogglCurrentTimeEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogglCurrentTimeEntry.swift; sourceTree = "<group>"; };
 		5DAE086724339D880048C253 /* TaskTextProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTextProcessor.swift; sourceTree = "<group>"; };
-		5DD343CA2425163B00CD5AF7 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		5DD343CA2425163B00CD5AF7 /* RootController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootController.swift; sourceTree = "<group>"; };
 		5DD343CC24251C6000CD5AF7 /* TogglAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogglAPI.swift; sourceTree = "<group>"; };
 		5DD343CE242522A000CD5AF7 /* SwiftyUserDefaults.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyUserDefaults.framework; path = Carthage/Build/iOS/SwiftyUserDefaults.framework; sourceTree = "<group>"; };
 		5DD343D1242522DA00CD5AF7 /* DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
@@ -210,11 +218,13 @@
 		5DD343E42425A3DE00CD5AF7 /* OverviewTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewTableHeaderView.swift; sourceTree = "<group>"; };
 		5DD578C724533C6C00D79B0A /* ProjectController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		5DD578C924533D7F00D79B0A /* ProjectHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectHeaderView.swift; sourceTree = "<group>"; };
+		5DE4E89F24A2A27F00586E5B /* Secret.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Secret.plist; sourceTree = "<group>"; };
+		5DE4E8A124A2A2E000586E5B /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
+		5DE4E8A324A2A65700586E5B /* Cached.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cached.swift; sourceTree = "<group>"; };
 		5DE7F0CD242506B100AD9941 /* TodoistAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoistAPI.swift; sourceTree = "<group>"; };
 		5DE7F0D224250D3700AD9941 /* OverviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewController.swift; sourceTree = "<group>"; };
 		5DF10D82247613BB00FED20E /* ProjectStatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectStatsCell.swift; sourceTree = "<group>"; };
 		5DFA9F6824840582003CB5F9 /* UIClosureBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIClosureBarButtonItem.swift; sourceTree = "<group>"; };
-		5DFA9F6B2484182C003CB5F9 /* TimeTrackingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTrackingController.swift; sourceTree = "<group>"; };
 		5DFB5929242D0A32006E6165 /* LLLayerShadowManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLLayerShadowManager.swift; sourceTree = "<group>"; };
 		5DFB592A242D0A32006E6165 /* UIHDivider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIHDivider.swift; sourceTree = "<group>"; };
 		5DFB592B242D0A32006E6165 /* UIFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
@@ -238,6 +248,7 @@
 			files = (
 				5D2101C124319C7E005DD6BA /* UITextView_Placeholder.framework in Frameworks */,
 				5D0A742B24265A3000D5742C /* Hero.framework in Frameworks */,
+				5DAC86532496753800464C2C /* SkeletonView.framework in Frameworks */,
 				5D41B8A324245E40009FEABB /* SnapKit.framework in Frameworks */,
 				5DD343CF242522A000CD5AF7 /* SwiftyUserDefaults.framework in Frameworks */,
 				5D598A492424159400FCFC16 /* OAuthSwift.framework in Frameworks */,
@@ -325,6 +336,7 @@
 				5DFB5928242CF9F1006E6165 /* UI */,
 				5DA5868424270E1C0025F897 /* User Defaults */,
 				5DFC01A5247EC4C70052EE93 /* Extensions */,
+				5DE4E89E24A2A25800586E5B /* Secret */,
 				5D598A1E2422EC9D00FCFC16 /* Assets.xcassets */,
 				5D598A202422EC9D00FCFC16 /* LaunchScreen.storyboard */,
 				5D598A232422EC9D00FCFC16 /* Info.plist */,
@@ -358,6 +370,7 @@
 		5D598A472424159400FCFC16 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5DAC86522496753800464C2C /* SkeletonView.framework */,
 				5D81747C2481D880002836EE /* CRRefresh.framework */,
 				5DFC019A247D96300052EE93 /* PanModal.framework */,
 				5DA8817824325CAE006B873F /* TokenUI.framework */,
@@ -378,6 +391,7 @@
 			children = (
 				5DD343CC24251C6000CD5AF7 /* TogglAPI.swift */,
 				5D5E156D24591ED400FADCAC /* TogglAPIObjects.swift */,
+				5DAC865524967BCC00464C2C /* TogglCurrentTimeEntry.swift */,
 			);
 			path = Toggl;
 			sourceTree = "<group>";
@@ -422,6 +436,7 @@
 				5D222A48242BF52E0080BCD3 /* Todoist */,
 				5D5E156C24591EC600FADCAC /* Toggl */,
 				5DD343D32425550400CD5AF7 /* KeychainAPI.swift */,
+				5DE4E8A324A2A65700586E5B /* Cached.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -429,7 +444,7 @@
 		5DD343C72425161200CD5AF7 /* Root */ = {
 			isa = PBXGroup;
 			children = (
-				5DD343CA2425163B00CD5AF7 /* RootViewController.swift */,
+				5DD343CA2425163B00CD5AF7 /* RootController.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -448,6 +463,15 @@
 			path = Project;
 			sourceTree = "<group>";
 		};
+		5DE4E89E24A2A25800586E5B /* Secret */ = {
+			isa = PBXGroup;
+			children = (
+				5DE4E89F24A2A27F00586E5B /* Secret.plist */,
+				5DE4E8A124A2A2E000586E5B /* Secret.swift */,
+			);
+			path = Secret;
+			sourceTree = "<group>";
+		};
 		5DE7F0D124250D0D00AD9941 /* Overview */ = {
 			isa = PBXGroup;
 			children = (
@@ -458,7 +482,6 @@
 				5D49C4642428734800DC4D53 /* TaskCell.swift */,
 				5D49C4632428732F00DC4D53 /* Inbox */,
 				5DD578C624533C5300D79B0A /* Project */,
-				5DFA9F6A248417F1003CB5F9 /* Time Tracking */,
 			);
 			path = Overview;
 			sourceTree = "<group>";
@@ -503,14 +526,6 @@
 				5D0D0CBC2438DC6F0004BA7D /* TaskLabelPickerContentView.swift */,
 			);
 			path = "Concrete Content Views";
-			sourceTree = "<group>";
-		};
-		5DFA9F6A248417F1003CB5F9 /* Time Tracking */ = {
-			isa = PBXGroup;
-			children = (
-				5DFA9F6B2484182C003CB5F9 /* TimeTrackingController.swift */,
-			);
-			path = "Time Tracking";
 			sourceTree = "<group>";
 		};
 		5DFA9F6D248466DC003CB5F9 /* Focus */ = {
@@ -640,6 +655,7 @@
 			files = (
 				5D598A222422EC9D00FCFC16 /* LaunchScreen.storyboard in Resources */,
 				5D4A0E95242868D300FCF338 /* Localizable.stringsdict in Resources */,
+				5DE4E8A024A2A27F00586E5B /* Secret.plist in Resources */,
 				5DA5868124270ACF0025F897 /* Settings.bundle in Resources */,
 				5D598A1F2422EC9D00FCFC16 /* Assets.xcassets in Resources */,
 			);
@@ -680,8 +696,7 @@
 				5DFC01A7247EC4D30052EE93 /* Date.swift in Sources */,
 				5DD343E52425A3DE00CD5AF7 /* OverviewTableHeaderView.swift in Sources */,
 				5DFB592E242D0A32006E6165 /* LLLayerShadowManager.swift in Sources */,
-				5DFA9F6C2484182C003CB5F9 /* TimeTrackingController.swift in Sources */,
-				5DD343CB2425163B00CD5AF7 /* RootViewController.swift in Sources */,
+				5DD343CB2425163B00CD5AF7 /* RootController.swift in Sources */,
 				5DA5867C2427015C0025F897 /* DueDate.swift in Sources */,
 				5DD578CA24533D7F00D79B0A /* ProjectHeaderView.swift in Sources */,
 				5D598A132422EC9B00FCFC16 /* AppDelegate.swift in Sources */,
@@ -697,12 +712,15 @@
 				5D19F4C92430111D009F0A81 /* UIVDivider.swift in Sources */,
 				5DFC01A0247DA0010052EE93 /* LLTitleSubtitleCell.swift in Sources */,
 				5D49C45E24286E8D00DC4D53 /* RFC3339Date.swift in Sources */,
+				5DE4E8A224A2A2E000586E5B /* Secret.swift in Sources */,
 				5D598A412423EF5000FCFC16 /* OnboardingView.swift in Sources */,
 				5D598A542424212100FCFC16 /* OnboardingController.swift in Sources */,
 				5DD343D2242522DA00CD5AF7 /* DefaultsKeys.swift in Sources */,
 				5D1F04672433ECF000A8A524 /* TaskPickerContentView.swift in Sources */,
 				5D8174802482F27F002836EE /* ProjectHeaderAnimator.swift in Sources */,
+				5DE4E8A424A2A65700586E5B /* Cached.swift in Sources */,
 				5D222A47242BF5260080BCD3 /* TodoistAPIObjects.swift in Sources */,
+				5DAC865624967BCC00464C2C /* TogglCurrentTimeEntry.swift in Sources */,
 				5D1F046F243647D900A8A524 /* TaskPriorityPickerContentView.swift in Sources */,
 				5D598A152422EC9B00FCFC16 /* SceneDelegate.swift in Sources */,
 				5D0A742E24265B9E00D5742C /* InboxController.swift in Sources */,

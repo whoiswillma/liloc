@@ -89,3 +89,14 @@ extension CoreDataDAO {
     }
 
 }
+// MARK: - Toggl
+
+extension CoreDataDAO {
+
+    func fetchTogglTag(_ value: String) throws -> TogglTag {
+        let request = TogglTag.fetchRequest() as NSFetchRequest
+        request.predicate = NSPredicate(format: "value == %@", value)
+        return try moc.fetch(request).first ?? TogglTag(context: moc)
+    }
+
+}

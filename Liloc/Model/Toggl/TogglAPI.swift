@@ -10,7 +10,11 @@ import os.log
 import Alamofire
 import Combine
 import Foundation
-import PromiseKit
+
+enum TogglError: Error {
+    case projectNotFound(pid: Int64)
+    case invalidDateFormat(receivedString: String)
+}
 
 class TogglAPI {
 
@@ -27,9 +31,17 @@ class TogglAPI {
     private let decoder = JSONDecoder()
 
     /// YYYY-MM-DD
-    private let iso8601DateFormatter: ISO8601DateFormatter = {
+    private let dayIso8601DateFormatter: ISO8601DateFormatter = {
         let dateFormatter = ISO8601DateFormatter()
         dateFormatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
+        dateFormatter.timeZone = .current
+        return dateFormatter
+    }()
+
+    /// YYYY-MM-DDTHH:MM:SS+TT:TT
+    private let rfc3339DateFormatter: ISO8601DateFormatter = {
+        let dateFormatter = ISO8601DateFormatter()
+        dateFormatter.formatOptions = [.withInternetDateTime]
         dateFormatter.timeZone = .current
         return dateFormatter
     }()
@@ -38,6 +50,8 @@ class TogglAPI {
     private let workspaceId = CurrentValueSubject<Int64?, Never>(nil)
 
     private var cancellables: Set<AnyCancellable> = []
+
+    @Cached<TogglCurrentTimeEntry>(timeToLive: 15) private var currentTimeEntry
 
     init(dao: CoreDataDAO, username: String, password: String) {
         self.username = username
@@ -109,7 +123,11 @@ class TogglAPI {
         try dao.saveContext()
     }
 
-    func syncReports(_ project: TogglProject, referenceDate: Date, _ completion: @escaping (Error?) -> Void) {
+    func syncReports(
+        _ project: TogglProject,
+        referenceDate: Date,
+        _ completion: @escaping (Error?) -> Void) {
+
         self.apiToken.sink { apiToken in
             guard let apiToken = apiToken else {
                 return
@@ -138,7 +156,7 @@ class TogglAPI {
         workspaceId: Int64,
         completion: @escaping (Error?) -> Void) {
 
-        let day = iso8601DateFormatter.string(from: referenceDate)
+        let day = dayIso8601DateFormatter.string(from: referenceDate)
         let parameters: Parameters = [
             "user_agent": "liloc (dot) app (at) gmail (dot) com",
             "workspace_id": workspaceId,
@@ -176,6 +194,74 @@ class TogglAPI {
                     completion(nil)
                 } catch {
                     completion(error)
+                }
+        }
+    }
+
+    func getCurrentTimeEntry(_ callback: @escaping (Result<TogglCurrentTimeEntry?, Error>) -> Void) {
+        self.apiToken.sink { apiToken in
+            guard let apiToken = apiToken else {
+                return
+            }
+
+            self.getCurrentTimeEntry(apiToken: apiToken, callback)
+        }.store(in: &self.cancellables)
+    }
+
+    private func getCurrentTimeEntry(
+        apiToken: String,
+        forceNoCache: Bool = false,
+        _ callback: @escaping (Result<TogglCurrentTimeEntry?, Error>) -> Void) {
+
+        if !forceNoCache, let currentTimeEntry = currentTimeEntry {
+            callback(.success(currentTimeEntry))
+            return
+        }
+
+        let credentials = "\(apiToken):api_token".data(using: .utf8)
+        let base64Credentials = credentials?.base64EncodedString() ?? ""
+        let headers: HTTPHeaders = [
+            "Authorization": "Basic \(base64Credentials)"
+        ]
+
+        AF.request(
+            "https://www.toggl.com/api/v8/time_entries/current",
+            headers: headers).response { response in
+
+                switch response.result {
+                case let .success(.some(data)):
+                    do {
+                        let response = try self.decoder.decode(
+                            TogglAPIResponse<TogglJSONTimeEntry>.self,
+                            from: data)
+                        let data = response.data
+
+                        guard let start = self.rfc3339DateFormatter.date(from: data.start) else {
+                            callback(.failure(TogglError.invalidDateFormat(receivedString: data.start)))
+                            return
+                        }
+
+                        let project = try data.pid.map { try self.dao.get(TogglProject.self, id: $0) } ?? nil
+                        let tags = try data.tags?.map(self.dao.fetchTogglTag) ?? []
+
+                        let timeEntry = TogglCurrentTimeEntry(
+                            description: data.description,
+                            project: project,
+                            start: start,
+                            tags: tags)
+
+                        self.currentTimeEntry = timeEntry
+
+                        callback(.success(timeEntry))
+                    } catch {
+                        callback(.failure(error))
+                    }
+
+                case .success(nil):
+                    callback(.success(nil))
+
+                case let .failure(error):
+                    callback(.failure(error))
                 }
         }
     }

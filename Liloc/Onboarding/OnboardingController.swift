@@ -35,8 +35,8 @@ class OnboardingController: LLContainerController<UIHostingController<Onboarding
 
     func todoistSignIn() {
         let auth = OAuth2Swift(
-            consumerKey: "2e6675590981498d83a831fc15ab46a6",
-            consumerSecret: "c6d2ff42e46a418f96b2a641b4e59665",
+            consumerKey: Secret.TODOIST_CLIENT_ID,
+            consumerSecret: Secret.TODOIST_CLIENT_SECRET,
             authorizeUrl: "https://todoist.com/oauth/authorize",
             accessTokenUrl: "https://todoist.com/oauth/access_token",
             responseType: "code"

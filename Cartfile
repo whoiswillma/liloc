@@ -9,4 +9,5 @@ github "devxoul/UITextView-Placeholder"
 github "mischa-hildebrand/AlignedCollectionViewFlowLayout"
 github "mxcl/PromiseKit" ~> 6.8
 github "CRAnimation/CRRefresh"
+github "Juanpe/SkeletonView"
 

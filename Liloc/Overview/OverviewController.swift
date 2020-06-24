@@ -10,7 +10,7 @@ import CoreData
 import SwiftUI
 import UIKit
 
-class OverviewController: UIViewController, ObservableObject {
+class OverviewController: UIViewController {
 
     private enum Section: Hashable {
         case topLevel
@@ -27,10 +27,14 @@ class OverviewController: UIViewController, ObservableObject {
     private let todoist: TodoistAPI
     private let toggl: TogglAPI
 
-    init(dao: CoreDataDAO, todoist: TodoistAPI, toggl: TogglAPI) {
+    private weak var delegate: OverviewRootController?
+
+    init(dao: CoreDataDAO, todoist: TodoistAPI, toggl: TogglAPI, delegate: OverviewRootController?) {
         self.dao = dao
         self.todoist = todoist
         self.toggl = toggl
+        self.delegate = delegate
+        
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -179,6 +183,8 @@ class OverviewController: UIViewController, ObservableObject {
 
     @objc private func refreshControlDidRefresh(_ refreshControl: UIRefreshControl) {
         syncTodoist()
+
+        delegate?.overviewControllerDidReload(self) 
     }
 
 }

@@ -77,8 +77,6 @@ class LLTokenField: UITextView {
         // text and have a token extend onto the new line
         textContainer.lineFragmentPadding = 0
 
-//        textContainer.lineBreakMode = .byCharWrapping
-
         delegate = self
     }
 

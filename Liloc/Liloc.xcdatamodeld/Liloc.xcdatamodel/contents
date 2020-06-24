@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="TodoistDueDate" representedClassName="TodoistDueDate" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="String"/>
         <attribute name="isRecurring" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -50,6 +50,21 @@
         <attribute name="timeToday" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TogglProject" inverseName="report" inverseEntity="TogglProject"/>
     </entity>
+    <entity name="TogglTag" representedClassName="TogglTag" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="timeEntries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TogglTimeEntry" inverseName="togglTags" inverseEntity="TogglTimeEntry"/>
+    </entity>
+    <entity name="TogglTimeEntry" representedClassName="TogglTimeEntry" syncable="YES" codeGenerationType="class">
+        <attribute name="at" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="duration" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="pid" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="start" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="stop" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="togglDescription" optional="YES" attributeType="String"/>
+        <attribute name="wid" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="togglTags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TogglTag" inverseName="timeEntries" inverseEntity="TogglTag"/>
+    </entity>
     <elements>
         <element name="TodoistDueDate" positionX="-45" positionY="36" width="128" height="133"/>
         <element name="TodoistLabel" positionX="-36" positionY="81" width="128" height="118"/>
@@ -57,5 +72,7 @@
         <element name="TodoistTask" positionX="-54" positionY="-9" width="128" height="163"/>
         <element name="TogglProject" positionX="-36" positionY="81" width="128" height="118"/>
         <element name="TogglProjectReport" positionX="-36" positionY="90" width="128" height="103"/>
+        <element name="TogglTag" positionX="-27" positionY="108" width="128" height="73"/>
+        <element name="TogglTimeEntry" positionX="-36" positionY="90" width="128" height="178"/>
     </elements>
 </model>
