@@ -14,10 +14,6 @@ import UIKit
 
 class AddTaskController: UIViewController {
 
-    private enum Item: Hashable {
-        case content(_ text: String, expanded: Bool)
-    }
-
     private let dao: CoreDataDAO
     private let todoist: TodoistAPI
 

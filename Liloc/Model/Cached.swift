@@ -9,7 +9,7 @@
 import Foundation
 
 @propertyWrapper
-struct Cached<Value> {
+class Cached<Value> {
 
     private var value: Value?
     private(set) var lastUpdated: Date?
@@ -23,8 +23,9 @@ struct Cached<Value> {
     }
 
     var wrappedValue: Value? {
-        mutating get {
-            if let lastUpdated = lastUpdated,
+        get {
+            if value != nil,
+                let lastUpdated = lastUpdated,
                 now().timeIntervalSince(lastUpdated) > timeToLive {
                 value = nil
                 return nil

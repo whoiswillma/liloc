@@ -72,6 +72,8 @@
 		5DA8817924325CAE006B873F /* TokenUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DA8817824325CAE006B873F /* TokenUI.framework */; };
 		5DA8817A24325CAE006B873F /* TokenUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5DA8817824325CAE006B873F /* TokenUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5DA881942432965E006B873F /* LLTokenField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA881932432965E006B873F /* LLTokenField.swift */; };
+		5DAA14E724A64A7F0061E9F2 /* FocusRootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA14E624A64A7F0061E9F2 /* FocusRootController.swift */; };
+		5DAA14E924A64C4C0061E9F2 /* FocusCurrentTimeEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAA14E824A64C4C0061E9F2 /* FocusCurrentTimeEntryViewController.swift */; };
 		5DAC86532496753800464C2C /* SkeletonView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DAC86522496753800464C2C /* SkeletonView.framework */; };
 		5DAC86542496753800464C2C /* SkeletonView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5DAC86522496753800464C2C /* SkeletonView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5DAC865624967BCC00464C2C /* TogglCurrentTimeEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAC865524967BCC00464C2C /* TogglCurrentTimeEntry.swift */; };
@@ -206,6 +208,8 @@
 		5DA5868224270DA90025F897 /* SettingsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundle.swift; sourceTree = "<group>"; };
 		5DA8817824325CAE006B873F /* TokenUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TokenUI.framework; path = Carthage/Build/iOS/TokenUI.framework; sourceTree = "<group>"; };
 		5DA881932432965E006B873F /* LLTokenField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLTokenField.swift; sourceTree = "<group>"; };
+		5DAA14E624A64A7F0061E9F2 /* FocusRootController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusRootController.swift; sourceTree = "<group>"; };
+		5DAA14E824A64C4C0061E9F2 /* FocusCurrentTimeEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusCurrentTimeEntryViewController.swift; sourceTree = "<group>"; };
 		5DAC86522496753800464C2C /* SkeletonView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkeletonView.framework; path = Carthage/Build/iOS/SkeletonView.framework; sourceTree = "<group>"; };
 		5DAC865524967BCC00464C2C /* TogglCurrentTimeEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogglCurrentTimeEntry.swift; sourceTree = "<group>"; };
 		5DAE086724339D880048C253 /* TaskTextProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTextProcessor.swift; sourceTree = "<group>"; };
@@ -531,6 +535,8 @@
 		5DFA9F6D248466DC003CB5F9 /* Focus */ = {
 			isa = PBXGroup;
 			children = (
+				5DAA14E624A64A7F0061E9F2 /* FocusRootController.swift */,
+				5DAA14E824A64C4C0061E9F2 /* FocusCurrentTimeEntryViewController.swift */,
 			);
 			path = Focus;
 			sourceTree = "<group>";
@@ -684,6 +690,7 @@
 				5DF10D83247613BB00FED20E /* ProjectStatsCell.swift in Sources */,
 				5DFB593B242D9EFA006E6165 /* AddTaskController.swift in Sources */,
 				5DFB5932242D0A32006E6165 /* LLTableViewHeaderManager.swift in Sources */,
+				5DAA14E924A64C4C0061E9F2 /* FocusCurrentTimeEntryViewController.swift in Sources */,
 				5DFB593D242DAA97006E6165 /* LLDropdownController.swift in Sources */,
 				5D2DCAB12437F5E500F8BAC8 /* TaskImageTokenView.swift in Sources */,
 				5D49C4652428734800DC4D53 /* TaskCell.swift in Sources */,
@@ -700,6 +707,7 @@
 				5DA5867C2427015C0025F897 /* DueDate.swift in Sources */,
 				5DD578CA24533D7F00D79B0A /* ProjectHeaderView.swift in Sources */,
 				5D598A132422EC9B00FCFC16 /* AppDelegate.swift in Sources */,
+				5DAA14E724A64A7F0061E9F2 /* FocusRootController.swift in Sources */,
 				5DA5867E2427068B0025F897 /* RFC3339Day.swift in Sources */,
 				5D81748324833AC4002836EE /* SingleFetchedResultsController.swift in Sources */,
 				5DD343E224259CA500CD5AF7 /* LLImageTitleSubtitleCell.swift in Sources */,

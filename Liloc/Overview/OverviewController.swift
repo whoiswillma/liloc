@@ -183,8 +183,6 @@ class OverviewController: UIViewController {
 
     @objc private func refreshControlDidRefresh(_ refreshControl: UIRefreshControl) {
         syncTodoist()
-
-        delegate?.overviewControllerDidReload(self) 
     }
 
 }

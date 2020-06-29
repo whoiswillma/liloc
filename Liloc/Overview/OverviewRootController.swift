@@ -6,6 +6,7 @@
 //  Copyright © 2020 William Ma. All rights reserved.
 //
 
+import Combine
 import UIKit
 
 class OverviewRootController: UIViewController {
@@ -14,6 +15,8 @@ class OverviewRootController: UIViewController {
         case off
         case on(uiUpdateTimer: Timer, start: Date)
     }
+
+    private static let updateTimerDuration: TimeInterval = 5
 
     private let dao: CoreDataDAO
     private let todoist: TodoistAPI
@@ -24,7 +27,9 @@ class OverviewRootController: UIViewController {
     private var pillView: PillView!
     private var focusState: FocusState = .off
 
-    private var currentTimeEntryUpdateTimer: Timer?
+    private var togglRefreshTimer: Timer?
+
+    private var cancellables: Set<AnyCancellable> = []
 
     init(dao: CoreDataDAO, todoist: TodoistAPI, toggl: TogglAPI) {
         self.dao = dao
@@ -43,12 +48,7 @@ class OverviewRootController: UIViewController {
 
         setUpNavigation()
         setUpPillView()
-        setUpCurrentEntryUpdateTimer()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
+        setUpCurrentTimeEntry()
     }
 
     @objc private func addTaskButtonPressed(_ sender: UIButton) {
@@ -57,7 +57,8 @@ class OverviewRootController: UIViewController {
     }
 
     @objc private func focusButtonPressed(_ sender: UIButton) {
-
+        let controller = FocusRootController(todoist: todoist, toggl: toggl)
+        present(controller, animated: true)
     }
 
     override func viewDidLayoutSubviews() {
@@ -65,39 +66,6 @@ class OverviewRootController: UIViewController {
 
         navigation.additionalSafeAreaInsets
             = UIEdgeInsets(top: 0, left: 0, bottom: pillView.frame.height + 16, right: 0)
-    }
-
-    func overviewControllerDidReload(_ overviewController: OverviewController) {
-        reloadFromCurrentTimeEntry()
-    }
-
-    private func reloadFromCurrentTimeEntry() {
-        toggl.getCurrentTimeEntry { [weak self] result in
-            guard let self = self else { return }
-
-            switch result {
-            case let .success(.some(timeEntry)):
-                self.updateFocusButtonText(start: timeEntry.start)
-
-                let updateTimer = Timer(timeInterval: 5, repeats: true) { timer in
-                    switch self.focusState {
-                    case let .on(uiUpdateTimer: uiUpdateTimer, start: start) where uiUpdateTimer == timer:
-                        self.updateFocusButtonText(start: start)
-                    default:
-                        timer.invalidate()
-                    }
-                }
-
-                // allow the update timer to run even while scrolling / doing other things
-                RunLoop.main.add(updateTimer, forMode: .common)
-
-                self.focusState = .on(uiUpdateTimer: updateTimer, start: timeEntry.start)
-
-            case .success(nil), .failure:
-                self.updateFocusButtonText(start: nil)
-                self.focusState = .off
-            }
-        }
     }
 
     private func updateFocusButtonText(start: Date?) {
@@ -181,12 +149,32 @@ extension OverviewRootController {
         }
     }
 
-    private func setUpCurrentEntryUpdateTimer() {
-        currentTimeEntryUpdateTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { _ in
+    private func setUpCurrentTimeEntry() {
+        toggl.startAutoupdateTimer()
+        toggl.currentTimeEntry.sink { timeEntry in
+            switch timeEntry {
+            case let .active(description: _, project: _, start: start, tags: _):
+                self.updateFocusButtonText(start: start)
 
-        }
+                let updateTimer = Timer(timeInterval: OverviewRootController.updateTimerDuration, repeats: true) { timer in
+                    switch self.focusState {
+                    case let .on(uiUpdateTimer: uiUpdateTimer, start: start) where uiUpdateTimer == timer:
+                        self.updateFocusButtonText(start: start)
+                    default:
+                        timer.invalidate()
+                    }
+                }
 
-        reloadFromCurrentTimeEntry()
+                // allow the update timer to run even while scrolling / doing other things
+                RunLoop.main.add(updateTimer, forMode: .common)
+
+                self.focusState = .on(uiUpdateTimer: updateTimer, start: start)
+
+            case .inactive:
+                self.updateFocusButtonText(start: nil)
+                self.focusState = .off
+            }
+        }.store(in: &cancellables)
     }
 
 }

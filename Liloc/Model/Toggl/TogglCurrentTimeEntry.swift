@@ -8,9 +8,16 @@
 
 import Foundation
 
-struct TogglCurrentTimeEntry {
-    let description: String?
-    let project: TogglProject?
-    let start: Date
-    let tags: [TogglTag]
+enum TogglCurrentTimeEntry {
+
+    case active(description: String?, project: TogglProject?, start: Date, tags: [TogglTag])
+    case inactive
+
+    init(description: String?,
+         project: TogglProject?,
+         start: Date,
+         tags: [TogglTag]) {
+        self = .active(description: description, project: project, start: start, tags: tags)
+    }
+
 }

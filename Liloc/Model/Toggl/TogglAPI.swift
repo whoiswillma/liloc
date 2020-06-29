@@ -18,6 +18,8 @@ enum TogglError: Error {
 
 class TogglAPI {
 
+    private static let autoupdateInterval: TimeInterval = 15
+
     private struct TogglAPIResponse<T: Decodable>: Decodable {
         let data: T
     }
@@ -31,7 +33,7 @@ class TogglAPI {
     private let decoder = JSONDecoder()
 
     /// YYYY-MM-DD
-    private let dayIso8601DateFormatter: ISO8601DateFormatter = {
+    private static let dayIso8601DateFormatter: ISO8601DateFormatter = {
         let dateFormatter = ISO8601DateFormatter()
         dateFormatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
         dateFormatter.timeZone = .current
@@ -39,7 +41,7 @@ class TogglAPI {
     }()
 
     /// YYYY-MM-DDTHH:MM:SS+TT:TT
-    private let rfc3339DateFormatter: ISO8601DateFormatter = {
+    private static let rfc3339DateFormatter: ISO8601DateFormatter = {
         let dateFormatter = ISO8601DateFormatter()
         dateFormatter.formatOptions = [.withInternetDateTime]
         dateFormatter.timeZone = .current
@@ -51,7 +53,10 @@ class TogglAPI {
 
     private var cancellables: Set<AnyCancellable> = []
 
-    @Cached<TogglCurrentTimeEntry>(timeToLive: 15) private var currentTimeEntry
+    private var autoupdateTimer: Timer?
+    private var autoupdateAPITokenCancellable: AnyCancellable?
+    @Cached<TogglCurrentTimeEntry>(timeToLive: 5) private var cachedTimeEntry
+    let currentTimeEntry = CurrentValueSubject<TogglCurrentTimeEntry, Never>(.inactive)
 
     init(dao: CoreDataDAO, username: String, password: String) {
         self.username = username
@@ -156,7 +161,7 @@ class TogglAPI {
         workspaceId: Int64,
         completion: @escaping (Error?) -> Void) {
 
-        let day = dayIso8601DateFormatter.string(from: referenceDate)
+        let day = TogglAPI.dayIso8601DateFormatter.string(from: referenceDate)
         let parameters: Parameters = [
             "user_agent": "liloc (dot) app (at) gmail (dot) com",
             "workspace_id": workspaceId,
@@ -198,25 +203,51 @@ class TogglAPI {
         }
     }
 
-    func getCurrentTimeEntry(_ callback: @escaping (Result<TogglCurrentTimeEntry?, Error>) -> Void) {
-        self.apiToken.sink { apiToken in
-            guard let apiToken = apiToken else {
-                return
-            }
+    func startAutoupdateTimer() {
+        guard autoupdateAPITokenCancellable == nil else { return }
 
-            self.getCurrentTimeEntry(apiToken: apiToken, callback)
-        }.store(in: &self.cancellables)
+        autoupdateAPITokenCancellable = apiToken.sink { [weak self] apiToken in
+            guard let self = self, let apiToken = apiToken else { return }
+
+            self.autoupdateTimer?.invalidate()
+            self.autoupdateTimer = Timer.scheduledTimer(withTimeInterval: TogglAPI.autoupdateInterval, repeats: true) { _ in
+                TogglAPI.getCurrentTimeEntry(dao: self.dao, apiToken: apiToken, decoder: self.decoder) { result in
+                    switch result {
+                    case let .success(timeEntry): self.currentTimeEntry.send(timeEntry)
+                    case .failure: break
+                    }
+                }
+            }
+            self.autoupdateTimer?.fire()
+        }
     }
 
-    private func getCurrentTimeEntry(
-        apiToken: String,
-        forceNoCache: Bool = false,
-        _ callback: @escaping (Result<TogglCurrentTimeEntry?, Error>) -> Void) {
+    func getCurrentTimeEntry(
+        useCache: Bool = true,
+        _ callback: @escaping (Result<TogglCurrentTimeEntry, Error>) -> Void) {
 
-        if !forceNoCache, let currentTimeEntry = currentTimeEntry {
-            callback(.success(currentTimeEntry))
-            return
+        if useCache, let timeEntry = cachedTimeEntry {
+            callback(.success(timeEntry))
         }
+
+        var cancellable: AnyCancellable? = nil
+        cancellable = self.apiToken.sink { [weak self] apiToken in
+            guard let self = self, let apiToken = apiToken else { return }
+
+            TogglAPI.getCurrentTimeEntry(dao: self.dao, apiToken: apiToken, decoder: self.decoder) { result in
+                cancellable?.cancel()
+                callback(result)
+            }
+        }
+    }
+
+    private static func getCurrentTimeEntry(
+        dao: CoreDataDAO,
+        apiToken: String,
+        decoder: JSONDecoder = .init(),
+        _ callback: @escaping (Result<TogglCurrentTimeEntry, Error>) -> Void) {
+
+        os_log(.debug, "Refreshing current time entry from Toggl")
 
         let credentials = "\(apiToken):api_token".data(using: .utf8)
         let base64Credentials = credentials?.base64EncodedString() ?? ""
@@ -231,7 +262,7 @@ class TogglAPI {
                 switch response.result {
                 case let .success(.some(data)):
                     do {
-                        let response = try self.decoder.decode(
+                        let response = try decoder.decode(
                             TogglAPIResponse<TogglJSONTimeEntry>.self,
                             from: data)
                         let data = response.data
@@ -241,16 +272,14 @@ class TogglAPI {
                             return
                         }
 
-                        let project = try data.pid.map { try self.dao.get(TogglProject.self, id: $0) } ?? nil
-                        let tags = try data.tags?.map(self.dao.fetchTogglTag) ?? []
+                        let project = try data.pid.map { try dao.get(TogglProject.self, id: $0) } ?? nil
+                        let tags = try data.tags?.map(dao.fetchTogglTag) ?? []
 
-                        let timeEntry = TogglCurrentTimeEntry(
+                        let timeEntry = TogglCurrentTimeEntry.active(
                             description: data.description,
                             project: project,
                             start: start,
                             tags: tags)
-
-                        self.currentTimeEntry = timeEntry
 
                         callback(.success(timeEntry))
                     } catch {
@@ -258,7 +287,7 @@ class TogglAPI {
                     }
 
                 case .success(nil):
-                    callback(.success(nil))
+                    callback(.success(.inactive))
 
                 case let .failure(error):
                     callback(.failure(error))
