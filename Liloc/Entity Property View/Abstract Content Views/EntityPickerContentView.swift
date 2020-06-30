@@ -1,5 +1,5 @@
 //
-//  TaskPickerContentView.swift
+//  EntityPickerContentView.swift
 //  Liloc
 //
 //  Created by William Ma on 3/31/20.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class TaskPickerContentView: TaskContentView {
+class EntityPickerContentView: EntityContentView {
 
     private(set) var flowLayout: UICollectionViewFlowLayout!
-    private(set) var pickerView: TaskPickerView!
+    private(set) var pickerView: EntityPickerView!
 
     init(topView: UIView) {
         super.init(frame: .zero)
@@ -20,7 +20,7 @@ class TaskPickerContentView: TaskContentView {
         bottomContainer.clipsToBounds = true
 
         flowLayout = UICollectionViewFlowLayout()
-        pickerView = TaskPickerView(frame: .zero, collectionViewLayout: flowLayout)
+        pickerView = EntityPickerView(frame: .zero, collectionViewLayout: flowLayout)
         pickerView.backgroundColor = .systemBackground
 
         addSubview(topView)

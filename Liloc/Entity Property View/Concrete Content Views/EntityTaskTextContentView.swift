@@ -1,5 +1,5 @@
 //
-//  TaskTextContentView.swift
+//  EntityTaskTextContentView.swift
 //  Liloc
 //
 //  Created by William Ma on 3/29/20.
@@ -9,13 +9,13 @@
 import SnapKit
 import UIKit
 
-class TaskTextContentView: TaskContentView {
+class EntityTaskTextContentView: EntityContentView {
 
     private(set) var fillImageView: UIImageView!
     private(set) var strokeImageView: UIImageView!
     private(set) var textView: UITextView!
 
-    init(fillImage: UIImage?, strokeImage: UIImage?, placeholder: String) {
+    init(fillImage: UIImage? = nil, strokeImage: UIImage? = UIImage(named: "Title"), placeholder: String) {
         super.init(frame: .zero)
 
         fillImageView = UIImageView(image: fillImage)

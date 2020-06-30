@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TaskPickerView: UICollectionView {
+class EntityPickerView: UICollectionView {
 
     struct Item: Hashable {
         let highlighted: Bool

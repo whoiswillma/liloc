@@ -1,5 +1,5 @@
 //
-//  TaskPriorityPickerContentView.swift
+//  TodoistPriorityPickerContentView.swift
 //  Liloc
 //
 //  Created by William Ma on 4/2/20.
@@ -9,14 +9,14 @@
 import UIKit
 import os.log
 
-class TaskPriorityPickerContentView: TaskPickerContentView {
+class TodoistPriorityPickerContentView: EntityPickerContentView {
 
-    let imageTextView: TaskImageTextView
+    let imageTextView: EntityImageTextView
 
     var didSelectPriority: ((TodoistPriority) -> Void)?
 
     init() {
-        self.imageTextView = TaskImageTextView(
+        self.imageTextView = EntityImageTextView(
             fillImage: UIImage(named: "FlagFill"),
             strokeImage: UIImage(named: "FlagStroke"),
             placeholder: "priority")
@@ -46,7 +46,7 @@ class TaskPriorityPickerContentView: TaskPickerContentView {
 
 }
 
-extension TaskPriorityPickerContentView: UICollectionViewDelegateFlowLayout {
+extension TodoistPriorityPickerContentView: UICollectionViewDelegateFlowLayout {
 
     func collectionView(
         _ collectionView: UICollectionView,
@@ -82,7 +82,7 @@ extension TaskPriorityPickerContentView: UICollectionViewDelegateFlowLayout {
 
 }
 
-extension TaskPickerView.Item {
+extension EntityPickerView.Item {
 
     init(priority: TodoistPriority, sourceIndex: Int) {
         self.init(

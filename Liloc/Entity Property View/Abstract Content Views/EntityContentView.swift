@@ -1,5 +1,5 @@
 //
-//  TaskContentView.swift
+//  EntityContentView.swift
 //  Liloc
 //
 //  Created by William Ma on 3/31/20.
@@ -9,7 +9,7 @@
 import SnapKit
 import UIKit
 
-class TaskContentView: UIView {
+class EntityContentView: UIView {
 
     private(set) var isExpanded = false
 

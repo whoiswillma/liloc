@@ -1,5 +1,5 @@
 //
-//  TaskLabelPickerContentView.swift
+//  EntityLabelPickerContentView.swift
 //  Liloc
 //
 //  Created by William Ma on 4/4/20.
@@ -9,18 +9,23 @@
 import UIKit
 import os.log
 
-class TaskLabelPickerContentView: TaskPickerContentView {
+class EntityLabelPickerContentView: EntityPickerContentView {
 
-    let imageTokenView: TaskImageTokenView
+    struct Label {
+        var tintColor: UIColor
+        var title: String
+    }
 
-    private let labels: [TodoistLabel]
+    let imageTokenView: EntityImageTokenView
+
+    private let labels: [Label]
 
     var didSelectLabel: ((Int) -> Void)?
 
-    init(labels: [TodoistLabel]) {
+    init(labels: [Label]) {
         self.labels = labels
 
-        imageTokenView = TaskImageTokenView(
+        imageTokenView = EntityImageTokenView(
             fillImage: nil,
             strokeImage: UIImage(named: "TagStroke"),
             placeholder: "labels")
@@ -36,7 +41,7 @@ class TaskLabelPickerContentView: TaskPickerContentView {
 
     func setAvailableItems(_ indexSet: Set<Int>, animated: Bool) {
         let items = indexSet.sorted().map {
-            TaskPickerView.Item(label: labels[$0], sourceIndex: $0)
+            EntityPickerView.Item(label: labels[$0], sourceIndex: $0)
         }
         pickerView.setItems(items, animated: animated)
     }
@@ -49,7 +54,7 @@ class TaskLabelPickerContentView: TaskPickerContentView {
 
 }
 
-extension TaskLabelPickerContentView: UICollectionViewDelegateFlowLayout {
+extension EntityLabelPickerContentView: UICollectionViewDelegateFlowLayout {
 
     func collectionView(
         _ collectionView: UICollectionView,
@@ -83,17 +88,17 @@ extension TaskLabelPickerContentView: UICollectionViewDelegateFlowLayout {
 
 }
 
-extension TaskPickerView.Item {
+private extension EntityPickerView.Item {
 
-    init(label: TodoistLabel, sourceIndex: Int) {
+    init(label: EntityLabelPickerContentView.Label, sourceIndex: Int) {
         self.init(
             highlighted: false,
             fillImage: UIImage(named: "TagStroke"),
-            fillTintColor: UIColor(todoistId: label.color),
+            fillTintColor: label.tintColor,
             strokeImage: nil,
             strokeTintColor: nil,
-            title: label.name ?? "",
+            title: label.title,
             sourceIndex: sourceIndex)
     }
-    
+
 }

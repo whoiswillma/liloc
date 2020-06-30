@@ -196,7 +196,7 @@ class AddTaskController: UIViewController {
             infoView.labelView.setAvailableItems(processor.availableIndexes, animated: false)
         }
 
-        infoView.focusProperty(processor.focusedProperty)
+        infoView.focus(processor.focusedProperty)
     }
 
     private func moveToken(_ oldToken: UUID?, toRange range: NSRange, replacingText text: String) -> UUID? {

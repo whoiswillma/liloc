@@ -1,5 +1,5 @@
 //
-//  TaskProjectPickerContentView.swift
+//  EntityProjectPickerContentView.swift
 //  Liloc
 //
 //  Created by William Ma on 4/2/20.
@@ -8,18 +8,23 @@
 
 import UIKit
 
-class TaskProjectPickerContentView: TaskPickerContentView {
+class EntityProjectPickerContentView: EntityPickerContentView {
 
-    let imageTextView: TaskImageTextView
+    struct Project {
+        let color: UIColor
+        let name: String
+    }
 
-    private let projects: [TodoistProject]
+    let imageTextView: EntityImageTextView
+
+    private let projects: [Project]
 
     var didSelectProject: ((Int) -> Void)?
 
-    init(projects: [TodoistProject]) {
+    init(projects: [Project]) {
         self.projects = projects
 
-        imageTextView = TaskImageTextView(
+        imageTextView = EntityImageTextView(
             fillImage: UIImage(named: "ProjectFill"),
             strokeImage: UIImage(named: "ProjectStroke"),
             placeholder: "project")
@@ -37,13 +42,17 @@ class TaskProjectPickerContentView: TaskPickerContentView {
         var sortedIndexes = indexSet.sorted()
         if !sortedIndexes.isEmpty {
             let firstIndex = sortedIndexes.removeFirst()
-            let firstProject = TaskPickerView.Item(
+            let firstProject = EntityPickerView.Item(
                 project: projects[firstIndex],
                 highlighted: true,
                 sourceIndex: firstIndex)
 
-            let availableProjects = sortedIndexes
-                .map { TaskPickerView.Item(project: projects[$0], highlighted: false, sourceIndex: $0) }
+            let availableProjects = sortedIndexes.map {
+                EntityPickerView.Item(
+                    project: projects[$0],
+                    highlighted: false,
+                    sourceIndex: $0)
+            }
 
             pickerView.setItems(
                 [firstProject] + availableProjects,
@@ -56,7 +65,7 @@ class TaskProjectPickerContentView: TaskPickerContentView {
 
 }
 
-extension TaskProjectPickerContentView: UICollectionViewDelegateFlowLayout {
+extension EntityProjectPickerContentView: UICollectionViewDelegateFlowLayout {
 
     func collectionView(
         _ collectionView: UICollectionView,
@@ -89,17 +98,16 @@ extension TaskProjectPickerContentView: UICollectionViewDelegateFlowLayout {
 
 }
 
-extension TaskPickerView.Item {
+private extension EntityPickerView.Item {
 
-    init(project: TodoistProject, highlighted: Bool, sourceIndex: Int) {
-        let color = UIColor(todoistId: project.color)
+    init(project: EntityProjectPickerContentView.Project, highlighted: Bool, sourceIndex: Int) {
         self.init(
             highlighted: highlighted,
             fillImage: UIImage(named: "ProjectStroke"),
-            fillTintColor: color,
+            fillTintColor: project.color,
             strokeImage: UIImage(named: "ProjectFill"),
-            strokeTintColor: color.lighten(),
-            title: project.name ?? "",
+            strokeTintColor: project.color.lighten(),
+            title: project.name,
             sourceIndex: sourceIndex)
     }
 

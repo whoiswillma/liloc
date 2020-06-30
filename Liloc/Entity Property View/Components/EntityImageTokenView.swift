@@ -1,5 +1,5 @@
 //
-//  TaskImageTokenView.swift
+//  EntityImageTokenView.swift
 //  Liloc
 //
 //  Created by William Ma on 4/3/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TaskImageTokenView: UIView {
+class EntityImageTokenView: UIView {
 
     private(set) var fillImageView: UIImageView!
     private(set) var strokeImageView: UIImageView!
